@@ -1,0 +1,21 @@
+# Local runtime and private evidence
+*.log
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.mp4
+*.zip
+outputs/
+logs/
+checkpoints/
+screenshots/
+.project-reasoning/
+PROJECT_CONTRACT.json
+*.local.json
+*.local.yaml
+__pycache__/
+.venv/
+venv/
+
+
