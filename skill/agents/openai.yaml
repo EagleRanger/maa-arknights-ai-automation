@@ -1,0 +1,4 @@
+interface:
+  display_name: "MAA 明日方舟 AI 自动化控制"
+  short_description: "让 AI 编排、监管并验证 Windows MAA 方舟流程"
+  default_prompt: "使用 $arknights-automation 先核对 Windows/模拟器/MAA 环境，再由 AI 按项目契约编排、监管并验证当前明日方舟自动化任务。"
