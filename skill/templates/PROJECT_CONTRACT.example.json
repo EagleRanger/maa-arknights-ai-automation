@@ -1,8 +1,11 @@
+
 {
   "schema_version": 1,
-  "project": "replace-with-your-project-name",
+  "_说明": "这是中文项目契约示例。英文枚举供脚本稳定读取，对应的 _zh 字段用于中文说明。",
+  "project": "请替换为你的项目名称",
   "active_goals": [],
   "execution_defaults": {
+    "_说明": "Windows、模拟器与 MAA 的默认执行约束。",
     "emulator_guest_resolution": "1920x1080",
     "single_controller": true,
     "technical_retry_limit": 3,
@@ -13,22 +16,39 @@
       "supervisor_checkpoint",
       "process_or_window_presence",
       "assistant_inference"
+    ],
+    "evidence_order_zh": [
+      "游戏截图或结算结果",
+      "MAA Core 与 GUI 队列",
+      "监督器检查点",
+      "进程或窗口存在状态",
+      "AI 助手推断"
     ]
   },
   "authorization": {
+    "_说明": "真实账号操作、资源用途和目标替换的授权边界。",
     "real_account_actions": "explicit-current-request-only",
+    "real_account_actions_zh": "仅限用户当轮明确授权",
     "resource_use": "must-be-defined-by-an-active-goal",
-    "goal_substitution": "forbidden-without-user-confirmation"
+    "resource_use_zh": "资源用途必须由当前有效目标明确规定",
+    "goal_substitution": "forbidden-without-user-confirmation",
+    "goal_substitution_zh": "未经用户确认不得替换目标"
   },
   "goal_schema_hint": {
+    "_说明": "以下仅为目标字段示例，不会自动激活。",
     "id": "example-only-not-active",
     "task_type": "daily|annihilation|event|mainline|roguelike|reclamation",
+    "task_type_zh": "日常|剿灭委托|活动|主线|肉鸽|生息演算",
     "target": "exact stage, theme, or reward target",
+    "target_zh": "精确关卡、主题或奖励目标",
     "priority": 100,
     "success_evidence": [],
     "failure_transfer": "pause, switch verified job, or another user-approved action",
+    "failure_transfer_zh": "暂停、切换到已验证作业，或执行另一项用户已批准的操作",
     "resource_policy": {},
     "deadline": null,
-    "cleanup": "close owned processes unless another authorized queue follows"
+    "cleanup": "close owned processes unless another authorized queue follows",
+    "cleanup_zh": "若后续没有已授权队列，则关闭本流程拥有的进程"
   }
 }
+
