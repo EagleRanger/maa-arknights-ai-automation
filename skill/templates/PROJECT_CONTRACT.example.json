@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "project": "replace-with-your-project-name",
+  "active_goals": [],
+  "execution_defaults": {
+    "emulator_guest_resolution": "1920x1080",
+    "single_controller": true,
+    "technical_retry_limit": 3,
+    "cooldown_minutes_after_fast_failures": 60,
+    "evidence_order": [
+      "game_screenshot_or_result",
+      "maa_core_and_gui_queue",
+      "supervisor_checkpoint",
+      "process_or_window_presence",
+      "assistant_inference"
+    ]
+  },
+  "authorization": {
+    "real_account_actions": "explicit-current-request-only",
+    "resource_use": "must-be-defined-by-an-active-goal",
+    "goal_substitution": "forbidden-without-user-confirmation"
+  },
+  "goal_schema_hint": {
+    "id": "example-only-not-active",
+    "task_type": "daily|annihilation|event|mainline|roguelike|reclamation",
+    "target": "exact stage, theme, or reward target",
+    "priority": 100,
+    "success_evidence": [],
+    "failure_transfer": "pause, switch verified job, or another user-approved action",
+    "resource_policy": {},
+    "deadline": null,
+    "cleanup": "close owned processes unless another authorized queue follows"
+  }
+}
