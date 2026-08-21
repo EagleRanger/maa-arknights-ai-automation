@@ -28,6 +28,7 @@ Examples:
 - MAA update leaves a partial installation or incompatible client/resource state;
 - rotated logs make the monitor read stale completion evidence;
 - duplicate supervisors or a stale single-instance owner contend for the same queue.
+- a selected production component is unadmitted, missing, or no longer matches its protected fingerprint.
 
 Apply at most three fast recoveries. Each recovery should stop the owned queue if needed, reload the same configured environment, and verify it is ready. After the fourth consecutive technical failure, clean the owned UI/processes, preserve the checkpoint, wait one hour, and retry the unchanged contract if before the deadline.
 
@@ -44,6 +45,10 @@ Integrated Strategies defeat, a non-perfect stage result, or a completed explora
 5. Distinguish GUI `queue already running` from a fresh start failure.
 6. If a checkpoint is stale, reconcile it with current MAA/game evidence instead of replaying old progress.
 7. At the hard deadline, stop the MAA queue first, then close game, MAA, MuMu, and owned log windows; verify they are gone.
+
+When logs rotate during a long run, aggregate evidence across the relevant current-day log segments. The newest file alone may omit an earlier completed phase; older evidence remains valid only when its run/day identity is still in scope.
+
+A component fingerprint mismatch is fail-closed, not a normal fast-recovery candidate. Preserve the mismatch evidence and stop before side effects until the reviewed component is restored or a versioned replacement passes admission.
 
 ## Recovery evidence
 

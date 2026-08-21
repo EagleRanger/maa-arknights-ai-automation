@@ -2,6 +2,17 @@
 
 Treat each theme's reward track, permanent-growth tree, recollection/monthly mode, and investigation mode as separate objectives. Do not infer that one is complete because another is maxed.
 
+## Autonomous service promise
+
+When the active contract authorizes ongoing Integrated Strategies, the controller should service available rewards and permanent growth automatically after eligible settlements. The user should not need to ask separately after every run. This authority is limited to the current theme's already-approved reward/growth system: it does not authorize a theme, difficulty, team, monthly mode, investigation, or resource-policy change.
+
+The loop must both perform and prove the maintenance:
+
+- claim every currently available level-track reward and show that its claim marker cleared or state changed;
+- spend available permanent-growth currency only on a verified purchasable node and show the counter decreased or completion marker appeared;
+- return to the same theme home and resume the unchanged exploration queue;
+- leave already-complete tracks alone and never use repeated blind taps to manufacture activity.
+
 ## Shared settlement-boundary loop
 
 1. Wait for a real exploration settlement. Do not stop MAA or enter reward pages during combat.
@@ -12,6 +23,7 @@ Treat each theme's reward track, permanent-growth tree, recollection/monthly mod
 6. For a reward track, require the claim marker to clear or the claimed state to change.
 7. Return to the same theme home and verify it before resuming the unchanged MAA contract.
 8. If any confirmation is missing, preserve screenshots, record a warning, return safely when possible, and continue or pause exactly as the active contract states. Do not convert reward-service uncertainty into a battle defeat.
+9. If both the reward track and growth tree have serviceable changes, process them in a deterministic order defined by the project adapter, verify each independently, and record a single settlement-service receipt before resuming.
 
 ## Theme mapping
 

@@ -1,4 +1,4 @@
 interface:
   display_name: "MAA 明日方舟 AI 自动化控制"
-  short_description: "让 AI 编排、监管并验证 Windows MAA 方舟流程"
-  default_prompt: "使用 $arknights-automation 先核对 Windows/模拟器/MAA 环境，再由 AI 按项目契约编排、监管并验证当前明日方舟自动化任务。"
+  short_description: "自主推主线并维护肉鸽成长奖励的 Windows MAA 控制层"
+  default_prompt: "使用 $arknights-automation 先核对 Windows/模拟器/MAA 环境和组件门禁，再按项目契约自主寻找并推进未通关主线（教学关人工接管），或在肉鸽结算后自动加点、领奖并续跑；只汇报有截图、日志或检查点证明的结果。"

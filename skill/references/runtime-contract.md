@@ -28,6 +28,15 @@ Write or log these fields before controlling the real account:
 
 If any proposal changes these fields, request user confirmation first.
 
+## Component admission and fingerprint gate
+
+Before the first real-account side effect, validate any project-provided component registry and protected-artifact fingerprint. A component may enter production only when its declared admission state permits it and its current artifact matches the reviewed fingerprint. If either check fails:
+
+- stop before mutation and record the exact component and mismatch;
+- do not replace the expected hash with the current hash as a shortcut;
+- do not infer that a passing narrower recipe proves the drifted production component safe;
+- use a separately reviewed versioned replacement or return the component for validation.
+
 ## Acceptance
 
 - Stage completion requires post-battle/game-map evidence; MAA queue completion alone is insufficient.
@@ -37,6 +46,10 @@ If any proposal changes these fields, request user confirmation first.
 - Reward tasks require proof that the claim marker or reward changed.
 - Long-running modes require a current checkpoint, correct theme/phase, live queue evidence, and deadline cleanup.
 - Final daily completion requires one truthful report and closure of game, MAA, MuMu, and owned log windows, unless the user explicitly keeps a later queue running.
+- Mainline continuation requires a fresh frontier discovery after each node; a completed MAA job is not proof that the next node was found or advanced.
+- Roguelike reward servicing requires independent proof for reward claims and permanent-growth spending, followed by proof that the controller returned to the same theme.
+
+Accumulate phase evidence across one game day or one declared run. A later subprocess may add evidence but must not erase earlier verified completion. Report targeted repairs by their real scope.
 
 ## Live-run boundary
 
