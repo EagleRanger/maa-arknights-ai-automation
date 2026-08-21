@@ -1,11 +1,18 @@
 ---
 name: arknights-automation
-description: "Control, diagnose, migrate, configure, recover, monitor, and verify AI-orchestrated Windows Arknights automation built on MAA and a supported emulator. Use when an AI agent must manage MAA beyond one-click tasks: first-time setup on another Windows PC, daily full runs, event or mainline progression, Integrated Strategies or Reclamation Algorithm supervisors, image/log evidence fusion, MAA update/announcement/story interruptions, stale queues, cooldown recovery, duplicate controllers, final cleanup, and evidence-backed project retrospectives."
+description: "Control, diagnose, migrate, configure, recover, monitor, and verify AI-orchestrated Windows Arknights automation built on MAA and a supported emulator. Use when an AI agent must manage MAA beyond one-click tasks: autonomously find and advance unfinished mainline stages except tutorials, service Integrated Strategies reward tracks and permanent-growth points after settlement, perform daily/event/Reclamation flows, migrate to another Windows PC, fuse image/log evidence, recover interruptions or stale queues, enforce one controller, clean up, and report only verified results."
 ---
 
 # MAA Arknights AI Control
 
 Operate this project from its durable contract and current evidence. Never infer a new game goal merely because a technical action is convenient.
+
+## Core capabilities beyond one-click MAA
+
+- **Autonomous unfinished-mainline progression:** discover the current chapter/map frontier, classify the next unfinished node before acting, route battle nodes to an appropriate MAA job, handle verified story nodes through controlled navigation, prove completion, and continue. Tutorial stages are a manual handoff boundary.
+- **Autonomous roguelike settlement service:** after a real exploration settlement, claim available level rewards, allocate permanent-growth points, verify marker/currency changes, return to the same theme, and resume the unchanged queue.
+
+The Skill packages the control contract, routing rules, safety gates, references, and read-only Windows preflight. It does not bundle the author's private production controller, account configuration, screenshots, logs, or MAA itself. A receiving project must provide or implement its own adapter for the actions named here.
 
 ## AI, MAA, and emulator boundary
 
@@ -21,7 +28,8 @@ This boundary is what makes the package an AI control Skill rather than a collec
 1. Read the nearest `AGENTS.md`, `.project-reasoning/STATE.md`, `.project-reasoning/GOALS.md`, and `PROJECT_CONTRACT.json` when they exist. A legacy project may keep the contract in a named implementation directory; discover it instead of assuming one fixed folder name.
 2. Use the project reasoning loop when the current project requires or provides it; otherwise keep the same minimum discipline: separate observed facts, inference, and unverified hypotheses.
 3. Compile the current execution contract: target IDs, ordered steps, success evidence, failure transfer, prohibited substitutions, deadline, and control owner.
-4. Inspect the current process/queue/checkpoint state before changing anything. A visible window, running process, or completed shell command is not task success.
+4. When the project has a component registry or protected-artifact fingerprint file, validate the selected component admission state and fingerprint before the first side effect. A mismatch blocks production; do not refresh the expected hash merely to make the gate pass.
+5. Inspect the current process/queue/checkpoint state before changing anything. A visible window, running process, or completed shell command is not task success.
 
 For a new installation with no project contract, use [PROJECT_CONTRACT.example.json](templates/PROJECT_CONTRACT.example.json) as a schema reference. Do not start real-account actions until the user has supplied or approved the active goals and resource policy.
 
@@ -30,7 +38,7 @@ Read [runtime-contract.md](references/runtime-contract.md) for authority and acc
 ## Route the work
 
 - For first-time setup, migration to another Windows PC, changed emulator/MAA/Python paths, ADB connection changes, or resolution/input problems, read [windows-portability.md](references/windows-portability.md) and run the read-only environment check before any real-account action.
-- For a daily full run, event/mainline progression, stamina use, final reward cleanup, and shutdown, read [workflows.md](references/workflows.md).
+- For a daily full run, autonomous unfinished-mainline progression, event progression, stamina use, final reward cleanup, and shutdown, read [workflows.md](references/workflows.md).
 - For Integrated Strategies reward tracks, permanent-growth trees, monthly/recollection teams, investigations, and settlement-boundary servicing, read [roguelike-rewards.md](references/roguelike-rewards.md).
 - For MAA errors, emulator exits, update prompts, announcements, story/tutorial pages, queue stalls, log rotation, interpreter problems, cooldown, or duplicate supervisors, read [recovery-playbook.md](references/recovery-playbook.md).
 - For a live queue, do only targeted, non-contending diagnostics. Do not run full offline regression or start a second controller.
