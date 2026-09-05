@@ -7,13 +7,14 @@ Use the exact priority in the discovered `PROJECT_CONTRACT.json`; do not hard-co
 Typical phase boundaries are:
 
 1. Start and clear validated update/login/announcement blockers.
-2. On Monday, prioritize weekly Annihilation when incomplete. If a stamina-consuming battle flow fails, block later stamina use but continue safe non-stamina cleanup if the contract allows it.
-3. Inspect the terminal limited-event card before spending sanity. Determine rerun/new event and remaining days from current UI evidence.
-4. Validate a recorded todo before executing it. If already perfectly complete, repair the progress record instead of replaying it.
-5. Complete authorized event or mainline stages using the required MAA job/retry policy. Missing operators or an invalid job are job-selection failures, not battle defeats.
-6. Spend remaining sanity only on the contracted farm target; report the stage, attempts, and sanity result.
-7. After sanity is exhausted, run final daily/base/Award cleanup because new rewards may have appeared.
-8. Show one truthful final report after all work, then close owned game/MAA/MuMu/log windows unless a separately authorized long-running queue follows.
+2. Verify weekly Annihilation first when the current week is incomplete. If its stamina-consuming flow fails, block later stamina use but continue safe non-stamina cleanup when the contract permits it.
+3. Inspect the current terminal/event surface before spending stamina. Distinguish no event, an executable current event, an event with no compatible job, discovery failure, and unknown navigation.
+4. Validate every recorded todo against the current game state. Repair stale progress instead of replaying a task already proved complete.
+5. Complete the authorized current event; otherwise verify and advance unfinished mainline scope. Missing operators, unsupported recording/manual jobs, and invalid job selection are not battle defeats.
+6. Use a contracted fallback farm only when current evidence shows no higher-priority executable event and all applicable mainline or hidden branches are verified complete. Never infer this from an old progress record.
+7. Check the current Security Service cycle. A proved capped state is an accepted no-action result; an uncapped cycle requires a separately validated earning handler.
+8. Read fresh inventory, select only a project-approved base-production plan, then run exactly one final startup/base/recruit/store/reward chain. If inventory is stale or unreadable, preserve the current product state.
+9. Reconcile current-run stamina, tasks, rewards, failures, and cleanup. Show one truthful final report, then close owned game/MAA/emulator/log windows unless a separately authorized long-running queue already owns the next window.
 
 ## Autonomous unfinished-mainline progression
 
@@ -39,6 +40,9 @@ When exact node colors or symbols differ across chapters, use the validated stru
 - If an activity is absent from the terminal card, a verified activity-calendar route may be used only as a fallback; visually confirm the intended stage family before battle.
 - Aggregate completion evidence across the same game day. A later cleanup process must not overwrite earlier completed phases with a smaller last-process report.
 - A targeted daily chain may perform its documented cold-start environment bootstrap, but its final report must name the actual scope run. Never present a targeted Award or base repair as a full daily completion.
+- Keep accepted production and validation-only candidates under separate immutable identities. Offline tests or a partial live path do not authorize a production-pointer switch.
+- An unavailable or unsupported event route is not the same as no current event. Preserve the unfinished event and follow only its approved transfer.
+- Read decisive numeric state from labeled regions and stable repeated frames or an independent source. Do not backfill current stamina, inventory, reward, or cap values from old logs.
 - If no farm target is authorized, do not invent one merely to spend sanity.
 
 ## Long-running modes
@@ -52,7 +56,7 @@ For Integrated Strategies:
 - ordinary exploration defeat can count as growth only when the active phase says so;
 - reward claims require direct reward-marker change;
 - distinguish the theme's reward track from its permanent-growth tree; after every eligible real settlement, autonomously claim available rewards and allocate available permanent-growth points, verify the named currency or marker changed, return to the same theme home, and resume the unchanged queue;
-- use one supervisor, a current checkpoint, bounded technical recovery, and the 11:30 cleanup boundary before the 12:00 daily task.
+- use one supervisor, a current checkpoint, bounded technical recovery, and the contract-defined cleanup boundary before the next daily owner takes control; do not auto-chain this mode after a daily run.
 
 For Reclamation Algorithm:
 

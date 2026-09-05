@@ -37,6 +37,10 @@ Before the first real-account side effect, validate any project-provided compone
 - do not infer that a passing narrower recipe proves the drifted production component safe;
 - use a separately reviewed versioned replacement or return the component for validation.
 
+## Production recipe binding
+
+Resolve the current production handoff and every required component immediately before control begins. The binding must name an immutable accepted recipe, current authority, required dependencies, fingerprints, and invalidation condition. A candidate marked validation-only may be tested only under its explicit isolated contract; it cannot replace the normal daily entrypoint because code exists, tests pass, or part of its live path worked.
+
 ## Acceptance
 
 - Stage completion requires post-battle/game-map evidence; MAA queue completion alone is insufficient.
@@ -48,6 +52,11 @@ Before the first real-account side effect, validate any project-provided compone
 - Final daily completion requires one truthful report and closure of game, MAA, MuMu, and owned log windows, unless the user explicitly keeps a later queue running.
 - Mainline continuation requires a fresh frontier discovery after each node; a completed MAA job is not proof that the next node was found or advanced.
 - Roguelike reward servicing requires independent proof for reward claims and permanent-growth spending, followed by proof that the controller returned to the same theme.
+- Event routing requires current event identity and availability evidence. An unsupported or unavailable route is not proof that no event exists.
+- Fallback farming requires both explicit resource authority and current proof that no higher-priority event or unfinished applicable mainline scope remains.
+- Inventory-driven base changes require fresh inventory, a project-approved policy result, and post-change state evidence; stale inventory produces a safe no-action or unchanged-product result.
+- Security Service reports entry, cap state, and earned reward as separate claims. A verified capped state is an accepted no-action outcome; uncapped execution needs its own admitted handler.
+- Decisive numbers require a labeled region plus stable repeated frames or independent corroboration. Do not substitute old logs or net-difference guesses for current values.
 
 Accumulate phase evidence across one game day or one declared run. A later subprocess may add evidence but must not erase earlier verified completion. Report targeted repairs by their real scope.
 

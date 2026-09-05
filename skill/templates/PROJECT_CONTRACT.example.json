@@ -37,8 +37,8 @@
   "goal_schema_hint": {
     "_说明": "以下仅为目标字段示例，不会自动激活。",
     "id": "example-only-not-active",
-    "task_type": "daily|annihilation|event|mainline|roguelike|reclamation",
-    "task_type_zh": "日常|剿灭委托|活动|主线|肉鸽|生息演算",
+    "task_type": "daily|annihilation|event|mainline|fallback_farm|security_service|base_service|roguelike|reclamation",
+    "task_type_zh": "日常|剿灭委托|活动|主线|兜底刷取|保全派驻|基建服务|肉鸽|生息演算",
     "target": "exact stage, theme, or reward target",
     "target_zh": "精确关卡、主题或奖励目标",
     "priority": 100,
