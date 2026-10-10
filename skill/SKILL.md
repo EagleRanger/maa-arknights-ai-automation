@@ -40,6 +40,7 @@ Read [runtime-contract.md](references/runtime-contract.md) for authority and acc
 
 ## Route the work
 
+- For interrupted-run continuation, multi-phase events, cross-rotation settlement evidence, temporary-resource restoration, or scoped final reporting, read [continuation-and-closeout.md](references/continuation-and-closeout.md). Apply its checks to the affected domain without replaying verified effects or blocking unrelated authorized work.
 - For first-time setup, migration to another Windows PC, changed emulator/MAA/Python paths, ADB connection changes, or resolution/input problems, read [windows-portability.md](references/windows-portability.md) and run the read-only environment check before any real-account action.
 - For scene classification, target candidates, action gates, post-action verification, run-scoped logs, multi-frame numeric reads, adaptive base decisions, and Security Service checks, read [recognition-and-service-gates.md](references/recognition-and-service-gates.md).
 - For a daily full run, autonomous unfinished-mainline progression, event progression, stamina use, final reward cleanup, and shutdown, read [workflows.md](references/workflows.md).
