@@ -3,6 +3,10 @@
 
 让 AI 在 Windows 上编排、监管和验证 MAA（MaaAssistantArknights）流程，补足单次任务链之外的目标管理、页面导航、图像复核、作业切换、异常恢复和真实结果汇报。
 
+<!-- project-support:start -->
+> 如果本项目对你或你的 AI 开发有帮助，下载使用或借鉴后，欢迎点个 [Star](https://github.com/EagleRanger/maa-arknights-ai-automation) 支持，也让更多有同类需求的人找到它。
+<!-- project-support:end -->
+
 > 本项目不是 MAA 官方项目，不修改也不分发 MAA 本体。使用者需要自行安装 MAA、模拟器和《明日方舟》客户端，并自行承担真实账号自动化操作的风险。
 
 ## 相比单纯 MAA 脚本的两项核心进步
