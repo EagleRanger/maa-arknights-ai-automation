@@ -162,3 +162,14 @@ skill/
 ## 许可状态
 
 本仓库当前公开可查看，但暂未替项目作者选择独立的复用许可证。MAA 及其他第三方组件继续遵循各自许可证；本仓库不会改变这些许可。
+
+
+<!-- windows-app-automation-collection:start -->
+## 合集导航
+
+分类：方舟 / 游戏自动化。
+
+多软件分类索引与集中迁移包见 [Windows 多软件自动化合集](https://github.com/EagleRanger/windows-app-automation-skills)。本仓库继续独立维护，原有源码、版本、Release 和安装入口不变；是否内置及收录版本以合集说明为准。
+
+[一次下载完整合集](https://github.com/EagleRanger/windows-app-automation-skills/releases/latest)；单独使用本项目仍按本仓库原安装说明操作。
+<!-- windows-app-automation-collection:end -->
