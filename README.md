@@ -165,11 +165,9 @@ skill/
 
 
 <!-- windows-app-automation-collection:start -->
-## 合集导航
+## 独立项目与总索引
 
-分类：方舟 / 游戏自动化。
+本仓库是独立项目，源码、使用说明和发布下载均在本仓库维护。
 
-多软件分类索引与集中迁移包见 [Windows 多软件自动化合集](https://github.com/EagleRanger/windows-app-automation-skills)。本仓库继续独立维护，原有源码、版本、Release 和安装入口不变；是否内置及收录版本以合集说明为准。
-
-[一次下载完整合集](https://github.com/EagleRanger/windows-app-automation-skills/releases/latest)；单独使用本项目仍按本仓库原安装说明操作。
+[查看全部项目索引](https://github.com/EagleRanger/windows-app-automation-skills) · [下载本项目](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/latest)。索引不代替本项目，也不是安装依赖。
 <!-- windows-app-automation-collection:end -->
