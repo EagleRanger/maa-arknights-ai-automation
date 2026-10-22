@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "example_only": true,
+  "_说明": "独立结果域的初始示例，所有游戏效果均未发生、未核验；不能用它创建完成缓存。",
+  "run_id": null,
+  "source_run_id": null,
+  "game_day": null,
+  "operation_id": null,
+  "module": null,
+  "source_fingerprint": null,
+  "business": {
+    "status": "not_started",
+    "new_effects": [],
+    "preserved_effects": [],
+    "unknown_effects": [],
+    "evidence": []
+  },
+  "completion_record": {
+    "status": "not_written",
+    "idempotency_key": null,
+    "source_hashes": {},
+    "atomic_commit": false,
+    "consumer_readback_verified": false
+  },
+  "exit_tail": {
+    "status": "not_requested",
+    "evidence": []
+  },
+  "cleanup": {
+    "status": "not_requested",
+    "owned_resources": [],
+    "verified_released": []
+  },
+  "accounting": {
+    "scope": "this_run_only",
+    "sessions": [],
+    "coverage": "unknown",
+    "reconciled": false,
+    "verified_totals": null,
+    "observed_final_balance": null,
+    "unexplained_balance_difference": null
+  },
+  "report_projection": {
+    "status": "not_verified",
+    "ledger_source_hash": null,
+    "checked_outputs": []
+  }
+}

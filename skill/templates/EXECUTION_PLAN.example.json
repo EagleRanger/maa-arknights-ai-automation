@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "example_only": true,
+  "execution_enabled": false,
+  "_说明": "模块化编排的非执行示例，不含账号、设备或当前目标。接收方按既有项目契约绑定自己的适配器；不得直接拿本文件运行。",
+  "run_id": null,
+  "game_day": null,
+  "scope": "single_domain",
+  "active_goals": [],
+  "operations": [],
+  "available_domain_names": [
+    "annihilation",
+    "event",
+    "farm",
+    "mainline",
+    "security_service",
+    "base",
+    "daily_tasks",
+    "long_running",
+    "observe"
+  ],
+  "composition": {
+    "required_capabilities": [],
+    "providers": {},
+    "dependency_order": [],
+    "reject_duplicate_providers": true,
+    "reject_dependency_cycles": true,
+    "shared_runtime_service_entry": null
+  },
+  "ownership": {
+    "controller": null,
+    "environment_owner": "outer_host",
+    "single_controller": true,
+    "business_modules_close_environment": false,
+    "implicit_full_daily": false
+  },
+  "exit_tail": {
+    "requested": false,
+    "allowed_operations": []
+  },
+  "continuation": {
+    "source_run_id": null,
+    "preserved_effects": [],
+    "remaining_operations": [],
+    "unknown_effects": [],
+    "replay_unknown_effects": false
+  },
+  "acceptance": {
+    "source_fingerprint": null,
+    "scope": null,
+    "evidence": [],
+    "status": "not_evaluated"
+  }
+}

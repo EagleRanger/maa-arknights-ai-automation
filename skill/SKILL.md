@@ -1,6 +1,8 @@
 ---
 name: arknights-automation
 description: "Control, diagnose, migrate, configure, recover, monitor, and verify AI-orchestrated Windows Arknights automation built on MAA and a supported emulator. Use when an AI agent must manage MAA beyond one-click tasks: autonomously find and advance unfinished mainline stages except tutorials, service Integrated Strategies reward tracks and permanent-growth points after settlement, route current events and mainline before fallback farming, apply inventory-driven base production, verify Security Service cap state, migrate to another Windows PC, fuse image/log evidence, recover interruptions or stale queues, enforce one controller, clean up, and report only verified results."
+metadata:
+  version: "1.0.0"
 ---
 
 # MAA Arknights AI Control
@@ -15,6 +17,14 @@ Operate this project from its durable contract and current evidence. Never infer
 - **Adaptive service decisions:** read fresh inventory and reward state before selecting a project-approved base-production plan or short-circuiting a capped service. Stale values and entry-page success are not execution evidence.
 
 The Skill packages the control contract, routing rules, safety gates, references, and read-only Windows preflight. It does not bundle the author's private production controller, account configuration, screenshots, logs, or MAA itself. A receiving project must provide or implement its own adapter for the actions named here.
+
+## Modular execution in v1
+
+Use explicit task composition rather than an ever-growing chain of version wrappers. The orchestrator chooses authorized operations; each business module returns its own result; one shared runtime-service boundary supplies recognition and recovery; the outer host owns environment lifecycle and explicit exit work. A single-domain task must not silently call the full daily workflow or close the environment.
+
+Keep game effects, completion-record persistence, exit/reward servicing, cleanup, and report verification separate. A failed record write is not permission to replay a successful battle. Render JSON, detailed text, and the final notification from the same reconciled, run-scoped ledger; GUI queue selection is not the whole-run business result.
+
+The v1 release publishes these reusable contracts and migration methods, not the private executor. Tested compatibility paths and a new independently composed controller are different acceptance objects: do not claim the latter is production-proven from the former's receipts.
 
 ## AI, MAA, and emulator boundary
 
@@ -40,6 +50,8 @@ Read [runtime-contract.md](references/runtime-contract.md) for authority and acc
 
 ## Route the work
 
+- For architecture refactoring, independent single-domain tasks, explicit composition, shared service installation, and host ownership, read [modular-architecture.md](references/modular-architecture.md). Its templates are inactive examples, not an execution plan to run automatically.
+- For session accounting, failed completion-record writes, false-negative verification, and consistent JSON/text/notification reports, read [result-ledger-and-reconciliation.md](references/result-ledger-and-reconciliation.md).
 - For interrupted-run continuation, multi-phase events, cross-rotation settlement evidence, temporary-resource restoration, or scoped final reporting, read [continuation-and-closeout.md](references/continuation-and-closeout.md). Apply its checks to the affected domain without replaying verified effects or blocking unrelated authorized work.
 - For first-time setup, migration to another Windows PC, changed emulator/MAA/Python paths, ADB connection changes, or resolution/input problems, read [windows-portability.md](references/windows-portability.md) and run the read-only environment check before any real-account action.
 - For scene classification, target candidates, action gates, post-action verification, run-scoped logs, multi-frame numeric reads, adaptive base decisions, and Security Service checks, read [recognition-and-service-gates.md](references/recognition-and-service-gates.md).
