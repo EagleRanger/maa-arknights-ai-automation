@@ -15,7 +15,7 @@ Implementation choices may improve speed or reliability but may not change the r
 
 ## Pre-run contract
 
-Write or log these fields before controlling the real account:
+Resolve these fields from the current user task and project handoff before controlling the real account. Reuse the existing run record; do not require a second manually prepared contract or confirmation packet:
 
 - goal IDs and exact task type;
 - target theme/event/chapter/stage and difficulty policy;
@@ -26,7 +26,9 @@ Write or log these fields before controlling the real account:
 - hard stop and cleanup requirements;
 - single control owner.
 
-If any proposal changes these fields, request user confirmation first.
+An explicit execution request includes normal preparation, local technical repairs, tests and continuation within its existing scope. A changed run ID, interpreter/path repair or selected implementation version is not by itself a change of business authority. Reconcile completed effects, preserve accumulated battle attempts/resource limits and return only the unfinished work to its owner.
+
+Ask only for a decision not already covered: changed goals, resource use, difficulty or attempt limits, a new material side effect/cost, or an unresolved user choice. Respect pauses, deadlines and native tool permissions. A failed historical lookup is not an authorization withdrawal when the current task is clear; pause only genuinely uncertain actions.
 
 ## Component admission and fingerprint gate
 
@@ -39,7 +41,9 @@ Before the first real-account side effect, validate any project-provided compone
 
 ## Production recipe binding
 
-Resolve the current production handoff and every required component immediately before control begins. The binding must name an immutable accepted recipe, current authority, required dependencies, fingerprints, and invalidation condition. A candidate marked validation-only may be tested only under its explicit isolated contract; it cannot replace the normal daily entrypoint because code exists, tests pass, or part of its live path worked.
+Resolve the currently selected runtime and required components through the actual consumer before control begins. The binding must identify its reviewed snapshot, current authority, dependencies, fingerprints, scope and invalidation condition. A retained legacy recipe may be a protected dependency baseline, not the runtime selector. Scheduled runs, manual continuation and the execution brief must resolve the same binding; a dated special task neither selects nor expires an ordinary daily run.
+
+A candidate may undergo its explicitly selected, authorized live validation without being called fully verified first. That does not authorize an automatic production switch because code exists, tests pass, or one narrow live path worked. Missing selection or drift requires repair, not silent fallback. Verify the real launcher in a no-game check, then verify the selected version/device/result on the next authorized run.
 
 ## Acceptance
 
@@ -68,3 +72,5 @@ While a real MAA queue is active:
 - prefer read-only log/checkpoint/process inspection;
 - apply source changes only when they cannot affect the loaded process, then replace the supervisor at a safe boundary;
 - preserve screenshots and logs for unknown states before recovery.
+
+For a cooperation-capable host, keep its process, lock and deadline checks alive while awaiting AI. Files/stdout are pending feedback, not proof of message delivery; a written recheck request is not proof of recovery. See [script-ai-cooperation.md](script-ai-cooperation.md). Do not hot-load repaired source into a running Python process or kill the only deadline owner to inspect the game.

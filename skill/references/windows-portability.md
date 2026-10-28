@@ -38,26 +38,28 @@ If the screenshot is 1280×720, 2560×1440, rotated, letterboxed, or cropped, st
 
 Android `wm size` may report the panel's physical dimensions as `1080x1920` even while the game screenshot is landscape 1920×1080. Gate on the captured PNG dimensions, not the text order from `wm size` alone.
 
-## Verified reference machine profile
+## Machine-local profile: discover, do not copy
 
-This is evidence for comparison, not a portable configuration to copy blindly:
+Discover these fields on the receiving PC; historical instance numbers, ports and Android versions are not current configuration:
 
-| Item | Current verified value |
+| Item | Receiver must determine |
 | --- | --- |
 | Emulator | MuMu 12 |
 | ADB executable | `C:\Program Files\Netease\MuMuPlayer-12.0\shell\adb.exe` |
-| Current ADB device | `127.0.0.1:16384` |
+| Target ADB device | Actual port for the identity-verified target instance; no fixed default |
 | Android physical size report | `1080x1920` |
-| Android physical density | `280` |
+| Android physical density | Record from the actual target; screenshot dimensions remain decisive |
 | Actual game screenshot contract | landscape `1920×1080` |
-| Android version | `12` |
-| Game package | Bilibili client `com.hypergryph.arknights.bilibili` |
+| Android version | Read from the target instance, not inferred from the emulator product name |
+| Game package | Explicitly verify the user's installed client/package |
 | MAA executable | `%LOCALAPPDATA%\MAA-App\MAA.exe` |
 | Verified Python capability | 64-bit Python with `PIL`, `cv2`, `rapidocr_onnxruntime`, and `uiautomation` importable |
 
-The port `16384` is not a constant. MuMu multi-instance ports can change; discover the running instance every time. The official mainland package is commonly `com.hypergryph.arknights`, while this reference account uses the Bilibili package. Detect or configure the package explicitly before launch/force-stop operations.
+MuMu multi-instance ports and numeric ordering can change, including when an empty instance is added. Bind stable instance identity and the installed game package, then discover and validate its ADB device. Ambiguous identity stops before launch/force-stop/input. Package examples such as `com.hypergryph.arknights` and `com.hypergryph.arknights.bilibili` are client identifiers, not an account setting to copy.
 
 ## First-run inventory
+
+The bundled preflight checks only part of this inventory. It does not prove stable emulator identity, exclusive controller ownership or complete adapter deployment; verify those through the receiving project's existing interfaces before game input. A passing preflight is not a full-run acceptance.
 
 Before controlling a new PC, record these values in a machine-local profile or environment variables. Never write another person's username or this PC's paths into shared Skill instructions.
 

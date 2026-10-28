@@ -2,7 +2,7 @@
 name: arknights-automation
 description: "Control, diagnose, migrate, configure, recover, monitor, and verify AI-orchestrated Windows Arknights automation built on MAA and a supported emulator. Use when an AI agent must manage MAA beyond one-click tasks: autonomously find and advance unfinished mainline stages except tutorials, service Integrated Strategies reward tracks and permanent-growth points after settlement, route current events and mainline before fallback farming, apply inventory-driven base production, verify Security Service cap state, migrate to another Windows PC, fuse image/log evidence, recover interruptions or stale queues, enforce one controller, clean up, and report only verified results."
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # MAA Arknights AI Control
@@ -37,10 +37,10 @@ This boundary is what makes the package an AI control Skill rather than a collec
 
 ## Start every task
 
-1. Read the nearest `AGENTS.md`, `.project-reasoning/STATE.md`, `.project-reasoning/GOALS.md`, and `PROJECT_CONTRACT.json` when they exist. A legacy project may keep the contract in a named implementation directory; discover it instead of assuming one fixed folder name.
+1. Read the nearest `AGENTS.md` and its current role-specific resume pointers. Read the current summary of project state and the relevant contract, not the entire historical state. A workspace entry may link to an occupied implementation directory; use that implementation for scripts and relative dependencies instead of guessing a second root.
 2. Use the project reasoning loop when the current project requires or provides it; otherwise keep the same minimum discipline: separate observed facts, inference, and unverified hypotheses.
 3. Compile the current execution contract: target IDs, ordered steps, success evidence, failure transfer, prohibited substitutions, deadline, and control owner.
-4. Resolve the approved production recipe or handoff. A validation-only candidate, stale binding, missing dependency, or protected fingerprint mismatch stops before game or MAA mutation.
+4. Resolve the selected runtime through the real launcher and its designated binding (for example, a project's `daily_runtime`), not a retained top-level legacy recipe or an expired special task. Normal execution and an explicitly selected live-validation candidate have different acceptance scopes; do not label the candidate fully verified or silently fall back to an old entry. Missing selection, out-of-scope use, dependency failure or fingerprint drift stops the affected action before mutation.
 5. When the project has a component registry or protected-artifact fingerprint file, validate the selected component admission state and fingerprint before the first side effect. A mismatch blocks production; do not refresh the expected hash merely to make the gate pass.
 6. Inspect the current process/queue/checkpoint state before changing anything. A visible window, running process, or completed shell command is not task success.
 
@@ -51,6 +51,7 @@ Read [runtime-contract.md](references/runtime-contract.md) for authority and acc
 ## Route the work
 
 - For architecture refactoring, independent single-domain tasks, explicit composition, shared service installation, and host ownership, read [modular-architecture.md](references/modular-architecture.md). Its templates are inactive examples, not an execution plan to run automatically.
+- For script-to-AI exception feedback, same-step resumption, safe-boundary pause/stop, deadline ownership and capability-scoped stability review, read [script-ai-cooperation.md](references/script-ai-cooperation.md). This is an adapter contract with bounded validation, not a bundled auto-repair or background-wakeup service.
 - For session accounting, failed completion-record writes, false-negative verification, and consistent JSON/text/notification reports, read [result-ledger-and-reconciliation.md](references/result-ledger-and-reconciliation.md).
 - For interrupted-run continuation, multi-phase events, cross-rotation settlement evidence, temporary-resource restoration, or scoped final reporting, read [continuation-and-closeout.md](references/continuation-and-closeout.md). Apply its checks to the affected domain without replaying verified effects or blocking unrelated authorized work.
 - For first-time setup, migration to another Windows PC, changed emulator/MAA/Python paths, ADB connection changes, or resolution/input problems, read [windows-portability.md](references/windows-portability.md) and run the read-only environment check before any real-account action.
@@ -59,7 +60,7 @@ Read [runtime-contract.md](references/runtime-contract.md) for authority and acc
 - For Integrated Strategies reward tracks, permanent-growth trees, monthly/recollection teams, investigations, and settlement-boundary servicing, read [roguelike-rewards.md](references/roguelike-rewards.md).
 - For MAA errors, emulator exits, update prompts, announcements, story/tutorial pages, queue stalls, log rotation, interpreter problems, cooldown, or duplicate supervisors, read [recovery-playbook.md](references/recovery-playbook.md).
 - For a live queue, do only targeted, non-contending diagnostics. Do not run full offline regression or start a second controller.
-- For source changes, patch the implementation directory, run the smallest relevant tests, verify the live effect, update project reasoning records, and only then sync a packaged/runtime copy if requested.
+- For source changes, patch the implementation directory and replay the actual defect at the final composed call site. New game actions need an authorized natural forward validation; pure verifier/report corrections reuse sealed same-run evidence without replaying gameplay. Keep source edit, launcher binding, loaded code and visible effect as separate claims. Sync packaged/installed copies only when requested.
 
 ## Windows portability invariant
 
@@ -87,11 +88,11 @@ Classify before acting:
 
 - Ordinary game outcome: continue according to the active contract; do not consume the technical retry budget.
 - Verified recoverable UI interruption: clear it through the project ADB/screenshot path, confirm the page changed, then resume without consuming the technical retry budget.
-- Technical failure: use the existing bounded recovery. After three fast failures, fully clean the owned processes, wait one hour, and retry only if still before the hard deadline.
-- Unknown state: preserve evidence and pause instead of inventing clicks or changing the goal.
+- Technical failure: diagnose and use the current task's bounded retry, cooldown and deadline policy; do not invent universal retry counts. For an adapter that supports cooperation, preserve the live deadline owner, request AI help, recheck fresh state and resume only the failed step. A technical repair does not reset battle/resource budgets or replay completed work.
+- Unknown state: preserve evidence and pause the affected action instead of inventing clicks or changing the goal. Retain deadline cleanup; independent authorized work may continue only if it does not contend for the same controller.
 
 Never silently change theme, task type, stage, difficulty, team, resource use, retry cap, or stop condition.
 
 ## Finish
 
-Report what was actually completed, failed, deferred, and still running. Include decisive evidence, cleanup state, and the next recoverable checkpoint. Update `.project-reasoning/STATE.md`; record a lesson only when the root cause is proven.
+Report what was actually completed, failed, deferred, and still running. Include decisive evidence, cleanup state, and the next recoverable checkpoint. Update the project's existing state entry when one is provided; do not create a second state file merely to match a guessed path. Record a lesson only when the root cause is proven.

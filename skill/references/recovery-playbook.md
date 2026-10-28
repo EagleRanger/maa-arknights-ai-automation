@@ -30,7 +30,7 @@ Examples:
 - duplicate supervisors or a stale single-instance owner contend for the same queue.
 - a selected production component is unadmitted, missing, or no longer matches its protected fingerprint.
 
-Apply at most three fast recoveries. Each recovery should stop the owned queue if needed, reload the same configured environment, and verify it is ready. After the fourth consecutive technical failure, clean the owned UI/processes, preserve the checkpoint, wait one hour, and retry the unchanged contract if before the deadline.
+Use the active task's verified retry/cooldown/deadline policy, not a universal counter. Diagnose first and reconcile prior effects before retrying. If the selected host supports cooperation, preserve the deadline owner and failed-step context, request help and require fresh revalidation before resuming; see [script-ai-cooperation.md](script-ai-cooperation.md). Do not kill the only supervisor, reset battle/resource budgets, or repeat an unchanged failure while waiting.
 
 ### Ordinary game outcome
 

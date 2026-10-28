@@ -4,6 +4,8 @@
 
 Use the exact priority in the discovered `PROJECT_CONTRACT.json`; do not hard-code yesterday's event or chapter.
 
+Resolve the daily release from the actual launcher's active runtime binding. The scheduler, manual continuation and execution brief must agree. A retained legacy recipe is not an automatic fallback; date-limited special tasks do not select or expire the ordinary daily run. Verify the actual consumer after changing its binding, not just documentation or a module import. An explicitly selected candidate can receive scoped live validation without being labelled fully accepted.
+
 Typical phase boundaries are:
 
 1. Start and clear validated update/login/announcement blockers.
@@ -41,6 +43,9 @@ When exact node colors or symbols differ across chapters, use the validated stru
 - Aggregate completion evidence across the same game day. A later cleanup process must not overwrite earlier completed phases with a smaller last-process report.
 - A targeted daily chain may perform its documented cold-start environment bootstrap, but its final report must name the actual scope run. Never present a targeted Award or base repair as a full daily completion.
 - Keep accepted production and validation-only candidates under separate immutable identities. Offline tests or a partial live path do not authorize a production-pointer switch.
+- After a repair, re-read the original daily remainder. If business is complete, do not replay it; if only the report is wrong, correct the sealed evidence projection offline. If work remains within authority, hand back and verify that exact remainder starts. A repaired module is not the original daily task's completion.
+- Discover configured login/sign-in surfaces even when there is no red dot or automatic popup. Bind event identity, unlock state and game day before each claim; distinguish newly claimed, already claimed, future-locked and unknown. Only reward feedback plus the same card's claimed state and return-page evidence proves a new claim. Do not spend a make-up item or treat one verified event layout as universal coverage.
+- Bind the target emulator by stable instance identity and installed game package, then verify its live ADB connection. A newly inserted empty instance may change numeric ordering; instance 0, a prior port or the first device is not a safe default when identity is ambiguous.
 - An unavailable or unsupported event route is not the same as no current event. Preserve the unfinished event and follow only its approved transfer.
 - Read decisive numeric state from labeled regions and stable repeated frames or an independent source. Do not backfill current stamina, inventory, reward, or cap values from old logs.
 - If no farm target is authorized, do not invent one merely to spend sanity.
@@ -57,6 +62,9 @@ For Integrated Strategies:
 - reward claims require direct reward-marker change;
 - distinguish the theme's reward track from its permanent-growth tree; after every eligible real settlement, autonomously claim available rewards and allocate available permanent-growth points, verify the named currency or marker changed, return to the same theme home, and resume the unchanged queue;
 - use one supervisor, a current checkpoint, bounded technical recovery, and the contract-defined cleanup boundary before the next daily owner takes control; do not auto-chain this mode after a daily run.
+- when the selected adapter supports it, request pause/stop at a settlement or next-Core boundary instead of racing a short inter-round gap or terminating the sole supervisor. During AI exception handling the host retains the lock and deadline. See [script-ai-cooperation.md](script-ai-cooperation.md).
+
+Exploration outcome and program reliability are separate: failed explorations can still produce valid experience/reward receipts, but cannot be reported as clears. When the authorized battle retry budget is exhausted, preserve the unfinished objective, report any required manual handoff, and continue only independent, permitted later steps. Do not block the whole workflow on the existence of a notification.
 
 For Reclamation Algorithm:
 
@@ -66,9 +74,9 @@ For Reclamation Algorithm:
 
 ## Change and validation
 
-1. Patch the source implementation, preserving user changes and backups.
-2. Run syntax checks and the smallest tests covering the defect.
-3. If no live queue is active, run proportionate offline regression.
-4. Perform a real forward-path verification with screenshots/Core/checkpoint evidence.
-5. Synchronize any assistant/runtime copy only after source validation and compare hashes.
-6. Update project state and evidence-backed lessons. Never claim deployment from file creation alone; verify the recipient/runtime actually received or loaded it.
+1. Patch only the affected source implementation, preserving user changes and backups.
+2. Replay the actual defect and negative cases at the final composed call site, not just the imported module or installation flag. When no live queue is active, run proportionate offline regression.
+3. Match evidence to the changed behavior. New navigation/input/resource use needs the next authorized real forward path. Pure verifier/report corrections reuse sealed same-run evidence; do not replay completed gameplay. Background rendering/DPI tests prove their layer only; visible appearance remains pending until the next normal report unless a separate preview is requested.
+4. If activation is in scope, update the existing consumer's versioned binding and changed fingerprints; preserve accepted historical bytes instead of refreshing an old hash to make drift pass. Verify the same launcher without game actions before the next real run.
+5. Synchronize packaged/installed copies only when requested and compare hashes. Distinguish source edited, consumer wired, code loaded and effect verified.
+6. Update the existing project lesson with evidence pointers, not a parallel ledger. For prolonged supervision, apply the capability/version-specific review criteria in [script-ai-cooperation.md](script-ai-cooperation.md); static tests or unrelated rounds do not satisfy a real changed-branch acceptance.

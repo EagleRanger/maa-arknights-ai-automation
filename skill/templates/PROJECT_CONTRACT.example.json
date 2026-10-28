@@ -1,11 +1,13 @@
 
 {
   "schema_version": 1,
+  "example_only": true,
+  "execution_enabled": false,
   "_说明": "这是中文项目契约示例。英文枚举供脚本稳定读取，对应的 _zh 字段用于中文说明。",
   "project": "请替换为你的项目名称",
   "active_goals": [],
   "execution_defaults": {
-    "_说明": "Windows、模拟器与 MAA 的默认执行约束。",
+    "_说明": "Windows、模拟器与 MAA 的示例约束。重试与冷却数值仅为示例，须按当前目标明确选择，不能覆盖已生效合同。",
     "emulator_guest_resolution": "1920x1080",
     "single_controller": true,
     "technical_retry_limit": 3,
