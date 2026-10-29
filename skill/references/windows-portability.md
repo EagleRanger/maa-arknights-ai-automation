@@ -2,7 +2,7 @@
 
 ## Conclusion and support boundary
 
-The automation model is portable to ordinary Windows gaming PCs, but the current project implementation is not a zero-configuration portable binary. Its workflow, evidence gates, MAA queue control, ADB screenshot path, retry classification, and cleanup rules can be reused. Machine-specific paths, emulator instance/port, game package, Python runtime, and writable output locations must be discovered on every new PC.
+The Skill targets ordinary Windows gaming PCs. It includes workflow guidance and custom execution source for the receiving AI to integrate, not a zero-configuration installer. Start with [receiver-integration.md](receiver-integration.md). Discover this PC's installed software and use its normal installation locations; obtain missing public dependencies from their official sources. The user logs in personally.
 
 Supported baseline:
 
@@ -13,13 +13,9 @@ Supported baseline:
 - MAA, emulator, game client, and Python/OCR dependencies installed and readable;
 - network access when MAA resources, updates, or external copilot jobs are required.
 
-Do not claim another PC is supported merely because MAA opens. The minimum acceptance is a fresh ADB screenshot with exact dimensions, a valid game-package check, successful OCR imports, a single controller, and a non-destructive navigation verification. A real battle remains a separate authorized test.
+Do not claim that MAA opening proves the whole workflow. Check required paths/imports and, after the user has logged in, the target connection and screenshot size. Do not make an extra test battle or identity verification part of installation. Observe real results during the user's requested task.
 
-Official MAA references:
-
-- [MAA new-user requirements](https://docs.maa.plus/zh-cn/manual/newbie.html) state that Windows support is Windows 10/11 and emulator resolution should be landscape 1280×720 or 1920×1080.
-- [MAA connection settings](https://docs.maa.plus/zh-cn/manual/connection.html) document automatic ADB detection, MuMu's multiple possible ports, and manual ADB/configuration choices.
-- MAA task resources use a 1280×720 design base and scale internally. This project does not rely on that scaling for its own fixed ADB coordinates; it standardizes the emulator at 1920×1080 instead.
+The receiving AI should consult the installed product's current official documentation when needed. MAA's own scaling support does not automatically scale this project's fixed ADB coordinates; these use 1920×1080.
 
 ## Non-negotiable display profile
 
@@ -45,9 +41,9 @@ Discover these fields on the receiving PC; historical instance numbers, ports an
 | Item | Receiver must determine |
 | --- | --- |
 | Emulator | MuMu 12 |
-| ADB executable | `C:\Program Files\Netease\MuMuPlayer-12.0\shell\adb.exe` |
+| ADB executable | Emulator-provided ADB under the receiving machine's actual installation root |
 | Target ADB device | Actual port for the identity-verified target instance; no fixed default |
-| Android physical size report | `1080x1920` |
+| Android physical size report | Read from the receiving device; actual screenshot dimensions are decisive |
 | Android physical density | Record from the actual target; screenshot dimensions remain decisive |
 | Actual game screenshot contract | landscape `1920×1080` |
 | Android version | Read from the target instance, not inferred from the emulator product name |
@@ -88,7 +84,7 @@ Keep machine values outside business rules and source logic. Prefer a local prof
 - `ARKNIGHTS_PYTHON`
 - `ARKNIGHTS_AUTO_BASE`
 
-The current project still contains reference-machine defaults. A portable launcher should resolve values in this order: explicit current-run parameter, machine-local profile/environment, safe discovery, then a clearly labeled reference default. Discovery returning zero or multiple candidates is a preflight failure.
+Resolve values in this order: explicit current-run parameter, machine-local profile/environment, then the product's normal installation location on the current PC. The included `portable_paths.py` supplies these defaults; it never installs or launches software. If the default does not exist, the receiving AI finds the actual installation or installs the missing dependency. Never fall back to the author's home directory or arbitrarily select one of several devices.
 
 ## Permission and process rules
 
@@ -99,16 +95,9 @@ The current project still contains reference-machine defaults. A portable launch
 - Keep one emulator instance, one MAA process/queue, and one supervisor per account unless a multi-instance contract explicitly assigns separate ports and directories.
 - Taskbar ghost thumbnails are not proof of duplicate processes. Verify process IDs first; a non-disruptive taskbar redraw is cosmetic cleanup only.
 
-## Layered acceptance on another PC
+## First use on another PC
 
-1. **Inventory:** all paths, package, device, output directories, and interpreter resolve uniquely.
-2. **Display gate:** a fresh ADB PNG is exactly 1920×1080 and recognizable; no rotation or letterboxing.
-3. **Static UI recognition:** OCR identifies a known home/terminal marker from the fresh screenshot; no clicks yet.
-4. **Safe input:** one authorized non-resource navigation tap is followed by a screenshot proving the intended page transition.
-5. **MAA control:** UI Automation finds the real `MAA.exe` window by process ownership, configures the intended task, and Core logs the exact task chain.
-6. **Small real run:** only with current authorization, run one low-risk contracted action and verify the game result, Core log, checkpoint, and cleanup separately.
-
-Syntax tests, imports, preflight, a running process, or an MAA queue start do not prove the full automation works on the new PC.
+Check installed paths and imports, then the correct connected device and 1920×1080 screenshot after the user logs in. These are connection checks, not additional account authentication. Continue with the user's requested game task and observe its actual result; no separate test battle is required for installation. Source checks and successful imports do not themselves prove a completed game task.
 
 ## Symptom-to-cause checklist
 

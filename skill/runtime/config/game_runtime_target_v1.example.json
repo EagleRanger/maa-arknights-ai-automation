@@ -1,0 +1,4 @@
+{
+  "schema": "ark-game-runtime-target/v1",
+  "selection": "must be created from the recipient's confirmed simulator identity"
+}

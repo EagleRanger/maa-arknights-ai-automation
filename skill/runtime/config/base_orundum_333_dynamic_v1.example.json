@@ -1,0 +1,529 @@
+{
+  "author": "Codex+用户实机333",
+  "title": "动态333搓玉/龙门币四档",
+  "description": "先由MAA UserDataUpdate刷新仓库，再按固源岩和龙门币库存选择0/1/2/3条搓玉线；空干员列表由MAA原生autofill换班。",
+  "id": 2026090301,
+  "planTimes": "动态",
+  "plans": [
+    {
+      "name": "动态333-0条搓玉线",
+      "description": "由实时仓库决策选择；0贸易合成玉+0制造源石碎片，其余龙门币/赤金",
+      "rooms": {
+        "trading": [
+          {
+            "skip": false,
+            "product": "LMD",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "LMD",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "LMD",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "manufacture": [
+          {
+            "skip": false,
+            "product": "Pure Gold",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "Pure Gold",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "Pure Gold",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "power": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "dormitory": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "control": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "meeting": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "hire": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "processing": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "动态333-1条搓玉线",
+      "description": "由实时仓库决策选择；1贸易合成玉+1制造源石碎片，其余龙门币/赤金",
+      "rooms": {
+        "trading": [
+          {
+            "skip": false,
+            "product": "Orundum",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "LMD",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "LMD",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "manufacture": [
+          {
+            "skip": false,
+            "product": "Originium Shard",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "Pure Gold",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "Pure Gold",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "power": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "dormitory": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "control": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "meeting": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "hire": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "processing": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "动态333-2条搓玉线",
+      "description": "由实时仓库决策选择；2贸易合成玉+2制造源石碎片，其余龙门币/赤金",
+      "rooms": {
+        "trading": [
+          {
+            "skip": false,
+            "product": "Orundum",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "Orundum",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "LMD",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "manufacture": [
+          {
+            "skip": false,
+            "product": "Originium Shard",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "Originium Shard",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "Pure Gold",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "power": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "dormitory": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "control": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "meeting": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "hire": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "processing": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "动态333-3条搓玉线",
+      "description": "由实时仓库决策选择；3贸易合成玉+3制造源石碎片，其余龙门币/赤金",
+      "rooms": {
+        "trading": [
+          {
+            "skip": false,
+            "product": "Orundum",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "Orundum",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "Orundum",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "manufacture": [
+          {
+            "skip": false,
+            "product": "Originium Shard",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "Originium Shard",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "product": "Originium Shard",
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "power": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "dormitory": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          },
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "control": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "meeting": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "hire": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ],
+        "processing": [
+          {
+            "skip": false,
+            "operators": [],
+            "sort": false,
+            "autofill": true
+          }
+        ]
+      }
+    }
+  ]
+}

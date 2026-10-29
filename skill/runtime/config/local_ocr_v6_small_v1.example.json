@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "model": "PP-OCRv6-small",
+  "library": "3.10.0",
+  "onnxruntime": "1.31.0",
+  "threads": 2,
+  "text_score": 0.5,
+  "startup_timeout": 45,
+  "request_timeout": 30,
+  "models": {
+    "Det": {
+      "path": ".runtime/ocr-benchmark-models/PP-OCRv6_det_small.onnx",
+      "sha256": "090F04ABCD9D9A7498BC4EBF677E4CB9BDCE1FE4197DDB7E529F1EF44E1FF94F"
+    },
+    "Rec": {
+      "path": ".runtime/ocr-benchmark-models/PP-OCRv6_rec_small.onnx",
+      "sha256": "6F327246B50388F3C176AE304BD95767EA6DC0C9AE92153EF8CBE210B3C14884"
+    },
+    "Cls": {
+      "path": ".runtime/ocr-benchmark-models/ch_ppocr_mobile_v2.0_cls_mobile.onnx",
+      "sha256": "E47ACEDF663230F8863FF1AB0E64DD2D82B838FCEB5957146DAB185A89D6215C"
+    }
+  },
+  "scope": "Project-local OCR only; no MAA internal OCR modification, game actions or network downloads"
+}

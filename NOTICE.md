@@ -5,7 +5,8 @@
 - MAA / MaaAssistantArknights：<https://github.com/MaaAssistantArknights/MaaAssistantArknights>
 - MAA 文档：<https://docs.maa.plus/zh-cn/>
 - MAA 本体采用 AGPL-3.0-only，并附带其用户协议。
-- 本仓库不包含、修改或重新分发 MAA 二进制文件、源代码、Logo 或游戏素材。
+- 本仓库不包含、修改或重新分发 MAA 二进制文件、源代码、Logo 或其可另行下载的模板/模型。
+- `skill/runtime/assets/vision/sss_delegate_card_v1.png` 是用于识别的最小游戏界面道具裁片，不含账号标识；图像权利归原权利人。其用途仅为说明和复用现有识别接口，不表示与游戏官方存在合作关系。
 - “明日方舟”等相关名称与内容的权利归其各自权利人所有。
 
 使用者需要自行安装所需第三方软件，并遵守相应许可证、用户协议、服务条款和所在地法律。

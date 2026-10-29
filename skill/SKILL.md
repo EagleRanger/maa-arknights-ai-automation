@@ -2,7 +2,7 @@
 name: arknights-automation
 description: "Control, diagnose, migrate, configure, recover, monitor, and verify AI-orchestrated Windows Arknights automation built on MAA and a supported emulator. Use when an AI agent must manage MAA beyond one-click tasks: autonomously find and advance unfinished mainline stages except tutorials, service Integrated Strategies reward tracks and permanent-growth points after settlement, route current events and mainline before fallback farming, apply inventory-driven base production, verify Security Service cap state, migrate to another Windows PC, fuse image/log evidence, recover interruptions or stale queues, enforce one controller, clean up, and report only verified results."
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
 ---
 
 # MAA Arknights AI Control
@@ -16,7 +16,7 @@ Operate this project from its durable contract and current evidence. Never infer
 - **Evidence-gated daily orchestration:** verify weekly Annihilation, current-event availability, unfinished mainline scope, fallback-farm authority, Security Service cap state, and one final daily chain in that order; never let the final chain hide an earlier partial failure.
 - **Adaptive service decisions:** read fresh inventory and reward state before selecting a project-approved base-production plan or short-circuiting a capped service. Stale values and entry-page success are not execution evidence.
 
-The Skill packages the control contract, routing rules, safety gates, references, and read-only Windows preflight. It does not bundle the author's private production controller, account configuration, screenshots, logs, or MAA itself. A receiving project must provide or implement its own adapter for the actions named here.
+The Skill includes both the workflow guidance and the existing custom execution source in `runtime/`: daily composition, mainline progression, roguelike settlement services, recognition, recovery and result handling. It is not a one-click installer. The receiving AI obtains publicly available third-party dependencies and adapts the existing execution interfaces to its own Windows environment. The user's account login, private production records and old task authorizations are not bundled. Start with [receiver-integration.md](references/receiver-integration.md) when transferring the package.
 
 ## Modular execution in v1
 
@@ -24,7 +24,7 @@ Use explicit task composition rather than an ever-growing chain of version wrapp
 
 Keep game effects, completion-record persistence, exit/reward servicing, cleanup, and report verification separate. A failed record write is not permission to replay a successful battle. Render JSON, detailed text, and the final notification from the same reconciled, run-scoped ledger; GUI queue selection is not the whole-run business result.
 
-The v1 release publishes these reusable contracts and migration methods, not the private executor. Tested compatibility paths and a new independently composed controller are different acceptance objects: do not claim the latter is production-proven from the former's receipts.
+Version 1.1.1 carries the existing execution source and reusable workflow contracts. The receiving machine still needs local interface and task binding; source inclusion does not transfer the author's account state or prove a new machine's runtime behavior.
 
 ## AI, MAA, and emulator boundary
 
@@ -54,7 +54,7 @@ Read [runtime-contract.md](references/runtime-contract.md) for authority and acc
 - For script-to-AI exception feedback, same-step resumption, safe-boundary pause/stop, deadline ownership and capability-scoped stability review, read [script-ai-cooperation.md](references/script-ai-cooperation.md). This is an adapter contract with bounded validation, not a bundled auto-repair or background-wakeup service.
 - For session accounting, failed completion-record writes, false-negative verification, and consistent JSON/text/notification reports, read [result-ledger-and-reconciliation.md](references/result-ledger-and-reconciliation.md).
 - For interrupted-run continuation, multi-phase events, cross-rotation settlement evidence, temporary-resource restoration, or scoped final reporting, read [continuation-and-closeout.md](references/continuation-and-closeout.md). Apply its checks to the affected domain without replaying verified effects or blocking unrelated authorized work.
-- For first-time setup, migration to another Windows PC, changed emulator/MAA/Python paths, ADB connection changes, or resolution/input problems, read [windows-portability.md](references/windows-portability.md) and run the read-only environment check before any real-account action.
+- For transfer to another Windows PC, first read [receiver-integration.md](references/receiver-integration.md). Reuse the supplied custom execution logic; let the receiving AI discover/install third-party dependencies and bind its own environment. Read [windows-portability.md](references/windows-portability.md) only for the relevant connection or display details. The user logs in personally; installation does not require an extra identity check or a test battle.
 - For scene classification, target candidates, action gates, post-action verification, run-scoped logs, multi-frame numeric reads, adaptive base decisions, and Security Service checks, read [recognition-and-service-gates.md](references/recognition-and-service-gates.md).
 - For a daily full run, autonomous unfinished-mainline progression, event progression, stamina use, final reward cleanup, and shutdown, read [workflows.md](references/workflows.md).
 - For Integrated Strategies reward tracks, permanent-growth trees, monthly/recollection teams, investigations, and settlement-boundary servicing, read [roguelike-rewards.md](references/roguelike-rewards.md).
