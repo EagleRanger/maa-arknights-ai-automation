@@ -1,12 +1,14 @@
 """Read current card stacks from ALL, using the observed card artwork."""
 from pathlib import Path
+import os
 import re
 from run_daily_v100 import ROOT
 
-REFERENCE=ROOT/'runtime_screenshots/delegate_inventory_depot_1792174312908196800.png'
+REFERENCE=os.environ.get('ARKNIGHTS_DELEGATE_REFERENCE_FRAME', '').strip()
 
 
 def positions(path):
+    if not REFERENCE or not Path(REFERENCE).is_file():return []
     import cv2,numpy as np
     image=cv2.imdecode(np.fromfile(str(path),np.uint8),1)
     source=cv2.imdecode(np.fromfile(str(REFERENCE),np.uint8),1)

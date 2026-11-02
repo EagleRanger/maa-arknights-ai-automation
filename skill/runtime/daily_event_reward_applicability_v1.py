@@ -14,7 +14,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-RESOLUTION_PATH = ROOT / "config" / "current_event_resolution_20260927.json"
+RESOLUTION_PATH = ROOT / "config" / "recipient_current_event_resolution.json"
 EVENT_ISSUE_PREFIX = "活动任务领奖未核验:"
 FINAL_CHAINS = ("StartUp", "Infrast", "Recruit", "Mall", "Award")
 
@@ -60,7 +60,7 @@ def mark_event(event, resolution):
         "status": "not_applicable",
         "applicable": False,
         "reason": resolution["event_task_rewards_reason"],
-        "source": "current_event_resolution_20260927",
+        "source": "recipient_current_event_resolution",
     }
     return True
 
@@ -137,11 +137,11 @@ def reconcile_report(report, resolution=None, *, persist=False, json_path=None, 
                 f"# 明日方舟自动化日报（{report.get('date')}）",
                 "",
                 f"- **结论**: {'✅ 已完成' if report['workflow_completed'] else '⚠️ 部分完成'}",
-                f"- **周剿灭**: 本周已完成，本轮按缓存跳过",
+                f"- **周剿灭**: 本轮记录状态 {(summary.get('annihilation') or {}).get('status', 'unknown')}",
                 f"- **活动**: {resolution['event_name']}已按用户明确收口；本期无独立活动任务领奖域",
                 f"- **理智用途**: {handoff.get('stage')} × {handoff.get('runs')}，实际消耗 {handoff.get('sanity_consumed')} 理智",
-                f"- **实时余额**: {report.get('final_stamina')}/210；自然回复 {((report.get('sanity') or {}).get('natural_recovered'))} 理智",
-                "- **最终日常**: StartUp、Infrast、Recruit、Mall、Award 均已完成",
+                f"- **实时余额**: {report.get('final_stamina')}/{report.get('max_stamina', '上限未核验')}；自然回复 {((report.get('sanity') or {}).get('natural_recovered'))} 理智",
+                f"- **最终日常**: {'五链均已核验完成' if report['daily_all_ok'] else '仍有未核验链'}",
                 "- **资源限制**: 未使用药剂或源石",
                 f"- **清理**: {'游戏、MAA、MuMu均已退出' if report.get('all_cleaned') else '未完全清理'}",
                 "",
@@ -181,7 +181,10 @@ def reconcile_manifest(manifest_path, report):
 def install(runtime, *, resolution_path=RESOLUTION_PATH):
     if getattr(runtime, "_daily_event_reward_applicability_v1_installed", False):
         return runtime
-    resolution = load_resolution(resolution_path)
+    try:
+        resolution = load_resolution(resolution_path)
+    except FileNotFoundError:
+        return runtime  # Missing recipient exception cannot assert not_applicable.
 
     original_event_steps = runtime._run_full_event_steps
     original_report = runtime.generate_daily_report

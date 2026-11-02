@@ -5,7 +5,7 @@ import json
 import zero_sanity_event_policy_v1 as v1
 import zero_sanity_event_policy_v2 as previous
 
-EVIDENCE = Path(__file__).resolve().parent / 'config/museum_evolution_20261024_evidence.json'
+EVIDENCE = Path(__file__).resolve().parent / 'recipient_resources/museum/current_evidence.json'
 
 
 def museum_record(data=None):
@@ -27,7 +27,12 @@ def museum_record(data=None):
 
 
 def classify_zero_sanity_event(name, *, at=None):
-    record = museum_record()
+    try:
+        record = museum_record()
+    except FileNotFoundError:
+        # No author evidence is packaged. Absence disables this special reader,
+        # not ordinary event classification; invalid supplied evidence still fails.
+        return previous.classify_zero_sanity_event(name, at=at)
     if v1._normalize(name) == v1._normalize(record['name']) and v1._active(record, at):
         return record
     return previous.classify_zero_sanity_event(name, at=at)

@@ -15,7 +15,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-RESOLUTION_PATH = ROOT / "config" / "current_event_resolution_20260926.json"
+RESOLUTION_PATH = ROOT / "config" / "recipient_current_event_resolution.json"
 WEEKLY_COMPLETE = {"completed_weekly", "skipped_weekly_complete"}
 
 
@@ -56,7 +56,10 @@ def install(runtime, *, resolution_path=RESOLUTION_PATH):
     if getattr(runtime, "_daily_flow_continuity_v51_installed", False):
         return runtime
 
-    resolution = load_resolution(resolution_path)
+    try:
+        resolution = load_resolution(resolution_path)
+    except FileNotFoundError:
+        return runtime  # No recipient declaration: retain original event guards.
     original_event_steps = runtime._run_full_event_steps
     original_record_request = runtime._record_decision_request
 
@@ -91,7 +94,7 @@ def install(runtime, *, resolution_path=RESOLUTION_PATH):
             "purpose": resolution.get("stamina_purpose"),
             "medicine": False,
             "originium": False,
-            "source": "current_event_resolution_20260926",
+            "source": "recipient_current_event_resolution",
         }
         runtime.log(
             "  [V51] 当前零理智活动已有用户明确收口；周剿灭已完成，"

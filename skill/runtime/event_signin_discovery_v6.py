@@ -16,8 +16,7 @@ import event_signin_v5 as claims
 from daily_home_state_v1 import home_anchors
 
 ROOT = Path(__file__).resolve().parent
-REFERENCE = ROOT/'assets/event_signin/home_folded_20261024.png'
-REFERENCE_SHA = '8BC038FCACFA8987C7C30126113E1C56598ED5FA8ABFBE3778A75014BD48BC77'
+from portable_resources_v1 import local_visual_path
 V5_INSTALL = claims.install
 SIGNIN = ('签到', '登录奖励', '登陆奖励', '累计登录', '累计登陆', '每日登录', '每日登陆',
           '限时登录', '限时登陆', '登录活动', '登陆活动')
@@ -69,9 +68,10 @@ def home_control(path, items, kind='folded'):
     import cv2
     import numpy as np
     from PIL import Image
-    if hashlib.sha256(REFERENCE.read_bytes()).hexdigest().upper() != REFERENCE_SHA:
-        raise ValueError('home affordance reference changed')
-    with Image.open(path) as image, Image.open(REFERENCE) as ref:
+    reference = local_visual_path('signin_folded_v6' if kind == 'folded' else 'signin_expanded_v6')
+    if reference is None:
+        return None
+    with Image.open(path) as image, Image.open(reference) as ref:
         if image.size != (1920, 1080):
             return None
         actual, source = np.array(image.convert('RGB')), np.array(ref.convert('RGB'))
@@ -80,7 +80,7 @@ def home_control(path, items, kind='folded'):
         (373, 49, 444, 86), (330, 15, 490, 112))
     a,b,c,d = box; x,y,z,w = roi
     white = lambda p: np.uint8(np.all(p > 205, axis=2))*255
-    template, search = white(source[b:d,a:c]), white(actual[y:w,x:z])
+    template, search = white(source), white(actual[y:w,x:z])
     if template.std() < 5:
         return None
     score = cv2.matchTemplate(search, template, cv2.TM_CCOEFF_NORMED)

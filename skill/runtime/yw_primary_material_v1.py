@@ -9,7 +9,7 @@ import re
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parent
-CATALOG = ROOT / "outputs/yw_20261009/candidates/catalog.json"
+CATALOG = ROOT / "recipient_resources/yw/catalog.json"
 CATALOG_SHA = "F0BE6E6663C6C75B08549FAEC9FEFD37A08475FF2B9AFC68EEFF0B838516E264"
 
 RANK = {"ALWAYS": 5, "ALMOST": 4, "USUAL": 3, "OFTEN": 2, "SOMETIMES": 1, "RARE": 0}
@@ -52,7 +52,7 @@ def choose(catalog, tip):
 
 
 def normalize_orirock(tip, *, now=None):
-    """User-confirmed exception: fresh completed scan omitting cube means 0.
+    """Optional recipient-confirmed zero bound to this exact fresh scan.
 
     Only material 30012 receives this rule. Stale/failed scans and explicit
     malformed values remain unknown; the raw MAA cache is never overwritten.
@@ -67,11 +67,17 @@ def normalize_orirock(tip, *, now=None):
     counts = depot.get('counts') or {}
     if depot.get('fresh') is not True or not current or '30012' in counts:
         return tip
+    fact = (depot.get('recipient_zero_confirmations') or {}).get('30012') or {}
+    if (fact.get('value') != 0 or type(fact.get('value')) is not int
+            or fact.get('authority') != 'recipient_confirmation'
+            or fact.get('scan_sync_time') != depot['sync_time']):
+        return tip  # Absence stays unknown; author account facts are not defaults.
     result = deepcopy(tip)
+    result['depot']['counts'] = dict(counts)
     result['depot']['counts']['30012'] = 0
     result['depot'].setdefault('count_basis', {})['30012'] = {
         'value': 0, 'raw_entry_absent': True,
-        'authority': 'user_confirmed_depleted_orirock_cube_20261010',
+        'authority': 'recipient_confirmation',
         'sync_time': depot['sync_time'],
     }
     return result
@@ -82,7 +88,10 @@ def current_choice(event, tip, *, now=None):
     if canonical_name(event.get("name")) != "昨日海" or event.get("stage_prefix") != "YW":
         return None
     now = now or datetime.now(timezone.utc)
-    raw = CATALOG.read_bytes()
+    try:
+        raw = CATALOG.read_bytes()
+    except OSError:
+        return None  # Recipient must supply the independently pinned catalog.
     if hashlib.sha256(raw).hexdigest().upper() != CATALOG_SHA:
         return None
     catalog = json.loads(raw)

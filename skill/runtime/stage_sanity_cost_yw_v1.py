@@ -12,7 +12,7 @@ import re
 from stage_sanity_cost_v1 import read_cost as ORIGINAL_READ_COST, parse_cost
 
 ROOT = Path(__file__).resolve().parent
-CATALOG = ROOT / "outputs/yw_20261009/candidates/catalog.json"
+CATALOG = ROOT / 'recipient_resources/yw/catalog.json'
 CATALOG_SHA = "F0BE6E6663C6C75B08549FAEC9FEFD37A08475FF2B9AFC68EEFF0B838516E264"
 
 
@@ -36,7 +36,10 @@ def read_cost(image_path, items, recognizer):
     original = ORIGINAL_READ_COST(image_path, items, recognizer)
     if len(codes) != 1:
         return original
-    raw = CATALOG.read_bytes()
+    try:
+        raw = CATALOG.read_bytes()
+    except OSError:
+        return None  # Exact recipient-acquired catalog is required, not an inferred cost.
     if hashlib.sha256(raw).hexdigest().upper() != CATALOG_SHA:
         return None
     code = next(iter(codes))

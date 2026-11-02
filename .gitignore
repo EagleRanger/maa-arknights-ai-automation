@@ -18,4 +18,8 @@ __pycache__/
 .venv/
 venv/
 
+# Receiver-only visual references and task evidence
+skill/runtime/recipient_resources/
+skill/runtime/config/local_visual_resources_v1.json
+
 

@@ -2,7 +2,7 @@
 name: arknights-automation
 description: "Control, diagnose, migrate, configure, recover, monitor, and verify AI-orchestrated Windows Arknights automation built on MAA and a supported emulator. Use when an AI agent must manage MAA beyond one-click tasks: autonomously find and advance unfinished mainline stages except tutorials, service Integrated Strategies reward tracks and permanent-growth points after settlement, route current events and mainline before fallback farming, apply inventory-driven base production, verify Security Service cap state, migrate to another Windows PC, fuse image/log evidence, recover interruptions or stale queues, enforce one controller, clean up, and report only verified results."
 metadata:
-  version: "1.1.1"
+  version: "1.2.0"
 ---
 
 # MAA Arknights AI Control
@@ -24,7 +24,7 @@ Use explicit task composition rather than an ever-growing chain of version wrapp
 
 Keep game effects, completion-record persistence, exit/reward servicing, cleanup, and report verification separate. A failed record write is not permission to replay a successful battle. Render JSON, detailed text, and the final notification from the same reconciled, run-scoped ledger; GUI queue selection is not the whole-run business result.
 
-Version 1.1.1 carries the existing execution source and reusable workflow contracts. The receiving machine still needs local interface and task binding; source inclusion does not transfer the author's account state or prove a new machine's runtime behavior.
+Version 1.2.0 carries the execution source through the V146 daily entry and V3 Sami supervisor, plus reusable workflow contracts. The receiving machine still needs local interface and task binding; source inclusion does not transfer the author's account state or prove a new machine's runtime behavior. For current activity layouts, resource provenance, missing reference images and bounded AI handoff, read [runtime-resources.md](references/runtime-resources.md). V146 has offline validation, not a claim of full daily live acceptance.
 
 ## AI, MAA, and emulator boundary
 
@@ -55,6 +55,7 @@ Read [runtime-contract.md](references/runtime-contract.md) for authority and acc
 - For session accounting, failed completion-record writes, false-negative verification, and consistent JSON/text/notification reports, read [result-ledger-and-reconciliation.md](references/result-ledger-and-reconciliation.md).
 - For interrupted-run continuation, multi-phase events, cross-rotation settlement evidence, temporary-resource restoration, or scoped final reporting, read [continuation-and-closeout.md](references/continuation-and-closeout.md). Apply its checks to the affected domain without replaying verified effects or blocking unrelated authorized work.
 - For transfer to another Windows PC, first read [receiver-integration.md](references/receiver-integration.md). Reuse the supplied custom execution logic; let the receiving AI discover/install third-party dependencies and bind its own environment. Read [windows-portability.md](references/windows-portability.md) only for the relevant connection or display details. The user logs in personally; installation does not require an extra identity check or a test battle.
+- For PP-OCRv6 model acquisition, mismatched ONNX hashes, or local worker setup, read [local-ocr-setup.md](references/local-ocr-setup.md). Use the pinned RapidAI/ModelScope ONNX distribution and existing preflight; do not substitute RTEN or another export, change expected hashes to fit a download, or confuse model generation with library version.
 - For scene classification, target candidates, action gates, post-action verification, run-scoped logs, multi-frame numeric reads, adaptive base decisions, and Security Service checks, read [recognition-and-service-gates.md](references/recognition-and-service-gates.md).
 - For a daily full run, autonomous unfinished-mainline progression, event progression, stamina use, final reward cleanup, and shutdown, read [workflows.md](references/workflows.md).
 - For Integrated Strategies reward tracks, permanent-growth trees, monthly/recollection teams, investigations, and settlement-boundary servicing, read [roguelike-rewards.md](references/roguelike-rewards.md).

@@ -2,9 +2,9 @@
 
 让 AI 按玩家的实际需求安排《明日方舟》的日常，把刷图、找作业、推进关卡、领奖和基建生产接成一套自动化流程，减少反复查看进度和手动切换任务的时间。
 
-当前正式版：**v1.1.1**。适用于 Windows 上的 AI 编程/执行工具，基于 MAA 与 Android 模拟器运行，附带本项目的执行源码和迁移说明。
+当前正式版：**v1.2.0**。适用于 Windows 上的 AI 编程/执行工具，基于 MAA 与 Android 模拟器运行，附带本项目的执行源码和迁移说明。
 
-[下载最新版](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/latest) · [接收方 AI 对接说明](skill/references/receiver-integration.md)
+[下载最新版](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/latest) · [接收方 AI 对接说明](skill/references/receiver-integration.md) · [OCR 模型来源与安装自检](skill/references/local-ocr-setup.md)
 
 <!-- project-support:start -->
 > 如果本项目对你或你的 AI 开发有帮助，下载使用或借鉴后，欢迎点个 [Star](https://github.com/EagleRanger/maa-arknights-ai-automation) 支持，让更多有同类需求的人找到它。
@@ -33,11 +33,17 @@
 
 MAA 提供刷图、招募、基建及作业执行等基础能力；本项目提供上层 AI 编排、未通关内容推进、跨任务衔接、状态复核和异常续接。两者配合使用，本项目不替代或重新分发 MAA。
 
-## v1.1.1 包含什么
+## v1.2.0 更新重点
 
-- 358 份既有 Python 代码与 1 份路径适配文件，覆盖每日编排、主线、肉鸽、识别、恢复、结果汇报和共用宿主能力。
+- **活动关卡更稳地接续**：新增活动版面识别，复核目标关卡、关卡类型、三星状态和单次理智消耗，减少跳错关、看错费用或误把多次消耗当单次费用。
+- **未覆盖页面交回 AI 处理**：遇到陌生活动版面时，保留截图、OCR、失败阶段和识别锚点，交给已配置的 AI 协作入口；不靠盲点坐标继续。不代表自动修好所有新活动。
+- **活动签到与奖励领取**：补充签到、许愿墙及领奖复核；特定活动教学关的代理处理仍属测试能力，不改变普通主线教学关需人工接管的边界。
+- **资源与运行接缝**：更新 MAA 资源衔接、作业失败分类、肉鸽监督入口及仅提示、不自行覆盖文件的版本检查。
+- 随包提供实际执行源码、必要资源的来源与指纹说明，覆盖每日编排、主线、肉鸽、识别、恢复、结果汇报和共用宿主能力。
 - Skill 入口、功能说明、任务契约示例、本机配置示例和源码完整性清单。
 - 给接收方 AI 使用的源码入口与环境对接说明。
+
+验证边界：V144 有一次受控签到/许愿墙实机记录；V146 跨活动识别完成项目离线回归及本发布候选的外层组合测试。后者不等于 V146 整日实机运行、全部旧版组合或任意活动已通过。发布过程不启动游戏。
 
 这是可供 AI 迁移的源码 Skill，不是一键安装器。把仓库或 ZIP 交给接收方 AI，由它复用现有代码、安装所需公开依赖，并完成本机接口配置；不需要依据功能介绍重新开发核心业务。
 
@@ -71,7 +77,7 @@ MAA 是本项目的重要基础。感谢 [MaaAssistantArknights](https://github.
 
 本项目不是 MAA、鹰角网络或《明日方舟》官方项目，不使用 MAA Logo，不宣称官方合作。使用者应遵守 [MAA 用户协议](https://github.com/MaaAssistantArknights/MaaAssistantArknights/blob/dev-v2/terms-of-service.md) 与游戏运营规则，并自行评估真实账号自动化风险。
 
-MAA 等第三方组件遵循各自许可。本仓库目前公开可查看，尚未为本项目单独指定复用许可证；具体归属与素材说明见 [NOTICE.md](NOTICE.md)。
+MAA 等第三方组件遵循各自许可；随包的少量第三方地图资料单独保留原许可。本项目自有部分尚未单独指定复用许可证；具体归属与素材说明见 [NOTICE.md](NOTICE.md)。
 
 <!-- windows-app-automation-collection:start -->
 ## 其他工具

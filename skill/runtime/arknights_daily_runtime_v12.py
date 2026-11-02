@@ -110,11 +110,10 @@ os.makedirs(RUNTIME_STATE_DIR, exist_ok=True)
 COPILOT_DIR = os.path.join(BASE, "outputs", "copilot_ops_full")
 INDEXED_COPILOT_DIR = os.path.join(BASE, "outputs", "copilot_ops")
 BUNDLED_COPILOT_DIR = os.path.join(SCRIPT_DIR, "copilot_jobs")
-# 用户2026-08-17要求：作业作者写入的技能等级/模组是建议门槛，先交给
-# 真实自动编队和战斗验证；只有缺少干员或实际战败才阻断。设为1可恢复
-# MAA原生严格前置检查，便于随时回滚。
+# 默认保留MAA原生严格前置检查。仅接收方明确设置为0时，才把作业的
+# 技能等级/模组建议交给真实编队与结果验证；不继承作者账号的个人策略。
 RELAX_COPILOT_SKILL_MODULE_REQUIREMENTS = (
-    os.environ.get("ARK_COPILOT_STRICT_REQUIREMENTS", "0").strip() != "1"
+    os.environ.get("ARK_COPILOT_STRICT_REQUIREMENTS", "1").strip() == "0"
 )
 PROGRESS_FILE = os.path.join(BASE, "outputs", "主线通关进度.json")
 EVENT_PROGRESS_FILE = os.path.join(BASE, "outputs", "活动通关进度.json")
@@ -346,104 +345,6 @@ ACTIVE_EVENTS = [
                 "modes": ["normal", "challenge"],
             }
             for i in range(1, 5)
-        ],
-    },
-    {
-        "name": "直到大地变成一颗酸橙",
-        "start": "2026-08-01T12:00:00",
-        # 当前开放的第一段作战持续到08月22日03:59；后续两段只是在同一
-        # 活动内追加节点，不应因为首日尚未开放就回退主线。
-        "end": "2026-08-22T03:59:00",
-        "kind": "new",
-        # 终端卡片使用美术字，RapidOCR实机常把前半句拆错；“酸橙”是该卡
-        # 独有且稳定的尾部文字。仍需在点击后用本期TO节点闭环确认，不能仅凭
-        # 这个短词把任意页面当成活动地图。
-        "entry_keywords": ["直到大地变成一颗酸橙", "酸橙"],
-        "combat_keywords": ["驶向大地尽头"],
-        # 活动地图底部真实页签；普通与EX必须由本期配置决定，禁止沿用上期
-        # 红丝绒“演出开始/为戏剧，为永恒”的硬编码。
-        "section_keywords": {
-            "normal": ["驶向大地尽头"],
-            "ex": ["踏上归家长途"],
-            "s": ["眺望待行之路"],
-        },
-        # 三个篇章页签在1920x1080活动地图底部。白底美术字在实机截图中
-        # 可能完全漏OCR，所以仅在已确认本期TO节点时允许使用坐标回退；
-        # 点击后仍必须看到目标关卡族节点，不能把坐标点击本身当成功。
-        "section_positions": {
-            "normal": [1290, 1000],
-            "ex": [1515, 1000],
-            "s": [1750, 1000],
-        },
-        # 用户2026-08-03实机确认：“安洁莉娜的旅行小记”是需要遥感操控
-        # 的小游戏，当前自动化不能可靠完成。其入口及关联奖励本期均不自动
-        # 点击，也不作为今日活动战斗闭环的完成条件。
-        "task_keywords": [],
-        "task_claim_enabled": False,
-        "task_claim_skip_reason": "安洁莉娜的旅行小记需遥感操控；用户明确要求当前暂不领取",
-        "stage_prefix": "TO",
-        # 用户2026-08-03明确指定：后续EX关开放前，活动期剩余理智固定刷TO-8。
-        # 这条资源用途覆盖首日曾使用的TO-9临时配置，不能由“最高已通关关卡”推断回去。
-        "farm_stage": "TO-8",
-        "farm_cost": 21,
-        # SideStory 普通第一段没有逐关突袭入口；EX阶段按每关自己的模式配置，
-        # 不能把“所有关卡都普通+突袭”机械套进普通主线。
-        "first_clear_modes": ["normal"],
-        # 中途剧情同样是后续战斗关的真实解锁前置。实机已确认 TO-6 后
-        # 必须先完成 TO-ST-2，才能出现 TO-7；不能把它误报成地图定位失败。
-        "story_stages": ["TO-ST-1", "TO-ST-2"],
-        # TO-1结束后会依次出现剧情/教学前置。教学关需要用户手动完成；
-        # 若TO-2尚未出现且地图明确看到TO-TR-1，应直接说明真实阻挡，
-        # 不能继续横扫地图并笼统报告“关卡未找到”。
-        "manual_prerequisites": [
-            {"display": "TO-TR-1", "before": "TO-2", "kind": "tutorial"},
-        ],
-        # 本期地图的 y=700 横穿 TO-3/TO-5 标签与连线；而 x=1500 位于
-        # 右侧蓝色云层装饰，二者都会让拖动不交给真实地图。实机截图确认
-        # 左侧三角地图内 y=850、x=250~650 是无节点的可交互带。
-        "navigation_swipe_y": 850,
-        "navigation_reset_swipe": [250, 850, 650, 850, 700],
-        "navigation_forward_swipe": [650, 850, 250, 850, 700],
-        "sanity_costs": {
-            **{f"TO-{i}": 9 if i <= 2 else (12 if i <= 5 else 21) for i in range(1, 10)},
-            "TO-EX-1": 10, "TO-EX-2": 10,
-            "TO-EX-3": 15, "TO-EX-4": 15, "TO-EX-5": 15, "TO-EX-6": 15,
-            "TO-EX-7": 20, "TO-EX-8": 20,
-            "TO-S-1": 10, "TO-S-2": 10,
-            "TO-S-3": 15, "TO-S-4": 15,
-            "TO-MO-1": 25,
-        },
-        # 普通活动主线 TO-1~TO-9 与已开放的 EX-1~EX-8 分开声明模式。
-        # 普通关只核对普通三星；EX关依次完成普通和突袭，再进入TO-8刷取。
-        "stages": [
-            {
-                "display": f"TO-{i}",
-                "internal": f"act53side_{i:02d}",
-                "modes": ["normal"],
-            }
-            for i in range(1, 10)
-        ] + [
-            {
-                "display": f"TO-EX-{i}",
-                "internal": f"act53side_ex{i:02d}",
-                "challenge_internal": f"act53side_ex{i:02d}#f#",
-                "modes": ["normal", "challenge"],
-            }
-            for i in range(1, 9)
-        ] + [
-            {
-                "display": f"TO-S-{i}",
-                "internal": f"act53side_s{i:02d}",
-                "challenge_internal": f"act53side_s{i:02d}#f#",
-                "modes": ["normal", "challenge"],
-            }
-            for i in range(1, 5)
-        ] + [
-            {
-                "display": "TO-MO-1",
-                "internal": "act53side_mo01",
-                "modes": ["normal"],
-            }
         ],
     },
     {
@@ -2301,8 +2202,7 @@ def _configure_roguelike(
         "Roles": str(roles or "稳扎稳打"),
         "StartCount": starts_count,
         "CoreChar": str(core_char or ""),
-        # 用户已确认前瞻性投资及古堡笔记等级均已完成。后续肉鸽的
-        # 目标是尚未领取的实际奖励，不再在商店消耗源石锭定投。
+        # 保守默认不消耗源石锭定投；不据此认定接收方已完成投资或笔记。
         "Investment": False,
         "InvestWithMoreScore": False,
         "MonthlySquadAutoIterate": is_monthly,

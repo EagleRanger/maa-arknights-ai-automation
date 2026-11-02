@@ -5,14 +5,16 @@ from unittest.mock import patch
 import cv2,numpy as np
 
 ROOT=Path(__file__).resolve().parent
-TEMPLATE=ROOT/'assets/vision/base_notification_v1/InfrastNotification.png'
+from portable_resources_v1 import local_visual_path
 # MAA 6.19 InfrastNotification / InfrastReward / InfrastExitReward, 1280x720.
 COLLECT_WORDS=('可收获','订单交付','员信赖')
 
 
 def bell_position(path):
+    reference=local_visual_path('base_notification')
+    if reference is None:return None
     frame=cv2.imdecode(np.fromfile(str(path),np.uint8),1)
-    template=cv2.imdecode(np.fromfile(str(TEMPLATE),np.uint8),0)
+    template=cv2.imdecode(np.fromfile(str(reference),np.uint8),0)
     if frame is None or frame.shape[:2]!=(1080,1920):return None
     frame=cv2.cvtColor(cv2.resize(frame,(1280,720)),cv2.COLOR_BGR2GRAY)
     roi=frame[0:300,1100:1280]

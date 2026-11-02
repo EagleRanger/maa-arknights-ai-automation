@@ -44,7 +44,10 @@ def read_cost(path, items, recognizer):
         or not any(x>=1550 and 930<=y<=1030 and '开始行动' in str(t) for t,x,y in items)
         or not any(1550<=x<=1900 and 840<=y<=930 and '代理指挥' in str(t) for t,x,y in items)):
         return None
-    raw=CATALOG.read_bytes()
+    try:
+        raw=CATALOG.read_bytes()
+    except OSError:
+        return None  # Missing receiver catalog cannot become a unit-price guess.
     if hashlib.sha256(raw).hexdigest().upper()!=CATALOG_SHA:return None
     code=next(iter(codes))
     costs=[s['apCost'] for s in json.loads(raw)['stages'] if s['code']==code]

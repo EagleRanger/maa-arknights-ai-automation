@@ -8,15 +8,18 @@ def ascending_arrow(path):
     import cv2
     import numpy as np
     import hashlib
-    source = Path(__file__).resolve().parent/'assets/activity_room_visual_v1/trust_ascending_reference.png'
-    if (not source.is_file() or hashlib.sha256(source.read_bytes()).hexdigest() !=
-            '13f8ce21c9dca216e85f02c71318f5951453b0d3b59143f631d5d78650f5a534'):
+    from portable_resources_v1 import local_visual_path
+    source = local_visual_path('trust_ascending')
+    if source is None:
         return False
     masks = []
-    for p in (source, Path(path)):
+    for index,p in enumerate((source, Path(path))):
         a = cv2.imdecode(np.frombuffer(p.read_bytes(), np.uint8), cv2.IMREAD_COLOR)
-        if a is None or a.shape[:2] != (1080, 1920): return False
-        masks.append(cv2.inRange(cv2.cvtColor(a[60:90,1550:1600], cv2.COLOR_BGR2HSV),
+        if a is None: return False
+        if index == 1:
+            if a.shape[:2] != (1080,1920): return False
+            a = a[60:90,1550:1600]
+        masks.append(cv2.inRange(cv2.cvtColor(a, cv2.COLOR_BGR2HSV),
                                  (85, 120, 100), (115, 255, 255)) > 0)
     union = np.logical_or(*masks).sum()
     return bool(union > 20 and np.logical_and(*masks).sum()/union >= .95)

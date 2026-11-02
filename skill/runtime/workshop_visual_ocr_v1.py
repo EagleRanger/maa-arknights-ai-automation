@@ -4,10 +4,7 @@ import hashlib
 import re
 
 
-REFERENCE = Path(__file__).resolve().parent/'assets/activity_room_visual_v1/workshop_zero_lmd_reference.png'
-REFERENCE_SHA256 = 'db8dfd327a445c5e31a508c7b4f30b67d282c9b6c36973daf455171d544b9187'
-EIGHT_REFERENCE = Path(__file__).resolve().parent/'assets/activity_room_visual_v1/workshop_mood8_reference.png'
-EIGHT_SHA256 = 'b1173118b5f6c09188b0eb0ab7db76123d65977b7b91e96ea4b512c073a12d8a'
+from portable_resources_v1 import local_visual_path
 
 
 def items(runtime, path):
@@ -40,24 +37,26 @@ def items(runtime, path):
                 if float(confidence) >= .45 and re.fullmatch(r'\d+', str(text)):
                     values.append((str(text), 1760, 340))
     if not any(1700 < x < 1850 and 305 < y < 370 and re.fullmatch(r'\d+', t) for t, x, y in values):
-        if EIGHT_REFERENCE.is_file() and hashlib.sha256(EIGHT_REFERENCE.read_bytes()).hexdigest() == EIGHT_SHA256:
-            ref = cv2.imdecode(np.frombuffer(EIGHT_REFERENCE.read_bytes(), np.uint8), cv2.IMREAD_COLOR)
+        reference = local_visual_path('workshop_mood8')
+        if reference is not None:
+            ref = cv2.imdecode(np.frombuffer(reference.read_bytes(), np.uint8), cv2.IMREAD_COLOR)
             def eight_mask(image):
-                roi = cv2.cvtColor(image[315:370, 1725:1810], cv2.COLOR_BGR2HSV)
+                roi = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
                 return cv2.inRange(roi, (0, 0, 210), (179, 65, 255)) > 0
-            a, b = eight_mask(frame), eight_mask(ref)
+            a, b = eight_mask(frame[315:370, 1725:1810]), eight_mask(ref)
             union = int((a | b).sum())
             if union >= 40 and int((a & b).sum())/union >= .97:
                 values.append(('8', 1760, 340))
     if not any(1490 < x < 1620 and 305 < y < 370 and re.fullmatch(r'\d+', t) for t, x, y in values):
         # Only accept the exactly observed blue zero glyph, never infer free
         # processing from absent OCR. Other fees must be read as actual digits.
-        if REFERENCE.is_file() and hashlib.sha256(REFERENCE.read_bytes()).hexdigest() == REFERENCE_SHA256:
-            ref = cv2.imdecode(np.frombuffer(REFERENCE.read_bytes(), np.uint8), cv2.IMREAD_COLOR)
+        reference = local_visual_path('workshop_zero')
+        if reference is not None:
+            ref = cv2.imdecode(np.frombuffer(reference.read_bytes(), np.uint8), cv2.IMREAD_COLOR)
             def zero_mask(image):
-                roi = cv2.cvtColor(image[315:370, 1525:1595], cv2.COLOR_BGR2HSV)
+                roi = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
                 return cv2.inRange(roi, (85, 100, 170), (120, 255, 255)) > 0
-            a, b = zero_mask(frame), zero_mask(ref)
+            a, b = zero_mask(frame[315:370, 1525:1595]), zero_mask(ref)
             union = int((a | b).sum())
             if union >= 40 and int((a & b).sum())/union >= .97:
                 values.append(('0', 1560, 340))

@@ -1,0 +1,90 @@
+{
+  "schema": "maa_tl_subset_v1",
+  "license": "AGPL-3.0",
+  "project": "MaaAssistantArknights/MaaResource",
+  "source_url": "https://github.com/MaaAssistantArknights/MaaResource/archive/0b5acaf5fdaf76636739bb953882caff861223e1.zip",
+  "source_commit": "0b5acaf5fdaf76636739bb953882caff861223e1",
+  "source_archive_sha256": "CE56C6170B0DC5A09AF84BC31920935DFF6DE45BE661A81EE717746984EBC785",
+  "subset_sha256": "34510776BC79138294EBF083D092ECB3462D0217CC2DD2644FC7A57794E1611C",
+  "changes": "Overview filtered to the 11 act55side_ rows; tile JSON and LICENSE byte-identical. ZIP container rebuilt deterministically; no game screenshots, templates, accounts, binary or model files.",
+  "upstream_license_url": "https://github.com/MaaAssistantArknights/MaaResource/blob/0b5acaf5fdaf76636739bb953882caff861223e1/LICENSE",
+  "members": [
+    {
+      "member": "MaaResource-main/resource/Arknights-Tile-Pos/overview.json",
+      "sha256": "711BDE183A1C644D867885BAD1ED2633E5DF0DD453200B9B3317EB4030CBF632",
+      "original_sha256": "5FF036F93A44F5837CEA8B12ABB1A723F5C8D8746D4152BA0A5B07B83706D3EB",
+      "reason": "only index read by maps(); unrelated stages excluded"
+    },
+    {
+      "member": "MaaResource-main/resource/Arknights-Tile-Pos/act55side_01-activities-act55side-level_act55side_01.json",
+      "sha256": "163DF75F912B43D986502D2AF0EE800770EE9ED8FCF5FB407B8267095AC54940",
+      "code": "TL-1",
+      "reason": "direct maps() act55side_ consumer; TL-1..10 plus prerequisite TL-TR-1"
+    },
+    {
+      "member": "MaaResource-main/resource/Arknights-Tile-Pos/act55side_02-activities-act55side-level_act55side_02.json",
+      "sha256": "306E750A9F3D89E2FB2E6040192019272BFA34C3651AD06EE51FD4A669EF00A3",
+      "code": "TL-2",
+      "reason": "direct maps() act55side_ consumer; TL-1..10 plus prerequisite TL-TR-1"
+    },
+    {
+      "member": "MaaResource-main/resource/Arknights-Tile-Pos/act55side_03-activities-act55side-level_act55side_03.json",
+      "sha256": "FCDAF8B16E723ADE15D2207F1FFF3663FD2A6793DEC2890E66C2129EDFF4558B",
+      "code": "TL-3",
+      "reason": "direct maps() act55side_ consumer; TL-1..10 plus prerequisite TL-TR-1"
+    },
+    {
+      "member": "MaaResource-main/resource/Arknights-Tile-Pos/act55side_04-activities-act55side-level_act55side_04.json",
+      "sha256": "C0B216BD2326B8202E325FD0341DFC3DAF7C3A986D8B40DC27485BD9174614F3",
+      "code": "TL-4",
+      "reason": "direct maps() act55side_ consumer; TL-1..10 plus prerequisite TL-TR-1"
+    },
+    {
+      "member": "MaaResource-main/resource/Arknights-Tile-Pos/act55side_05-activities-act55side-level_act55side_05.json",
+      "sha256": "B45FACCD64AD8F031EABB4E2EFD264BBCAF34180558B4BFDC012935C2B7A1FAE",
+      "code": "TL-5",
+      "reason": "direct maps() act55side_ consumer; TL-1..10 plus prerequisite TL-TR-1"
+    },
+    {
+      "member": "MaaResource-main/resource/Arknights-Tile-Pos/act55side_06-activities-act55side-level_act55side_06.json",
+      "sha256": "D3173DFB696D9555103DD8F45F7836E3444AD22EEE698739D6E9A4954BE67443",
+      "code": "TL-6",
+      "reason": "direct maps() act55side_ consumer; TL-1..10 plus prerequisite TL-TR-1"
+    },
+    {
+      "member": "MaaResource-main/resource/Arknights-Tile-Pos/act55side_07-activities-act55side-level_act55side_07.json",
+      "sha256": "CADFF3D1FA563B515123F678B064108500E525CDB63F2CAD813CF92ED89B8F5A",
+      "code": "TL-7",
+      "reason": "direct maps() act55side_ consumer; TL-1..10 plus prerequisite TL-TR-1"
+    },
+    {
+      "member": "MaaResource-main/resource/Arknights-Tile-Pos/act55side_08-activities-act55side-level_act55side_08.json",
+      "sha256": "62DCD2B0C348C06896DEF8191963586554124BC4601343EFBB518513806375A8",
+      "code": "TL-8",
+      "reason": "direct maps() act55side_ consumer; TL-1..10 plus prerequisite TL-TR-1"
+    },
+    {
+      "member": "MaaResource-main/resource/Arknights-Tile-Pos/act55side_09-activities-act55side-level_act55side_09.json",
+      "sha256": "E63940D0CA3855D79722502096C7AADCF9D40203FF14922B83B0080AF8C0664D",
+      "code": "TL-9",
+      "reason": "direct maps() act55side_ consumer; TL-1..10 plus prerequisite TL-TR-1"
+    },
+    {
+      "member": "MaaResource-main/resource/Arknights-Tile-Pos/act55side_10-activities-act55side-level_act55side_10.json",
+      "sha256": "9649DDE0F297A3A33560FC8F679F39C9A930E2A5920E1D49E0DD03C1573BC65D",
+      "code": "TL-10",
+      "reason": "direct maps() act55side_ consumer; TL-1..10 plus prerequisite TL-TR-1"
+    },
+    {
+      "member": "MaaResource-main/resource/Arknights-Tile-Pos/act55side_tr01-activities-act55side-level_act55side_tr01.json",
+      "sha256": "38C6AF4C7AA4183F7BE24C8CED5931702958064A9F0120CCD090018650D8DB53",
+      "code": "TL-TR-1",
+      "reason": "direct maps() act55side_ consumer; TL-1..10 plus prerequisite TL-TR-1"
+    },
+    {
+      "member": "MaaResource-main/LICENSE",
+      "sha256": "8486A10C4393CEE1C25392769DDD3B2D6C242D6EC7928E1414EFFF7DFB2F07EF",
+      "reason": "unmodified upstream license"
+    }
+  ]
+}

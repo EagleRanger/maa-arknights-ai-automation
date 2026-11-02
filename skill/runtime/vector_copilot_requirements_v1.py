@@ -1,11 +1,12 @@
-"""User-approved attribute-independent trial; full operator selection stays.
+"""Recipient-opted-in attribute-independent trial; full operator selection stays.
 
-2026-10-05: ignore operator training requirements and verify actual results.
+Disabled unless the recipient explicitly sets ARK_COPILOT_STRICT_REQUIREMENTS=0.
 Preserve the source job, names, chosen skills, groups, actions and notes.
 """
 from copy import deepcopy
 import hashlib
 import json
+import os
 from pathlib import Path
 from contextlib import contextmanager
 
@@ -30,6 +31,8 @@ def without_requirements(job):
 
 def trial_path(runtime, source, directory):
     source = Path(source)
+    if os.environ.get('ARK_COPILOT_STRICT_REQUIREMENTS', '1').strip() != '0':
+        return source
     original = json.loads(source.read_text(encoding="utf-8"))
     trial = without_requirements(original)
     if trial == original:
@@ -42,7 +45,7 @@ def trial_path(runtime, source, directory):
     runtime._atomic_write_json(str(path.with_suffix(".provenance.json")), {
         "source": str(source.resolve()),
         "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest().upper(),
-        "source_unchanged": True, "authority": "2026-10-05 user ignore operator training requirements",
+        "source_unchanged": True, "authority": "recipient_explicit_ARK_COPILOT_STRICT_REQUIREMENTS_0",
         "ignored": "elite, level, skill_level, module, potentiality recommendations",
         "preserved": "all operators/groups/skill choices/actions/doc; full formation and real outcome required",
     })
@@ -51,11 +54,14 @@ def trial_path(runtime, source, directory):
 
 @contextmanager
 def engine_boundary(runtime, directory):
-    """Apply the user policy to every Copilot import in this daily process.
+    """Apply only the recipient's explicit opt-in in this daily process.
 
     Bind the existing relaxation hook, not a second battle starter. Missing
     units and actual formation/result checks remain in the original engine.
     """
+    if os.environ.get('ARK_COPILOT_STRICT_REQUIREMENTS', '1').strip() != '0':
+        yield
+        return
     original = runtime._relaxed_copilot_job_path
 
     def relaxed(path):
