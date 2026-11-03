@@ -2,7 +2,7 @@
 
 ## Conclusion and support boundary
 
-The Skill targets ordinary Windows gaming PCs. It includes workflow guidance and custom execution source for the receiving AI to integrate, not a zero-configuration installer. Start with [receiver-integration.md](receiver-integration.md). Discover this PC's installed software and use its normal installation locations; obtain missing public dependencies from their official sources. The user logs in personally.
+The automation model is portable to ordinary Windows gaming PCs, but the current project implementation is not a zero-configuration portable binary. Its workflow, evidence gates, MAA queue control, ADB screenshot path, retry classification, and cleanup rules can be reused. Machine-specific paths, emulator instance/port, game package, Python runtime, and writable output locations must be discovered on every new PC.
 
 Supported baseline:
 
@@ -13,9 +13,13 @@ Supported baseline:
 - MAA, emulator, game client, and Python/OCR dependencies installed and readable;
 - network access when MAA resources, updates, or external copilot jobs are required.
 
-Do not claim that MAA opening proves the whole workflow. Check required paths/imports and, after the user has logged in, the target connection and screenshot size. Do not make an extra test battle or identity verification part of installation. Observe real results during the user's requested task.
+Do not claim another PC is supported merely because MAA opens. The minimum acceptance is a fresh ADB screenshot with exact dimensions, a valid game-package check, successful OCR imports, a single controller, and a non-destructive navigation verification. A real battle remains a separate authorized test.
 
-The receiving AI should consult the installed product's current official documentation when needed. MAA's own scaling support does not automatically scale this project's fixed ADB coordinates; these use 1920×1080.
+Official MAA references:
+
+- [MAA new-user requirements](https://docs.maa.plus/zh-cn/manual/newbie.html) state that Windows support is Windows 10/11 and emulator resolution should be landscape 1280×720 or 1920×1080.
+- [MAA connection settings](https://docs.maa.plus/zh-cn/manual/connection.html) document automatic ADB detection, MuMu's multiple possible ports, and manual ADB/configuration choices.
+- MAA task resources use a 1280×720 design base and scale internally. This project does not rely on that scaling for its own fixed ADB coordinates; it standardizes the emulator at 1920×1080 instead.
 
 ## Non-negotiable display profile
 
@@ -30,32 +34,37 @@ Use this exact emulator profile for this Skill:
 | Emulator density/DPI | Record it; do not use it as the primary gate | The verified MuMu instance reports physical density 280, but the decisive gate is the actual ADB screenshot being 1920×1080. |
 | Windows desktop scaling | Prefer 100% for first calibration | ADB screenshots/taps are unaffected. UI Automation is normally scale-safe, but any desktop-coordinate fallback must be recalibrated if Windows scaling is not 100%. |
 
-If the screenshot is 1280×720, 2560×1440, rotated, letterboxed, or cropped, stop. Change MuMu to 1920×1080 and restart the game. Do not add coordinate multiplication as a quick fix.
+If the **raw guest ADB** screenshot is 1280×720, 2560×1440, rotated,
+letterboxed, or cropped, pause the fixed-coordinate adapter and reconcile its
+display profile. Do not change emulator settings or restart a user-owned
+session without the applicable task authority. Do not add coordinate
+multiplication as a quick fix. MAA's own 1280×720 interface/debug capture is its
+normal recognition base and is not this guest-resolution failure.
 
 Android `wm size` may report the panel's physical dimensions as `1080x1920` even while the game screenshot is landscape 1920×1080. Gate on the captured PNG dimensions, not the text order from `wm size` alone.
 
-## Machine-local profile: discover, do not copy
+## Historical reference machine profile
 
-Discover these fields on the receiving PC; historical instance numbers, ports and Android versions are not current configuration:
+This older verified profile is evidence for comparison, not the current
+machine configuration or a portable default. Resolve the active instance,
+Android version and portable MAA directory from the current project binding:
 
-| Item | Receiver must determine |
+| Item | Current verified value |
 | --- | --- |
 | Emulator | MuMu 12 |
-| ADB executable | Emulator-provided ADB under the receiving machine's actual installation root |
-| Target ADB device | Actual port for the identity-verified target instance; no fixed default |
-| Android physical size report | Read from the receiving device; actual screenshot dimensions are decisive |
-| Android physical density | Record from the actual target; screenshot dimensions remain decisive |
+| ADB executable | `C:\Program Files\Netease\MuMuPlayer-12.0\shell\adb.exe` |
+| Current ADB device | `127.0.0.1:16384` |
+| Android physical size report | `1080x1920` |
+| Android physical density | `280` |
 | Actual game screenshot contract | landscape `1920×1080` |
-| Android version | Read from the target instance, not inferred from the emulator product name |
-| Game package | Explicitly verify the user's installed client/package |
+| Android version | `12` |
+| Game package | Bilibili client `com.hypergryph.arknights.bilibili` |
 | MAA executable | `%LOCALAPPDATA%\MAA-App\MAA.exe` |
 | Verified Python capability | 64-bit Python with `PIL`, `cv2`, `rapidocr_onnxruntime`, and `uiautomation` importable |
 
-MuMu multi-instance ports and numeric ordering can change, including when an empty instance is added. Bind stable instance identity and the installed game package, then discover and validate its ADB device. Ambiguous identity stops before launch/force-stop/input. Package examples such as `com.hypergryph.arknights` and `com.hypergryph.arknights.bilibili` are client identifiers, not an account setting to copy.
+The port `16384` is not a constant. MuMu multi-instance ports can change; discover the running instance every time. The official mainland package is commonly `com.hypergryph.arknights`, while this reference account uses the Bilibili package. Detect or configure the package explicitly before launch/force-stop operations.
 
 ## First-run inventory
-
-The bundled preflight checks only part of this inventory. It does not prove stable emulator identity, exclusive controller ownership or complete adapter deployment; verify those through the receiving project's existing interfaces before game input. A passing preflight is not a full-run acceptance.
 
 Before controlling a new PC, record these values in a machine-local profile or environment variables. Never write another person's username or this PC's paths into shared Skill instructions.
 
@@ -84,7 +93,7 @@ Keep machine values outside business rules and source logic. Prefer a local prof
 - `ARKNIGHTS_PYTHON`
 - `ARKNIGHTS_AUTO_BASE`
 
-Resolve values in this order: explicit current-run parameter, machine-local profile/environment, then the product's normal installation location on the current PC. The included `portable_paths.py` supplies these defaults; it never installs or launches software. If the default does not exist, the receiving AI finds the actual installation or installs the missing dependency. Never fall back to the author's home directory or arbitrarily select one of several devices.
+The current project still contains reference-machine defaults. A portable launcher should resolve values in this order: explicit current-run parameter, machine-local profile/environment, safe discovery, then a clearly labeled reference default. Discovery returning zero or multiple candidates is a preflight failure.
 
 ## Permission and process rules
 
@@ -95,9 +104,16 @@ Resolve values in this order: explicit current-run parameter, machine-local prof
 - Keep one emulator instance, one MAA process/queue, and one supervisor per account unless a multi-instance contract explicitly assigns separate ports and directories.
 - Taskbar ghost thumbnails are not proof of duplicate processes. Verify process IDs first; a non-disruptive taskbar redraw is cosmetic cleanup only.
 
-## First use on another PC
+## Layered acceptance on another PC
 
-Check installed paths and imports, then the correct connected device and 1920×1080 screenshot after the user logs in. These are connection checks, not additional account authentication. Continue with the user's requested game task and observe its actual result; no separate test battle is required for installation. Source checks and successful imports do not themselves prove a completed game task.
+1. **Inventory:** all paths, package, device, output directories, and interpreter resolve uniquely.
+2. **Display gate:** a fresh ADB PNG is exactly 1920×1080 and recognizable; no rotation or letterboxing.
+3. **Static UI recognition:** OCR identifies a known home/terminal marker from the fresh screenshot; no clicks yet.
+4. **Safe input:** one authorized non-resource navigation tap is followed by a screenshot proving the intended page transition.
+5. **MAA control:** UI Automation finds the real `MAA.exe` window by process ownership, configures the intended task, and Core logs the exact task chain.
+6. **Small real run:** only with current authorization, run one low-risk contracted action and verify the game result, Core log, checkpoint, and cleanup separately.
+
+Syntax tests, imports, preflight, a running process, or an MAA queue start do not prove the full automation works on the new PC.
 
 ## Symptom-to-cause checklist
 

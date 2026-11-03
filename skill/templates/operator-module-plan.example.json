@@ -1,0 +1,9 @@
+{
+  "enabled": false,
+  "account": {"client": "", "uid": ""},
+  "operator": "",
+  "character_id": "",
+  "module": "",
+  "actions": [],
+  "maximum_module_level": null
+}

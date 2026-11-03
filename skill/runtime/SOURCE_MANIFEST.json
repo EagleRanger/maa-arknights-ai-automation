@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.2.1",
   "kind": "source-integrity-only",
   "files": [
     {
@@ -358,9 +358,29 @@
       "sha256": "f194598e6d65a6eb442c17cabd230706456efe32d066e503b5abfd2acc860d1f"
     },
     {
+      "path": "config/operator_training_plan.example.json",
+      "bytes": 80,
+      "sha256": "8e74b66d3875740deb87993441a346a18568fc07c1990391a724a86bd3245e45"
+    },
+    {
+      "path": "config/press_committee_plan.example.json",
+      "bytes": 37,
+      "sha256": "656c3b4ae935a03a69e22135d79bd4226c4313e74b6d3f305985a5c077a84d84"
+    },
+    {
       "path": "config/roguelike_tree_revisions.json",
       "bytes": 35,
       "sha256": "9f750e8e58c08b7965adc7a6040a0f8c5c64b676c1cdac06ee8ba253ac788748"
+    },
+    {
+      "path": "config/voucher_exchange_policy.example.json",
+      "bytes": 62,
+      "sha256": "3c70f926e2c12896a75cd91985f5afa20b4912cd2b5dbcb9b28fa0b0b65583cf"
+    },
+    {
+      "path": "copilot_jobs/module_怒潮凛冬_HAM-X_16-6_v89867.json",
+      "bytes": 11243,
+      "sha256": "bd7db3640f0efcfcab39978d655eba81724318d3041ce167e9c510aa68234258"
     },
     {
       "path": "copilot_start_receipt_v1.py",
@@ -653,6 +673,11 @@
       "sha256": "28f1b8b4c49e39382c760c4c75ca77fd7ba4d7fcf213e1081448e7f2fa129d2a"
     },
     {
+      "path": "daily_login_supply_v2.py",
+      "bytes": 2872,
+      "sha256": "902a80850bfec02c93b614883c4bacf41f962d318d013066b4bbbb776848815b"
+    },
+    {
       "path": "daily_login_visual_v1.py",
       "bytes": 5584,
       "sha256": "cbdadffc5688cb834816603552ca9ab4c8399a28e7b69c6d60acde1fd5d264b8"
@@ -733,6 +758,11 @@
       "sha256": "cc5a5e0d6f7cf8aabd008136941aa152c76abaa35283a9ccc542c10ecf0ef03a"
     },
     {
+      "path": "daily_recycle_infrast_v1.py",
+      "bytes": 4593,
+      "sha256": "1f482bffd8232121db88efa5c86982ddd9c8020e2654f2f9956fba842d507b9a"
+    },
+    {
       "path": "daily_remaining_stamina_v6.py",
       "bytes": 4806,
       "sha256": "660880b9dfac1a8348271d68d727f601b46dfba7db99b3251dc350359213b57b"
@@ -791,6 +821,11 @@
       "path": "daily_sss_current_route_v1.py",
       "bytes": 2007,
       "sha256": "9e72d7351b331fd6ac0253531b246eeda606f4d709de7d172ea43889b63da8ee"
+    },
+    {
+      "path": "daily_stage_handoff_v1.py",
+      "bytes": 2145,
+      "sha256": "4b2bb211fbe645da5aedee6901b2a6b4a35ab32f173f3204d695d3b3efe1a868"
     },
     {
       "path": "daily_stamina_exhaustion_v1.py",
@@ -1118,6 +1153,16 @@
       "sha256": "254e6244650d09d37cc6f2f3ebc3c3e0d265e5f0194271558bb55896082b667b"
     },
     {
+      "path": "event_press_committee_v1.py",
+      "bytes": 3461,
+      "sha256": "8cf8530be6b438c1f2e1cb2dfa63be1e326b99c1268783cf3ba156182773e080"
+    },
+    {
+      "path": "event_press_committee_v2.py",
+      "bytes": 6938,
+      "sha256": "28587bc131a166f0ba82984824dc406018e9372ad944c3f99a02a5cdad02278d"
+    },
+    {
       "path": "event_signin_discovery_v6.py",
       "bytes": 13152,
       "sha256": "c305a7d1b31ddc26be9b7be746e571f32b140ab4c499620eabc110f6a5781086"
@@ -1203,9 +1248,19 @@
       "sha256": "72dd952f196ce53f5570898d794938debafde31cf7e40e6b782aca0571027d4b"
     },
     {
+      "path": "event_tl_task_rewards_v1.py",
+      "bytes": 5917,
+      "sha256": "37a0c0bde897d9b7e5568c65d430c466c51567f334ae7b621584767646100b1a"
+    },
+    {
       "path": "event_wish_wall_v1.py",
       "bytes": 9312,
       "sha256": "ee319c461835a30312e1fe25725eda70d81bff31a9e6403f0160077c28e4a13f"
+    },
+    {
+      "path": "feature_acceptance_transport_v1.py",
+      "bytes": 1048,
+      "sha256": "a7afd4acd55baa364b4bde4913b4daec384232de3d2a54000cd496df52a7510f"
     },
     {
       "path": "game_update_judgement_v1.py",
@@ -1308,6 +1363,11 @@
       "sha256": "98a016601d56112c898ff035f6fa55be340b8967b4d695254d1de4d8d7791a9d"
     },
     {
+      "path": "maa_utility_custom_v1.py",
+      "bytes": 4495,
+      "sha256": "538e3893b0009b1bc8e8f45532d006f7bafd254ec34ae98dfd96369042960bbc"
+    },
+    {
       "path": "maa_window_handle_v2.py",
       "bytes": 2774,
       "sha256": "242b67d02e8b318b7545bcfce26ae118233bcddb56dda0cdda58da420857187d"
@@ -1318,6 +1378,11 @@
       "sha256": "0e516c151b4562dbb124a2dba53702dc13c3cd79aa1c932e9e3a5baa71e10b40"
     },
     {
+      "path": "module_test_transport_v1.py",
+      "bytes": 3668,
+      "sha256": "72f8f0ef84094f1775ad8faed31fbdb48ac9518c87ea50e703dabebb5b715ebd"
+    },
+    {
       "path": "mooncake_baking_overlay_v1.py",
       "bytes": 2987,
       "sha256": "4f81d3edcaf4f2c3ce7be80af9f63685a6df61b65e8a10f2f45ece61f9730d70"
@@ -1326,6 +1391,51 @@
       "path": "mooncake_choice_overlay_v1.py",
       "bytes": 2513,
       "sha256": "46c0f181f1310f44b0836072c4ac22ecc308eff4b96e47510762d4ac99f73b2f"
+    },
+    {
+      "path": "operator_home_labels_v1.py",
+      "bytes": 2166,
+      "sha256": "630fd751648da996c4472df13a64e2910b9aee953594a870fd107cc77cfdfb8c"
+    },
+    {
+      "path": "operator_module_missions_v1.py",
+      "bytes": 2249,
+      "sha256": "6a13cf6c520cd5edbf631cf2cd71a738b347b9cfe40f27c1ae2f350b4576cb04"
+    },
+    {
+      "path": "operator_module_missions_v2.py",
+      "bytes": 7510,
+      "sha256": "cee882f7c6a3b85bddb20a905d51a0f3b9db082f5a1fc0b0998a44f1481b9c08"
+    },
+    {
+      "path": "operator_optional_inspection_v1.py",
+      "bytes": 2987,
+      "sha256": "f51bd8f9ac138d8bcf87f9e9e206892dcbc3db346e911e084fb6fb672737c1f4"
+    },
+    {
+      "path": "operator_readonly_locator_v1.py",
+      "bytes": 4530,
+      "sha256": "99f870a2601ab9c7f2edd7a9a2d5fdfba4e63808ce75860bea59e75f9369579c"
+    },
+    {
+      "path": "operator_training_infrast_v1.py",
+      "bytes": 4227,
+      "sha256": "85cf9ded019c89e49a33377a248a596f0480bacb29543b05ec4cabd9251b4c70"
+    },
+    {
+      "path": "operator_training_room_probe_v1.py",
+      "bytes": 3237,
+      "sha256": "95c3f55bf756410a5860451992a77da08da038f406c3dc5cca1dfa97bff100e7"
+    },
+    {
+      "path": "operator_training_v1.py",
+      "bytes": 15266,
+      "sha256": "f0ccf39222b073c8831daa872e02aac2a33ea12ed48f2af8e5c937dbb641348b"
+    },
+    {
+      "path": "operator_training_v2.py",
+      "bytes": 537,
+      "sha256": "486b3587ac486acdef4eb6bd4635dfba015c63bd8761283ed0824739ec7c42bd"
     },
     {
       "path": "phantom_collapse_tracking.py",
@@ -1348,6 +1458,11 @@
       "sha256": "d91fd3d47eea9b890d51e20528329d9d2574b1982addc2491d8cc3e40000de11"
     },
     {
+      "path": "press_committee_pages_v2.py",
+      "bytes": 9847,
+      "sha256": "1d8d672598f58295b1d396d2b7fbe083b66d88ea82c04f1edfe29b148f09247d"
+    },
+    {
       "path": "production_component_gate.py",
       "bytes": 3968,
       "sha256": "78661af2d7951e9e8646dfc8e7419ba58ebcf21d5ae29e0616ce8c279695aaf5"
@@ -1356,6 +1471,11 @@
       "path": "rapidocr_compat_v1.py",
       "bytes": 1534,
       "sha256": "7b49475032d7c2a2403ebdfdd2d64c4182339e039430c7d89ad92acb85200c68"
+    },
+    {
+      "path": "recipient_beta_v1.py",
+      "bytes": 2565,
+      "sha256": "ca7fe127b51fc64acce7ccd14237ec2df1183e3c794aa7b93705adcaeb41412e"
     },
     {
       "path": "roguelike_collapse_tracking.py",
@@ -1643,9 +1763,44 @@
       "sha256": "05d6db82d141ebfda364c9b025581df39077461a11a60431534db5066ee07464"
     },
     {
+      "path": "run_daily_v147.py",
+      "bytes": 807,
+      "sha256": "95a8dec9be58a0995acf353ef30fab3b333d032e433fa1e16e1d41fc3fa4a825"
+    },
+    {
+      "path": "run_daily_v148.py",
+      "bytes": 800,
+      "sha256": "5b68ec3c10a19a1f38ff763c390cf7c448c633f379bd4b1d7882541bfa655317"
+    },
+    {
+      "path": "run_daily_v149.py",
+      "bytes": 975,
+      "sha256": "30f78dd87b005a93059ef2af970e19796f0d1552e3cc187b24eb959eb3b64b52"
+    },
+    {
       "path": "run_daily_v15.py",
       "bytes": 5028,
       "sha256": "a8c5d386066e9b569ae20e8a7570a0f7cd822489e94d9e1df737a4acc9fbb764"
+    },
+    {
+      "path": "run_daily_v150.py",
+      "bytes": 868,
+      "sha256": "110e5962e9a82df9edfc95e8092f5348f4d55c0138d2873efb9a435880383d09"
+    },
+    {
+      "path": "run_daily_v151.py",
+      "bytes": 764,
+      "sha256": "aabb7b987626092bd7430caf8bb718ef2208fdba8acce573220310dbc604b151"
+    },
+    {
+      "path": "run_daily_v152.py",
+      "bytes": 906,
+      "sha256": "9343ec9d1b1dd9ae6b23f75efff0a2b5d3e9bd609c827e6768433b1a1d69d673"
+    },
+    {
+      "path": "run_daily_v153.py",
+      "bytes": 751,
+      "sha256": "edbe2f59cde1522eb0458c8a84abd4cffd807d774fdb8ff59d249721f6fe6a8a"
     },
     {
       "path": "run_daily_v16.py",
@@ -2243,6 +2398,26 @@
       "sha256": "aaf88cb0f82984351a217620f1db7dc989117947a3c157247423f6fe22284eff"
     },
     {
+      "path": "tools/feature_acceptance_command_v1.py",
+      "bytes": 869,
+      "sha256": "0d5003acb780fb719d4afd3c1022378db0fc367c765a200333844de2a02dbabe"
+    },
+    {
+      "path": "tools/feature_acceptance_session_v1.py",
+      "bytes": 6799,
+      "sha256": "5f3ee846ccfaa05c6fd78b5a326e20fedaa241359e5ed40d8900cc90cb9ee531"
+    },
+    {
+      "path": "tools/module_unlock_trial.py",
+      "bytes": 2030,
+      "sha256": "6efeab1e2a5f04febbfe50df03f8dc37612f8392cf07040fb1ee4775a9cfd7cd"
+    },
+    {
+      "path": "tools/module_upgrade_trial.py",
+      "bytes": 3025,
+      "sha256": "f11a7ecac3542b55aa8f2d63335c64130c59d08596fb47ae24c2b2e9b2c53c73"
+    },
+    {
       "path": "tools/prepare_annihilation_rotation_trial_v2.py",
       "bytes": 2889,
       "sha256": "cde8dd08bd1f8049201146aa3ca6a831e426a5021aab16afaca267423f3af216"
@@ -2253,9 +2428,24 @@
       "sha256": "6f894d1e45eb8b53e303f8c1617c48735edf53fe50f9be3cf3fb932ef5019044"
     },
     {
+      "path": "tools/probe_beta_offline.py",
+      "bytes": 10079,
+      "sha256": "6b856504acd19e942206b4e74105eee63b846d738ef79821d8898995ff3ab474"
+    },
+    {
       "path": "tools/probe_event_layout_synthetic_v1.py",
       "bytes": 4900,
       "sha256": "4f3b27ede8ca62688de60b8763a327db04f1a65b8bac57bec7f47ee67ab21da3"
+    },
+    {
+      "path": "tools/read_operator_profile_trial.py",
+      "bytes": 4827,
+      "sha256": "f834f02062356193e0078861ef124d4f25747b55e9dfe8256189e03ca5d402ad"
+    },
+    {
+      "path": "tools/red_catalyst_trial.py",
+      "bytes": 3952,
+      "sha256": "9cb0bffd7fcf83c863fe9489ae2adb7e2b0327f609073a753d14b23732e30282"
     },
     {
       "path": "tools/replay_event_layout_v1.py",
@@ -2266,6 +2456,21 @@
       "path": "tools/review_daily_modules_v1.py",
       "bytes": 2768,
       "sha256": "49964dc569ba34a904517fb478cc89f61103e775658d912f72fe31da3a2d9d72"
+    },
+    {
+      "path": "tools/run_module_missions_v2.py",
+      "bytes": 2941,
+      "sha256": "7243308b649804e9f232754b8ae38e4eb1276cda2b62a10e7833ce73ee79ffea"
+    },
+    {
+      "path": "tools/run_operator_training_v1.py",
+      "bytes": 3635,
+      "sha256": "4214ab3dee055019d029eb2f52f0160e485f318fea84814087d85cb33b148a5e"
+    },
+    {
+      "path": "tools/run_training_room_probe_v1.py",
+      "bytes": 3891,
+      "sha256": "4c61dc4128bb3a24db2d978c861a7984704ebcba486bdc42a40651ae8eb854a5"
     },
     {
       "path": "tools/service_signin_rewards_v1.py",
@@ -2316,6 +2521,11 @@
       "path": "vector_special_runtime_v1.py",
       "bytes": 1888,
       "sha256": "fd35ef876bfb8577d4f2219e0732291cca049b31ada545ba4ad1ad208a55c87f"
+    },
+    {
+      "path": "voucher_exchange_plan_v1.py",
+      "bytes": 4453,
+      "sha256": "447fa0356fbfc3b06375f17a7f2920b41ad8dcad6bdfaeff283faf70dbbf93dd"
     },
     {
       "path": "workshop_picker_observe_v1.py",

@@ -2,6 +2,16 @@
 
 ## First classify the incident
 
+An invalid command shape, stale observation number or missing diagnostic field
+before any game action is an **input/coordination error**, not a game failure.
+Have the command adapter fill mechanical counters from its current receipt;
+reject/resynchronize a bad instruction without clicking or closing the healthy
+game. Use the project's existing bounded retries/AI feedback if it still cannot
+proceed. Do not wire a minor parser error straight to whole-run cleanup.
+This does not remove account/resource/ownership boundaries or permit replay of
+an action whose commit is uncertain. Components return their own result; the
+outer coordinator decides continuation and final shutdown.
+
 Use the current screenshot/OCR, MAA Core tail, GUI queue state, checkpoint, and process list together.
 
 ### Verified UI interruption
@@ -16,6 +26,10 @@ Known recoverable pages include:
 
 Never repeatedly restart MAA against an unchanged story page.
 
+For client/resource updates and new sign-in skins, use
+[continuity-and-signin.md](continuity-and-signin.md). A received reward overlay
+may still need closing; do not erase a proved reward or repeat its claim.
+
 ### Technical failure
 
 Examples:
@@ -28,11 +42,14 @@ Examples:
 - MAA update leaves a partial installation or incompatible client/resource state;
 - rotated logs make the monitor read stale completion evidence;
 - duplicate supervisors or a stale single-instance owner contend for the same queue.
-- a selected production component is unadmitted, missing, or no longer matches its protected fingerprint.
 
-Use the active task's verified retry/cooldown/deadline policy, not a universal counter. Diagnose first and reconcile prior effects before retrying. If the selected host supports cooperation, preserve the deadline owner and failed-step context, request help and require fresh revalidation before resuming; see [script-ai-cooperation.md](script-ai-cooperation.md). Do not kill the only supervisor, reset battle/resource budgets, or repeat an unchanged failure while waiting.
+Follow the current project's explicit retry, cooldown and deadline policy; do not impose a universal number of restarts or a one-hour wait. Stop only the faulty owned queue when needed and safe, preserve its save and evidence, and repair the verified cause before resuming the same remaining objective. Keep a healthy game instance open when the repair can reuse it. Reconcile effects first: a preparation failure or parser error is not a spent battle attempt, and a technical continuation must not replay completed daily work. Repeating the same failure without new evidence is not recovery.
 
 ### Ordinary game outcome
+
+If several unrelated daily chains fail at the same home/entry template, inspect
+their shared raw frame and resource/theme compatibility before rerunning each
+chain. This is a common-entry failure, not several independent battle failures.
 
 Integrated Strategies defeat, a non-perfect stage result, or a completed exploration is not automatically technical. Record it as gameplay evidence and follow the active phase policy. Never use a normal defeat to change theme, difficulty, core operator, retries, or objective.
 
@@ -41,14 +58,10 @@ Integrated Strategies defeat, a non-perfect stage result, or a completed explora
 1. Ensure there is one supervisor and one MAA queue owner.
 2. Confirm the actual Python interpreter has `rapidocr_onnxruntime`, `uiautomation`, and `cv2`; do not trust the command name alone.
 3. Confirm MAA resource/client versions after an update and handle the announcement before queue setup.
-4. Read the newest Core log by modification time and account for log rotation.
+4. Bind Core evidence to the active run's start time and controller identity, accounting for rotation. If callbacks flush only on exit, the latest callback file may belong to the previous run; inspect the active live log or terminal instead.
 5. Distinguish GUI `queue already running` from a fresh start failure.
 6. If a checkpoint is stale, reconcile it with current MAA/game evidence instead of replaying old progress.
 7. At the hard deadline, stop the MAA queue first, then close game, MAA, MuMu, and owned log windows; verify they are gone.
-
-When logs rotate during a long run, aggregate evidence across the relevant current-day log segments. The newest file alone may omit an earlier completed phase; older evidence remains valid only when its run/day identity is still in scope.
-
-A component fingerprint mismatch is fail-closed, not a normal fast-recovery candidate. Preserve the mismatch evidence and stop before side effects until the reviewed component is restored or a versioned replacement passes admission.
 
 ## Recovery evidence
 
@@ -57,6 +70,6 @@ A recovery is complete only when all applicable checks pass:
 - the blocking page changed;
 - the same MAA contract is still configured;
 - Core begins the intended task chain;
-- the queue remains active beyond the immediate startup window;
+- the intended theme/subtasks and real page progress are seen beyond startup, rather than a repeated click loop;
 - the checkpoint advances with a current timestamp;
 - no second controller is alive.

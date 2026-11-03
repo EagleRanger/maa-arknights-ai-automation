@@ -15,6 +15,7 @@
 | 能力 | 现有实现与接缝 |
 | --- | --- |
 | 每日完整业务组合 | `run_daily_v146.full()`，它复用前序已实现模块；不能只取 V146 一个文件。 |
+| 11月3日可选新组合 | `run_daily_v153.full()`：包含活动新内容、训练观察与刷后领奖接缝。接收方按自己的任务选择，默认仍保留V146链；Beta范围见具体模块说明。 |
 | 每日的外层任务绑定 | `daily_dispatch_v1.selected_scope(selected, checked)`。用当前发布文件清单、接收方当前任务和目标核验生成绑定；旧 `preflight()` 依赖作者生产登记，不直接照搬。 |
 | 主线推进与通用引擎 | `arknights_daily_runtime_v12.py` 的 `mode_mainline()` 等函数；共用环境、识别、独占和清理从 `ark_host` 装配。 |
 | 独立模块组合 | `ark_modules.assembly`、`ark_modules.operations`、`ark_modules.runtime_session`；面向已经准备好的 runtime，不默认升级为完整每日任务。 |
@@ -22,6 +23,25 @@
 | 其他主题和功能 | 由 `runtime/` 内既有域模块和引擎实现，参见对应功能文档；当前银凇接法不等于所有主题均经新机器实跑。 |
 
 `runtime/SOURCE_MANIFEST.json` 记录发布源码的路径与 SHA-256。首次对接核对包内容，修改后为接收方自己的版本记录新指纹。新版本身份不表示已经完成游戏实测。
+
+可选培养/兑换模块先读 [首次配置](first-run-features.md)、[干员与凭证接口](operator-and-voucher-interfaces.md) 和 [本次Beta边界](beta-features-20261103.md)。账号事实使用包内 `account_progress_v1`，新账号以未知开始；私有plan未配置时跳过对应可选项，不拦原有日常。报纸布局需在接收方当前真实画面由AI验证/采集；本包不附作者已学布局和已完成缓存。
+
+### 本次增量的实际入口
+
+| 功能 | 代码与外部资源 | 接收方配置 |
+| --- | --- | --- |
+| 活动刷后领奖 | `event_tl_task_rewards_v1`，由V153安装到原刷后接缝；复用既有截图/OCR和单控制者 | 本期活动身份、允许领奖的当前任务；不复用作者已领状态 |
+| 报纸逐页开放/AI布局 | `event_press_committee_v2`、`press_committee_pages_v2`；接收方官方MAA中的 `resource/template/MiniGame/WartimePressCommittee/`（NextPage/Max模板） | `runtime_state/press_committee_plan.json` 由接收方当前实图生成；`config/press_committee_plan.example.json` 只是空结构，不是已学布局 |
+| 有序专精与训练室观察 | `operator_training_v1/v2`、`operator_training_infrast_v1`，独立工具 `tools/run_operator_training_v1.py`；官方MAA的OperProgress/Training及对应资源 | `runtime_state/operator_training_plan.json`；`config/operator_training_plan.example.json` 默认禁用、无目标。队列、角色、技能及等级须来自接收方 |
+| 模组只读与等级观察 | `operator_optional_inspection_v1`、`operator_readonly_locator_v1`、`scripts/operator_module_badge.py` | 接收方明确的角色/分支与当前图；读不清保持未知，不自动升级或花材料 |
+| 黄票月度整包规划 | `voucher_exchange_plan_v1`，不调用实际交易 | 自己的 `runtime_state/voucher_exchange_policy.json` 和新鲜余额/已购档位；配置例默认禁用。规划成功不是已买 |
+| 绿黄票底层原生能力 | `maa_utility_custom_v1.run(kind=...)` 调用所装MAA的Custom任务与模板 | 不挂默认日常；`native_completed_effect_pending` 只表示原生动作结束，必须另核库存/余额/档位，不能报购买完成 |
+
+公开依赖由接收方从可信上游安装；官方MAA模板不重复分发。上述模块没有绕过原有 `selected_scope/admit`、当前任务、账号、资源限额、单控制者和关闭边界。只安装示例或运行离线探针不会启用真实业务。
+
+模组执行Beta当前仅包含已验的 **怒潮凛冬 / HAM-X** 序列；这是支持范围，不是安装后的默认培养目标。将 [空模组计划例](../templates/operator-module-plan.example.json) 按自己的明确选择填成私有 `runtime_state/operator_module_plan.json`，分别选择观察、任务、解锁或升级，保留各步回执。其他角色/分支不会套用这个序列。
+
+红票Beta读取独立私有 `runtime_state/red_catalyst_plan.json`，参考 [空购买计划例](../templates/red-catalyst-plan.example.json)。当前只支持明确请求的一件芯片助剂，核对90红票报价、账号/游戏包名和本次请求ID；未知结果先对账，不换运行目录重买。它不读取训练计划来决定购买账号，也不启用周期自动购买。具体命令和会话接法见随包原工具及其 `--help`。
 
 ## 本机配置与默认路径
 

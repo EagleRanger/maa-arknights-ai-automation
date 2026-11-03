@@ -1,0 +1,9 @@
+{
+  "enabled": false,
+  "account": {"client": "", "uid": ""},
+  "product": "",
+  "currency": "",
+  "quantity": null,
+  "max_total": null,
+  "request_id": ""
+}

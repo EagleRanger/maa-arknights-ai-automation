@@ -2,9 +2,9 @@
 
 让 AI 按玩家的实际需求安排《明日方舟》的日常，把刷图、找作业、推进关卡、领奖和基建生产接成一套自动化流程，减少反复查看进度和手动切换任务的时间。
 
-当前正式版：**v1.2.0**。适用于 Windows 上的 AI 编程/执行工具，基于 MAA 与 Android 模拟器运行，附带本项目的执行源码和迁移说明。
+当前版本：**v1.2.1**。适用于Windows上的AI编程/执行工具，基于MAA与Android模拟器运行，附带完整执行源码与迁移说明。
 
-[下载最新版](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/latest) · [接收方 AI 对接说明](skill/references/receiver-integration.md) · [OCR 模型来源与安装自检](skill/references/local-ocr-setup.md)
+[下载最新版](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/latest) · [查看v1.2.1](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/tag/v1.2.1) · [接收方 AI 对接说明](skill/references/receiver-integration.md) · [OCR 模型来源与安装自检](skill/references/local-ocr-setup.md)
 
 <!-- project-support:start -->
 > 如果本项目对你或你的 AI 开发有帮助，下载使用或借鉴后，欢迎点个 [Star](https://github.com/EagleRanger/maa-arknights-ai-automation) 支持，让更多有同类需求的人找到它。
@@ -25,6 +25,14 @@
 
 这些能力在完成本机配置、获得用户任务授权后使用，不意味着任意关卡、阵容或活动都能保证通关。
 
+## 11 月 3 日更新
+
+- 修复本期活动的流程衔接与运行问题，包括刷关后返回活动任务页领奖。
+- 接入绿票、黄票和红票兑换接口（测试）：绿票、黄票可读取商店并规划兑换；红票已实测兑换芯片助剂。
+- 新增干员模组与技能专精养成流程（测试）：检查模组任务和等级，按设定顺序安排技能专精。
+
+原默认日常与推图链保持不动，具体调用见 [接收方说明](skill/references/receiver-integration.md)。
+
 ## 从玩家实际操作需求出发
 
 开发重点是少接管、少重复操作：不只是让软件执行一份固定任务，还要能根据今天的活动、已有进度、仓库库存和生产目标，安排接下来该做的事。
@@ -32,6 +40,8 @@
 例如，玩家可以设置“每周剿灭 → 消耗理智的限时活动 → 未完成主线 → 库存与生产需求”的优先级；需要搓玉时，联动材料补充和基建生产；想刷肉鸽时，把探索、领奖和加点放在同一个任务里。这里是可配置的使用目标，不强制所有人采用同一套资源策略。
 
 MAA 提供刷图、招募、基建及作业执行等基础能力；本项目提供上层 AI 编排、未通关内容推进、跨任务衔接、状态复核和异常续接。两者配合使用，本项目不替代或重新分发 MAA。
+
+已跑通的项目导航、逐关判断和失败换作业循环继续负责外层控制；MAA按需执行明确的小任务，AI在陌生页面或异常时介入，不另起第二个常驻控制者。
 
 ## v1.2.0 更新重点
 
@@ -49,13 +59,9 @@ MAA 提供刷图、招募、基建及作业执行等基础能力；本项目提�
 
 ## 使用前提与边界
 
-- Windows 10/11 64 位，MAA、支持的 Android 模拟器、Python 与 ADB；当前识别/坐标基线为 MuMu 12、横屏 **1920×1080**。
-- AI 宿主需要具备本地文件、命令执行和图像理解能力；跨宿主接口由接收方配置，不能将可迁移理解为所有宿主已经逐一验证。
-- MAA、模拟器、公开库及 OCR 模型由接收方 AI 按本机环境从可信来源安装，本包不重复分发这些软件。
-- 游戏由用户自行登录。账号、密码、通关记录和作者私人运行数据不随包迁移。
-- 教学关卡、验证码、缺少适用作业或未覆盖的特殊活动可能需要人工处理；困难关卡和高难肉鸽不保证通关。肉鸽通关后自动提高挑战难度等扩展仍在完善。
-- 已有功能在源项目按相应范围使用和验证；本发布包完成离线源码、路径、结构、隐私及包内容检查，未在接收方的新电脑完成整套游戏实跑。
-- 理智、药剂、源石、重试和运行时长遵守玩家设置；异常恢复不等于无限重试或全天候无人值守保证。
+- Windows 10/11 64位、MAA、Android模拟器、Python与ADB；当前识别基线为MuMu 12、横屏 **1920×1080**。
+- 接收方AI需能读写本地文件、执行命令并看图；公开软件、库与OCR模型由它按本机环境安装，用户自行登录游戏。
+- 账号进度、培养名单、凭据、截图和日志不随包。标Beta的部分仍待完善，新机器先完成本机对接，理智/药石和运行范围按玩家设置。
 
 ## 给接收方 AI 的入口
 
@@ -75,7 +81,7 @@ skill/
 
 MAA 是本项目的重要基础。感谢 [MaaAssistantArknights](https://github.com/MaaAssistantArknights/MaaAssistantArknights) 及作业作者提供的工具和社区内容。项目需求与功能迭代：EagleRanger 与 AI 协作；源码整理、迁移说明及发布协助：OpenAI Codex。
 
-本项目不是 MAA、鹰角网络或《明日方舟》官方项目，不使用 MAA Logo，不宣称官方合作。使用者应遵守 [MAA 用户协议](https://github.com/MaaAssistantArknights/MaaAssistantArknights/blob/dev-v2/terms-of-service.md) 与游戏运营规则，并自行评估真实账号自动化风险。
+这是个人开源分享，不是MAA或游戏官方项目。第三方来源和许可保留在 [NOTICE.md](NOTICE.md)。
 
 MAA 等第三方组件遵循各自许可；随包的少量第三方地图资料单独保留原许可。本项目自有部分尚未单独指定复用许可证；具体归属与素材说明见 [NOTICE.md](NOTICE.md)。
 

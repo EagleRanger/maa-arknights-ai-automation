@@ -2,28 +2,31 @@
 
 Treat each theme's reward track, permanent-growth tree, recollection/monthly mode, and investigation mode as separate objectives. Do not infer that one is complete because another is maxed.
 
-## Autonomous service promise
+## Opening and bounded-floor evidence
 
-When the active contract authorizes ongoing Integrated Strategies, the controller should service available rewards and permanent growth automatically after eligible settlements. The user should not need to ask separately after every run. This authority is limited to the current theme's already-approved reward/growth system: it does not authorize a theme, difficulty, team, monthly mode, investigation, or resource-policy change.
+A configured core operator is a request, not proof of recruitment. Check the
+current difficulty's recruitment cost, available Hope, and actual recruited
+roster. An explicit "cannot find" followed by a fallback must not be reported
+as the requested core lineup; investigate the relevant grey-card, filter or
+list-navigation evidence before another equivalent attempt.
 
-The loop must both perform and prove the maintenance:
-
-- claim every currently available level-track reward and show that its claim marker cleared or state changed;
-- spend available permanent-growth currency only on a verified purchasable node and show the counter decreased or completion marker appeared;
-- return to the same theme home and resume the unchanged exploration queue;
-- leave already-complete tracks alone and never use repeated blind taps to manufacture activity.
+For a one-floor objective, a single fight or a completed MAA chain is not a
+floor clear. Require the next floor's actual boundary and an owned stop before
+entering its nodes. A natural failed exploration can end the Core queue
+successfully while the user objective remains unfinished. Do not turn an
+adapter's arbitrary retry count into a new user-authorization requirement;
+apply the actual game's resources, current strategy contract and deadline.
 
 ## Shared settlement-boundary loop
 
 1. Wait for a real exploration settlement. Do not stop MAA or enter reward pages during combat.
 2. Confirm the current theme home from a fresh game screenshot/OCR.
-3. Read the theme-specific reward marker and permanent-growth currency.
+3. Read the theme-specific reward marker. Consult this account's verified permanent-growth fact before reopening the tree; see [account-progress.md](account-progress.md). A valid complete fact skips tree servicing, not rewards or exploration.
 4. Enter only the verified named page. Require its page markers before clicking nodes or claiming rewards.
 5. For a permanent-growth node, require an explicit upgrade/confirm control and prove the currency decreased or the completion marker appeared.
 6. For a reward track, require the claim marker to clear or the claimed state to change.
 7. Return to the same theme home and verify it before resuming the unchanged MAA contract.
 8. If any confirmation is missing, preserve screenshots, record a warning, return safely when possible, and continue or pause exactly as the active contract states. Do not convert reward-service uncertainty into a battle defeat.
-9. If both the reward track and growth tree have serviceable changes, process them in a deterministic order defined by the project adapter, verify each independently, and record a single settlement-service receipt before resuming.
 
 ## Theme mapping
 
@@ -31,6 +34,7 @@ The loop must both perform and prove the maintenance:
 | --- | --- | --- | --- | --- |
 | Phantom | 古堡笔记 | 幕后筹备 | 晦暗的灵感 | 幕后筹备已满点的项目证据 |
 | Mizuki | 生态谱系 | 认知塑造 | 主观想象 | 认知完备 |
+| Sami | 科考记录 | 文化比较 | 理性视阈 | Matching full counter and 研究完成 for the known tree revision |
 
 ### Mizuki-specific rules
 

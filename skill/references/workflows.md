@@ -4,51 +4,92 @@
 
 Use the exact priority in the discovered `PROJECT_CONTRACT.json`; do not hard-code yesterday's event or chapter.
 
-Resolve the daily release from the actual launcher's active runtime binding. The scheduler, manual continuation and execution brief must agree. A retained legacy recipe is not an automatic fallback; date-limited special tasks do not select or expire the ordinary daily run. Verify the actual consumer after changing its binding, not just documentation or a module import. An explicitly selected candidate can receive scoped live validation without being labelled fully accepted.
+Resolve the current daily release through the project's existing launcher and
+its designated active binding. Scheduled runs, manual continuation and the
+execution brief must use the same selection. A retained legacy recipe is a
+dependency/rollback baseline, not an automatic fallback; date-limited special
+tasks do not select or expire the ordinary daily run. Missing selection or
+artifact drift requires a precise repair, not silently launching an old entry.
+
+After a release change, verify that this actual consumer resolves the intended
+entry, then check the next authorized run's version, device and terminal result.
+Updating prose or passing a module test does not prove the scheduler uses it.
+Keep these stages separate; an explicitly selected candidate may undergo its
+authorized live validation without being labelled fully verified beforehand.
 
 Typical phase boundaries are:
 
+Keep the previously published chain as the default. Add event-specific utility
+modules within its existing activity handling, not a new permanent default or
+an extra controller. Reuse the project's already verified logical clicks and
+navigation; studying MAA must not add routine control-mode switches. Treat MAA
+as callable capability providers, not a mandatory replacement for the outer
+AI/script orchestration.
+
 1. Start and clear validated update/login/announcement blockers.
-2. Verify weekly Annihilation first when the current week is incomplete. If its stamina-consuming flow fails, block later stamina use but continue safe non-stamina cleanup when the contract permits it.
-3. Inspect the current terminal/event surface before spending stamina. Distinguish no event, an executable current event, an event with no compatible job, discovery failure, and unknown navigation.
-4. Validate every recorded todo against the current game state. Repair stale progress instead of replaying a task already proved complete.
-5. Complete the authorized current event; otherwise verify and advance unfinished mainline scope. Missing operators, unsupported recording/manual jobs, and invalid job selection are not battle defeats.
-6. Use a contracted fallback farm only when current evidence shows no higher-priority executable event and all applicable mainline or hidden branches are verified complete. Never infer this from an old progress record.
-7. Check the current Security Service cycle. A proved capped state is an accepted no-action result; an uncapped cycle requires a separately validated earning handler.
-8. Read fresh inventory, select only a project-approved base-production plan, then run exactly one final startup/base/recruit/store/reward chain. If inventory is stale or unreadable, preserve the current product state.
-9. Reconcile current-run stamina, tasks, rewards, failures, and cleanup. Show one truthful final report, then close owned game/MAA/emulator/log windows unless a separately authorized long-running queue already owns the next window.
+2. On Monday, prioritize weekly Annihilation when incomplete. If a stamina-consuming battle flow fails, block later stamina use but continue safe non-stamina cleanup if the contract allows it.
+3. Inspect the terminal limited-event card before spending sanity. Determine rerun/new event and remaining days from current UI evidence.
+4. Validate a recorded todo before executing it. If already perfectly complete, repair the progress record instead of replaying it.
+5. Complete authorized event or mainline stages using the required MAA job/retry policy. Missing operators or an invalid job are job-selection failures, not battle defeats.
+6. Spend remaining sanity only on the contracted farm target; report the stage, attempts, and sanity result.
+7. After sanity is exhausted, run final daily/base/Award cleanup because new rewards may have appeared.
+8. Show one truthful final report after all work, then close owned game/MAA/MuMu/log windows unless a separately authorized long-running queue follows.
 
-## Autonomous unfinished-mainline progression
+Event-task rewards can **become claimable after farming**, even when the
+pre-farm check legitimately found nothing. On this tested layout go from the
+event lobby to its named task tab, not through a battle map. Confirm the task
+title and objective/reward rows first. A cropped “键领取” is actionable only
+at the expected button **with the pending banner on that tab**. Submit once,
+wait through the feedback overlay, verify the goods result, then verify the
+banner disappeared on the same tab. Previously claimed or absent rewards are
+not new claims. Missing evidence stays local to rewards and is not a reason to
+replay farming. A similar-looking control in a shop or another event is not a match.
 
-This is the primary improvement over a fixed MAA stage script. Do not require the user to name every next node when the active contract already authorizes continued mainline progression.
+Put an event's time-unlocked extras (such as the Wartime Press Committee) in
+the existing activity-new-content phase, before farming, not a permanent daily
+tail. Identify the current period and inspect every relevant page, not only
+the first stage. A visible Start button can remain behind a locked overlay:
+the unlock condition takes precedence. Process only unlocked unfinished items,
+verify their actual goals and claimed rewards, then return to the daily route.
+Reuse proven MAA actions or the project's learned background UI operations;
+native placeholders and queue completion are not game-effect evidence.
 
-1. Start from a fresh chapter/map screenshot and reconcile it with the current progress record. Never reuse yesterday's assumed frontier.
-2. Discover the next unfinished authorized node from visible map topology and completion markers. If the selected chapter is complete, navigate through the verified chapter/map path and continue discovery.
-3. Classify the node before handing control to MAA:
-   - story node: use the verified skip/advance path and require the map completion marker after returning;
-   - normal, H, or other supported battle node: select a job compatible with that exact node and hand battle execution to MAA;
-   - tutorial node: pause and request manual completion; do not guess tutorial taps or treat it as a normal battle;
-   - unknown/special node: preserve evidence and use only a separately validated handler.
-4. For a battle node, distinguish missing operators, support-unit requirements, invalid job selection, Core failure, and real battle failure. Trying the same unchanged job repeatedly is not strategy variation.
-5. After every node, return to the map and prove completion with the node's validated marker or result evidence. Story nodes may have only a map-completion marker and no battle badge.
-6. Advance the frontier only from current evidence, then repeat discovery. Stop on the contracted goal, hard deadline, tutorial/manual boundary, unknown node, exhausted authorized retries, or resource-policy boundary.
-7. Keep normal, H, and special branches as separate evidence scopes. Completion of one branch is not proof that the chapter is fully complete.
+Keep completed-item facts in the recipient's account store. When all currently
+unlocked items are done, stop repeating them and check for the next unlock on a
+later normal login. When the whole event extra is verified complete, stop
+entering it for the rest of that event revision. Missing rules/effects go to
+AI locally without cancelling independent daily cleanup. Focus validation on
+the current event's continuity; a future mini-game is not automatically covered.
 
-When exact node colors or symbols differ across chapters, use the validated structural detector for that chapter/mode. A plausible color match alone is not purchase or completion authority.
+For this Committee layout, read **all newspaper tabs**. The first three
+editions have live results from AI-guided layout on real game frames; this
+is not proof that MAA alone laid them out or that an unattended solver
+finished every edition. An already-done or locked edition is a separate
+outcome. Defer locked editions to their opening date; check production
+goals and reward receipt before marking each newly available edition done.
 
-## Recent production safeguards
+Do not couple a non-combat event utility's entry to unrelated battle-map tile
+fingerprints. Identify its current event period and lobby/utility page instead;
+keep map integrity checks at the actual battle consumer. A native action that
+does not change the page is not completion: preserve the frame, use the proven
+project input/recovery route at idle, and verify the specific effect.
 
-- Before the first real action, require the project's admitted component and protected-fingerprint gate to pass. Fingerprint drift is a production blocker, even if a narrower recipe still passes.
-- If an activity is absent from the terminal card, a verified activity-calendar route may be used only as a fallback; visually confirm the intended stage family before battle.
-- Aggregate completion evidence across the same game day. A later cleanup process must not overwrite earlier completed phases with a smaller last-process report.
-- A targeted daily chain may perform its documented cold-start environment bootstrap, but its final report must name the actual scope run. Never present a targeted Award or base repair as a full daily completion.
-- Keep accepted production and validation-only candidates under separate immutable identities. Offline tests or a partial live path do not authorize a production-pointer switch.
-- After a repair, re-read the original daily remainder. If business is complete, do not replay it; if only the report is wrong, correct the sealed evidence projection offline. If work remains within authority, hand back and verify that exact remainder starts. A repaired module is not the original daily task's completion.
-- Discover configured login/sign-in surfaces even when there is no red dot or automatic popup. Bind event identity, unlock state and game day before each claim; distinguish newly claimed, already claimed, future-locked and unknown. Only reward feedback plus the same card's claimed state and return-page evidence proves a new claim. Do not spend a make-up item or treat one verified event layout as universal coverage.
-- Bind the target emulator by stable instance identity and installed game package, then verify its live ADB connection. A newly inserted empty instance may change numeric ordering; instance 0, a prior port or the first device is not a safe default when identity is ambiguous.
-- An unavailable or unsupported event route is not the same as no current event. Preserve the unfinished event and follow only its approved transfer.
-- Read decisive numeric state from labeled regions and stable repeated frames or an independent source. Do not backfill current stamina, inventory, reward, or cap values from old logs.
-- If no farm target is authorized, do not invent one merely to spend sanity.
+Typography, exact word shape and decoration are not business preconditions.
+Use the existing navigation and multiple current page anchors/target details
+to confirm the intended interface. Do not press Back repeatedly on a real home
+screen because one font variant failed OCR. New unknown stable pages use the
+existing AI feedback route rather than accumulating exact-font restrictions.
+
+The existing final acceptance popup may include a stable-release notice using
+[release-notices-and-local-merge.md](release-notices-and-local-merge.md).
+This is advisory only: no extra window, automatic replacement, or waiting for
+an update decision. The recipient requests upgrades through their own AI,
+which reconciles upstream improvements with local changes before applying them.
+
+User-confirmed manual sign-in skips only that day's sign-in navigation. Technical
+run end, partial report and daily-objective completion remain distinct. Repair
+and resume authorized unfinished work without waiting for another user message;
+use [continuity-and-signin.md](continuity-and-signin.md) for the boundaries.
 
 ## Long-running modes
 
@@ -60,11 +101,8 @@ For Integrated Strategies:
 - inherit only generic recovery/reward/deadline rules, not another theme's recruitment or deployment overlays;
 - ordinary exploration defeat can count as growth only when the active phase says so;
 - reward claims require direct reward-marker change;
-- distinguish the theme's reward track from its permanent-growth tree; after every eligible real settlement, autonomously claim available rewards and allocate available permanent-growth points, verify the named currency or marker changed, return to the same theme home, and resume the unchanged queue;
-- use one supervisor, a current checkpoint, bounded technical recovery, and the contract-defined cleanup boundary before the next daily owner takes control; do not auto-chain this mode after a daily run.
-- when the selected adapter supports it, request pause/stop at a settlement or next-Core boundary instead of racing a short inter-round gap or terminating the sole supervisor. During AI exception handling the host retains the lock and deadline. See [script-ai-cooperation.md](script-ai-cooperation.md).
-
-Exploration outcome and program reliability are separate: failed explorations can still produce valid experience/reward receipts, but cannot be reported as clears. When the authorized battle retry budget is exhausted, preserve the unfinished objective, report any required manual handoff, and continue only independent, permitted later steps. Do not block the whole workflow on the existence of a notification.
+- distinguish the theme's reward track from its permanent-growth tree; service either only after a real settlement, verify the named currency or marker changed, return to the same theme home, and resume the unchanged queue;
+- use one supervisor, a current checkpoint, bounded technical recovery, and the cleanup deadline selected by the active contract before the daily task; 11:30/12:00 is a project schedule, not a portable Skill constant.
 
 For Reclamation Algorithm:
 
@@ -75,8 +113,26 @@ For Reclamation Algorithm:
 ## Change and validation
 
 1. Patch only the affected source implementation, preserving user changes and backups.
-2. Replay the actual defect and negative cases at the final composed call site, not just the imported module or installation flag. When no live queue is active, run proportionate offline regression.
-3. Match evidence to the changed behavior. New navigation/input/resource use needs the next authorized real forward path. Pure verifier/report corrections reuse sealed same-run evidence; do not replay completed gameplay. Background rendering/DPI tests prove their layer only; visible appearance remains pending until the next normal report unless a separate preview is requested.
-4. If activation is in scope, update the existing consumer's versioned binding and changed fingerprints; preserve accepted historical bytes instead of refreshing an old hash to make drift pass. Verify the same launcher without game actions before the next real run.
-5. Synchronize packaged/installed copies only when requested and compare hashes. Distinguish source edited, consumer wired, code loaded and effect verified.
-6. Update the existing project lesson with evidence pointers, not a parallel ledger. For prolonged supervision, apply the capability/version-specific review criteria in [script-ai-cooperation.md](script-ai-cooperation.md); static tests or unrelated rounds do not satisfy a real changed-branch acceptance.
+2. Replay the actual failure and relevant negative cases. Test behavior at the
+   final composed call site, not only the imported module or installation flag.
+   If no live queue is active, run proportionate offline regression.
+3. Match verification to the changed behavior:
+   - New navigation, game input or resource use needs the next authorized real
+     forward path with screenshots/Core/checkpoint evidence.
+   - Pure verifier or report corrections use sealed same-run evidence and
+     offline replay; follow [evidence-validation.md](evidence-validation.md).
+     Do not repeat completed game work to regenerate proof.
+   - Report-window display changes can first use background rendering/DPI
+     checks without focus or game input. Keep visible appearance pending until
+     the next normal report, unless a separate preview was requested; an API
+     check alone does not prove the visible result is satisfactory.
+4. Update the existing consumer's binding and changed artifact fingerprints
+   when the requested scope includes activation. Preserve historical accepted
+   bytes as their baseline; do not replace an old fingerprint to pretend a
+   modified artifact was previously accepted. Verify the same launcher in its
+   no-game check mode before the next real run.
+5. Synchronize packaged or installed copies only when requested, after source
+   validation, and compare hashes. Distinguish source edited, consumer wired,
+   code actually loaded, and user-visible effect verified in the result.
+6. Update the relevant project lesson, linking existing evidence rather than
+   adding a parallel ledger. Offline checks are not a completed live daily run.
