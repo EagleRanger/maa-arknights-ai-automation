@@ -14,8 +14,8 @@
 
 | 能力 | 现有实现与接缝 |
 | --- | --- |
-| 当前完整业务组合 | `run_daily_v158.full()`，包含本稿的启动、MAA更新/设置指引、队列恢复及培养返回边界，继续沿原公共业务顺序。必须连同包内依赖使用。 |
-| 保留的旧组合 | V146/V153原实现仍在；要用本稿修复，应把接收方自己的启动绑定更新到V158，而不是只复制新文件仍调用旧入口。 |
+| 当前完整业务组合 | `run_daily_v160.full()`，实际串联160读图容错、159报纸服务与158已发布组合，继续沿原公共业务顺序。必须连同包内依赖使用。 |
+| 保留的旧组合 | V146/V153/V158原实现仍在；要用本稿修复，应把接收方自己的启动绑定更新到V160，而不是只复制新文件仍调用旧入口。 |
 | 仅补收尾 | `run_daily_final_tail_v2.py`、`daily_final_tail_scope_v1` 和 `continuation_report_v2` 复用原run的已完成事实，只做剩余项；不能以full代替、重刷已完成关卡。 |
 | 每日的外层任务绑定 | `daily_dispatch_v1.selected_scope(selected, checked)`。用当前发布文件清单、接收方当前任务和目标核验生成绑定；旧 `preflight()` 依赖作者生产登记，不直接照搬。 |
 | 主线推进与通用引擎 | `arknights_daily_runtime_v12.py` 的 `mode_mainline()` 等函数；共用环境、识别、独占和清理从 `ark_host` 装配。 |
@@ -60,7 +60,7 @@
 
 作者工程的 `PROJECT_CONTRACT.json`、`.project-reasoning/AUTOMATION_HANDOFF.json`、`COMPONENTS.json` 和私人历史证据未公开。本机合同应按引擎 `validate_project_contract()` 与 `compile_execution_plan()` 的字段建立，并反映接收方用户真实目标；不得伪称源工程的历史验收在这台机器上已经通过。
 
-每日接法保留 `selected_scope` 的外层适配位置。按接收方当前任务和实际包内清单生成自己的启动绑定，再进入V158组合，不复制作者handoff/组件登记或账号事实。不要靠删除所有检查、忽略缺文件或无条件返回PASS来接通。
+每日接法保留 `selected_scope` 的外层适配位置。按接收方当前任务和实际包内清单生成自己的启动绑定，再进入V160组合，不复制作者handoff/组件登记或账号事实。不要靠删除所有检查、忽略缺文件或无条件返回PASS来接通。
 
 活动地图、接收方自己采集的小图及所需第三方资料，统一按 [runtime-resources.md](runtime-resources.md) 配置并验证。不要复制作者截图、账号进度或缺失文件时伪造通过。`release.json` 只供版本提示，不替代当前任务授权，也不自动更新执行文件。
 

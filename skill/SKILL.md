@@ -7,7 +7,7 @@ metadata:
 
 # MAA Arknights AI Control
 
-本包是 **v1.2.1 · 2026-11-04 更新稿**，含完整执行源码。推荐公开启动入口为 `run_daily_v158.full()`，沿用原公共任务顺序、导航及单关/失败换作业循环；旧V146/V153实现保留。培养、模组和兑换仍按接收方自己的账号配置拼接。代码对接见 [接收方说明](references/receiver-integration.md)。
+本包是 **v1.2.1 · 2026-11-04 更新稿**，含完整执行源码。推荐公开启动入口为 `run_daily_v160.full()`，串联OCR容错、报纸服务与既有V158组合，沿用原公共任务顺序、导航及单关/失败换作业循环。培养、模组和兑换仍按接收方自己的账号配置拼接。代码对接见 [接收方说明](references/receiver-integration.md)。
 
 Operate this project from its durable contract and current evidence. Never infer a new game goal merely because a technical action is convenient.
 

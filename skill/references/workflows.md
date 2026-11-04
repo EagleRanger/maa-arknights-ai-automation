@@ -61,12 +61,16 @@ entering it for the rest of that event revision. Missing rules/effects go to
 AI locally without cancelling independent daily cleanup. Focus validation on
 the current event's continuity; a future mini-game is not automatically covered.
 
-For this Committee layout, read **all newspaper tabs**. The first three
-editions have live results from AI-guided layout on real game frames; this
-is not proof that MAA alone laid them out or that an unattended solver
-finished every edition. An already-done or locked edition is a separate
-outcome. Defer locked editions to their opening date; check production
-goals and reward receipt before marking each newly available edition done.
+For this Committee layout, read **all newspaper tabs**. Preserve completed
+editions and proven layout plans. If an unlocked edition lacks a learned plan
+but the installed MAA resources implement it, reuse that native plugin, then
+check the named edition's real goals and four reward marks. Native completion
+can leave the next locked edition on screen; it is a known return page, not a
+failed exploration or a missing homepage. Use the existing paper → activity
+lobby → terminal → home return path before account identification. Do not send
+these recognized pages through an old event's generic map navigator. Defer
+locked editions to their opening date; all currently unlocked editions done
+is enough to continue the daily route, without claiming future editions.
 
 Do not couple a non-combat event utility's entry to unrelated battle-map tile
 fingerprints. Identify its current event period and lobby/utility page instead;
@@ -79,6 +83,15 @@ Use the existing navigation and multiple current page anchors/target details
 to confirm the intended interface. Do not press Back repeatedly on a real home
 screen because one font variant failed OCR. New unknown stable pages use the
 existing AI feedback route rather than accumulating exact-font restrictions.
+
+Treat OCR as an observation, not a literal-title gate. On this Committee page,
+the selected pager dot and actual page transition identify the edition even if
+its title is misread. Re-capture twice before declaring an unknown page; do not
+repeat the click while only re-reading its result. For an uncertain known text
+region, crop and enlarge it (normally 2x) and reuse the selected recognizer.
+Keep OCR/backend selection consistent in standalone tools and daily execution.
+If still unresolved, preserve the environment and use the existing execution-AI
+handoff; one uncertain label must not terminate the whole daily workflow.
 
 The existing final acceptance popup may include a stable-release notice using
 [release-notices-and-local-merge.md](release-notices-and-local-merge.md).

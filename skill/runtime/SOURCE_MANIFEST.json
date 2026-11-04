@@ -1443,6 +1443,11 @@
       "sha256": "46c0f181f1310f44b0836072c4ac22ecc308eff4b96e47510762d4ac99f73b2f"
     },
     {
+      "path": "ocr_tolerance_v1.py",
+      "bytes": 5226,
+      "sha256": "f7fff4dbfc7cc4371c1c1d1b57a652df0a03efe5e3b0c4b723432f1f6743e756"
+    },
+    {
       "path": "operator_home_labels_v1.py",
       "bytes": 2166,
       "sha256": "630fd751648da996c4472df13a64e2910b9aee953594a870fd107cc77cfdfb8c"
@@ -1511,6 +1516,11 @@
       "path": "portable_resources_v1.py",
       "bytes": 2629,
       "sha256": "d91fd3d47eea9b890d51e20528329d9d2574b1982addc2491d8cc3e40000de11"
+    },
+    {
+      "path": "press_committee_native_fallback_v1.py",
+      "bytes": 8233,
+      "sha256": "5bd23b02098943fe61b17d0ee39d0d5c3bad63dc7eb80db7582b8c069ea6e51b"
     },
     {
       "path": "press_committee_pages_v2.py",
@@ -1888,9 +1898,19 @@
       "sha256": "22c2024155b3a8b4f3ec1b63be1a7456a6e6030db5822f8c11de12a45da20b8c"
     },
     {
+      "path": "run_daily_v159.py",
+      "bytes": 904,
+      "sha256": "84992cb4e0cbaace63e916c629c377397a580e06d521662e61392e4f520739aa"
+    },
+    {
       "path": "run_daily_v16.py",
       "bytes": 6506,
       "sha256": "e18088481218df34a3577b8916e3482c1b43fbd27cd8c0bc7160750195316558"
+    },
+    {
+      "path": "run_daily_v160.py",
+      "bytes": 836,
+      "sha256": "30a4fac3ac01ea1e53efc6311af5991e4273e9f217d68a0a7c6fb0754f3cedee"
     },
     {
       "path": "run_daily_v17.py",
