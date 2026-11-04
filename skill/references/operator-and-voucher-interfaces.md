@@ -140,3 +140,19 @@ outputs distinguish saved budget, eligible plan, started purchase, uncertain
 transaction and verified full completion. The current project has an offline
 monthly yellow-bundle planner, **not a live-verified green/yellow purchasing flow**.
 Keep those states explicit when sharing the Skill.
+
+**接入方式**：选用模组任务时，在本机的 `runtime_state/operator_module_plan.json`
+指定账号、干员、模组及动作（`inspect`、`mission_battle`、`unlock`、`upgrade`）。
+目前可执行的样例只支持怒潮凛冬 HAM-X；没配置就不启用，不替换别的目标。
+红票试用入口读取独立的 `runtime_state/red_catalyst_plan.json`，每个购买请求
+只买一个芯片助剂，不读取培养计划，也不默认购买。两个配置的空白示例在 templates 目录。
+# Training return boundary
+
+After the native training task, distinguish its skill-detail page from an
+activity map. A page showing the trainee as training, an assistant and skill
+descriptions can be left with Back without changing either occupant or skill.
+Read a fresh frame after each action and rejoin the existing home navigator.
+Do not restart an already-started training because returning failed. If the
+configured return budget fails, preserve the original owner and scene for AI,
+then recheck home before continuing independent daily closeout.
+

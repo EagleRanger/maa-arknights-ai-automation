@@ -2,9 +2,9 @@
 
 让 AI 按玩家的实际需求安排《明日方舟》的日常，把刷图、找作业、推进关卡、领奖和基建生产接成一套自动化流程，减少反复查看进度和手动切换任务的时间。
 
-当前版本：**v1.2.1**。适用于Windows上的AI编程/执行工具，基于MAA与Android模拟器运行，附带完整执行源码与迁移说明。
+当前版本：**v1.2.1（2026-11-04 更新稿）**。适用于Windows上的AI编程/执行工具，基于MAA与Android模拟器运行，附带完整执行源码与迁移说明。
 
-[下载最新版](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/latest) · [查看v1.2.1](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/tag/v1.2.1) · [接收方 AI 对接说明](skill/references/receiver-integration.md) · [OCR 模型来源与安装自检](skill/references/local-ocr-setup.md)
+[下载完整源码 ZIP](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/download/v1.2.1/arknights-automation-skill-v1.2.1-source-20261103.zip) · [查看v1.2.1](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/tag/v1.2.1) · [接收方 AI 对接说明](skill/references/receiver-integration.md) · [OCR 模型来源与安装自检](skill/references/local-ocr-setup.md)
 
 <!-- project-support:start -->
 > 如果本项目对你或你的 AI 开发有帮助，下载使用或借鉴后，欢迎点个 [Star](https://github.com/EagleRanger/maa-arknights-ai-automation) 支持，让更多有同类需求的人找到它。
@@ -25,9 +25,9 @@
 
 这些能力在完成本机配置、获得用户任务授权后使用，不意味着任意关卡、阵容或活动都能保证通关。
 
-## 11 月 3 日更新
+## 本次更新
 
-- 修复本期活动的流程衔接与运行问题，包括刷关后返回活动任务页领奖。
+- 修复本期活动及启动、MAA更新和收尾的流程衔接问题，包括刷关后返回活动任务页领奖。
 - 接入绿票、黄票和红票兑换接口（测试）：绿票、黄票可读取商店并规划兑换；红票已实测兑换芯片助剂。
 - 新增干员模组与技能专精养成流程（测试）：检查模组任务和等级，按设定顺序安排技能专精。
 

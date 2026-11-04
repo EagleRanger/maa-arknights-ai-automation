@@ -378,6 +378,11 @@
       "sha256": "3c70f926e2c12896a75cd91985f5afa20b4912cd2b5dbcb9b28fa0b0b65583cf"
     },
     {
+      "path": "continuation_report_v2.py",
+      "bytes": 2293,
+      "sha256": "f05a1a57ba083ca21e193faee593268d952dba1e6bc31716a9074d5e3a17ca63"
+    },
+    {
       "path": "copilot_jobs/module_怒潮凛冬_HAM-X_16-6_v89867.json",
       "bytes": 11243,
       "sha256": "bd7db3640f0efcfcab39978d655eba81724318d3041ce167e9c510aa68234258"
@@ -628,6 +633,11 @@
       "sha256": "9c404865a4393ce26309f764c0eaca4621801375855341884aba15dcd738b859"
     },
     {
+      "path": "daily_final_tail_scope_v1.py",
+      "bytes": 3986,
+      "sha256": "9372afed881d35c04199a0ab5bc587cd24993eb48aaf4d03c65c1a715ce9c9f6"
+    },
+    {
       "path": "daily_flow_continuity_v51.py",
       "bytes": 5417,
       "sha256": "5b482fd98bdfde154e987c1c139bf56fc0cdb192f8ac386710db92ed6348427e"
@@ -676,6 +686,16 @@
       "path": "daily_login_supply_v2.py",
       "bytes": 2872,
       "sha256": "902a80850bfec02c93b614883c4bacf41f962d318d013066b4bbbb776848815b"
+    },
+    {
+      "path": "daily_login_supply_v3.py",
+      "bytes": 5308,
+      "sha256": "7db053297b2131930511197e8871d5cc2950b4f3c5901b9e22f8a84ac61761b1"
+    },
+    {
+      "path": "daily_login_supply_v4.py",
+      "bytes": 1762,
+      "sha256": "a4ca70a56a183df50cbbcf4e3f7912bc643c26d5aa695522c37ea03969323fc0"
     },
     {
       "path": "daily_login_visual_v1.py",
@@ -876,6 +896,11 @@
       "path": "daily_stamina_terminal_digits_v1.py",
       "bytes": 3833,
       "sha256": "125fa7781a69d268c1b554404a5aba2827b7129c0142c10265559f67a4daa03c"
+    },
+    {
+      "path": "daily_startup_cooperation_v1.py",
+      "bytes": 3838,
+      "sha256": "25e61ddb4c89f641606e41831e1bfb9ff5c556218d51a9bed05a63728213e9a0"
     },
     {
       "path": "daily_startup_rewards_v1.py",
@@ -1086,6 +1111,11 @@
       "path": "event_copilot_feedback_v1.py",
       "bytes": 5124,
       "sha256": "5dce8f067572e7db576c1fd0b7ca12525b95709300cc20d34d832b26f777b134"
+    },
+    {
+      "path": "event_daily_reward_chain_v1.py",
+      "bytes": 1049,
+      "sha256": "8e9f72426cb33ddd169aec98d672c63b7351e6566a272e4b24b6b4396b06253e"
     },
     {
       "path": "event_daily_reward_claim_v2.py",
@@ -1303,9 +1333,19 @@
       "sha256": "6a8eedfb7f4259c375ca81f264bab95a79190fa7b6f12bf42e158022d72417c5"
     },
     {
+      "path": "maa_config_transaction_v2.py",
+      "bytes": 2302,
+      "sha256": "bf846d351beb33bc9b236e69f62fe1ab471bebb6b49c1ae45ef180a47abc9694"
+    },
+    {
       "path": "maa_control_recovery_v36.py",
       "bytes": 3464,
       "sha256": "9fc223e0f90a087807b043a18ed5c71b9f2f0f32db3a2967f0ac1b533602be76"
+    },
+    {
+      "path": "maa_daily_update_policy_v1.py",
+      "bytes": 5233,
+      "sha256": "a9e7534e05534eaf88362f51971ad5c1ff48f2e57af9d2f59df2ff69103af7a3"
     },
     {
       "path": "maa_home_entry_compat_v2.py",
@@ -1338,6 +1378,11 @@
       "sha256": "ea5aeed8a10333824f8fd826c193db54f7a3db4fa7f0a673df3d3d5ece4e48b5"
     },
     {
+      "path": "maa_queue_recovery_v1.py",
+      "bytes": 3307,
+      "sha256": "170ef0fbf07a85f628c0b184a4e1f62ec4f2c14a26f7b5e1242aa58a981cbdf4"
+    },
+    {
       "path": "maa_recruit_preferences_v1.py",
       "bytes": 2463,
       "sha256": "23741e13ccb2e48e4fc75b0a69784d50d54def89de164224d4e0129999f04673"
@@ -1361,6 +1406,11 @@
       "path": "maa_series_resource_v3.py",
       "bytes": 4403,
       "sha256": "98a016601d56112c898ff035f6fa55be340b8967b4d695254d1de4d8d7791a9d"
+    },
+    {
+      "path": "maa_setup_guide_ai_v1.py",
+      "bytes": 1734,
+      "sha256": "6223b7e526896020fecdcee5449b568f4c7000a550372aaa25c8313d3b4419ea"
     },
     {
       "path": "maa_utility_custom_v1.py",
@@ -1421,6 +1471,11 @@
       "path": "operator_training_infrast_v1.py",
       "bytes": 4227,
       "sha256": "85cf9ded019c89e49a33377a248a596f0480bacb29543b05ec4cabd9251b4c70"
+    },
+    {
+      "path": "operator_training_return_v1.py",
+      "bytes": 2602,
+      "sha256": "51660ce5dfead403df761c972f8b0ab6cf82b405adad7f7752c4a9f1bd955fb5"
     },
     {
       "path": "operator_training_room_probe_v1.py",
@@ -1491,6 +1546,11 @@
       "path": "run_daily.py",
       "bytes": 9552,
       "sha256": "a09bf0f1263cc2020b60cf18381c413295d1ea996fa31d67300e51839ac1180a"
+    },
+    {
+      "path": "run_daily_final_tail_v2.py",
+      "bytes": 3184,
+      "sha256": "3d83d964b68b8e996a100bc999234ef418502f7b85958794a8a3e284576d672e"
     },
     {
       "path": "run_daily_tail_v2.py",
@@ -1801,6 +1861,31 @@
       "path": "run_daily_v153.py",
       "bytes": 751,
       "sha256": "edbe2f59cde1522eb0458c8a84abd4cffd807d774fdb8ff59d249721f6fe6a8a"
+    },
+    {
+      "path": "run_daily_v154.py",
+      "bytes": 1089,
+      "sha256": "97883214ca73958b28ac23a4a92daf7d7eedafc059579dc75cae2cb102c07db8"
+    },
+    {
+      "path": "run_daily_v155.py",
+      "bytes": 768,
+      "sha256": "38667c7996a18ad982651d369de83df354d7976e4e02ee495996b3736d49612d"
+    },
+    {
+      "path": "run_daily_v156.py",
+      "bytes": 1171,
+      "sha256": "13b9ed3e5b9c700d4c0744425cbc26c388af35403f979caddc790f06d2104fb8"
+    },
+    {
+      "path": "run_daily_v157.py",
+      "bytes": 854,
+      "sha256": "19bc5348f4d721bd38d464ffc15dcf4cdc3c2ccd9c9dd213d45b86868918e943"
+    },
+    {
+      "path": "run_daily_v158.py",
+      "bytes": 921,
+      "sha256": "22c2024155b3a8b4f3ec1b63be1a7456a6e6030db5822f8c11de12a45da20b8c"
     },
     {
       "path": "run_daily_v16.py",
@@ -2391,6 +2476,11 @@
       "path": "stage_sanity_cost_yw_v3.py",
       "bytes": 3049,
       "sha256": "97cf355e7678a9ae61a995129e8ead9e11d171fb1d1a95f66a4a883c2537a391"
+    },
+    {
+      "path": "tools/ark_cooperation_control.py",
+      "bytes": 3947,
+      "sha256": "c39a21f4fdc930590ced79f31b7e210673b88ba7c5172f5f1f503ca615e4d327"
     },
     {
       "path": "tools/collect_portable_resources_v1.py",

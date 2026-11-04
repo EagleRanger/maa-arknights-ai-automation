@@ -7,7 +7,7 @@ metadata:
 
 # MAA Arknights AI Control
 
-本包是含执行源码的 **v1.2.1**。默认保留已发布的 `run_daily_v146.full()` 与原推图链；`run_daily_v153.full()` 是接收方可选择的新组合，不因安装自动切换。兑换、模组与专精中的待完善功能标为“测试”。代码对接见 [接收方说明](references/receiver-integration.md)，直接复用 `runtime/`。
+本包是 **v1.2.1 · 2026-11-04 更新稿**，含完整执行源码。推荐公开启动入口为 `run_daily_v158.full()`，沿用原公共任务顺序、导航及单关/失败换作业循环；旧V146/V153实现保留。培养、模组和兑换仍按接收方自己的账号配置拼接。代码对接见 [接收方说明](references/receiver-integration.md)。
 
 Operate this project from its durable contract and current evidence. Never infer a new game goal merely because a technical action is convenient.
 
@@ -15,6 +15,7 @@ Operate this project from its durable contract and current evidence. Never infer
 
 - Keep the project's proven navigator and per-stage loop in control of daily execution, including switching jobs and checking the real result. AI handles unfamiliar pages and exceptions; it is not a second watcher of a healthy run.
 - Invoke MAA as a plugin for the specific task it supports (for example Copilot battle or reading a training room). Do not switch back and forth just because MAA also offers its own daily workflow. Borrow a proven MAA recognition action when it closes a real gap.
+- Skip MAA's human-only post-update settings guide through a supported control or the source-verified adapter. Accept updates at the first daily startup; defer actual mid-run prompts until the next daily startup. This does not skip the recipient's own account/environment/resource setup. See [continuity-and-signin.md](references/continuity-and-signin.md).
 - The project's background input path keeps ownership of existing navigation, state checks and recovery. It must not issue input during an active MAA action stream.
 - The emulator is the execution device. Its paths, instance, ADB port, package, and readiness are machine-local facts; its guest display is fixed at landscape 1920×1080 for this Skill.
 

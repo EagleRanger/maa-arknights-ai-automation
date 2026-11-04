@@ -34,6 +34,22 @@ handoff. The user's remaining objective persists across technical run IDs.
   just because route metadata is missing. Apply resource changes only when the
   relevant MAA owner is idle, preserving local overlays and rollback evidence.
 
+For MAA application updates, finish the daily objective first: an explicit
+update prompt on the initial MAA startup may be accepted before any queue;
+after daily work starts, choose the prompt's actual `稍后`/`否` and finish the
+remaining modules. Remember the deferred package for the next daily startup,
+not the next mid-run MAA reload. A successful update is not successful gameplay.
+Temporary task configuration must restore only its own changes; do not write an
+old whole-file snapshot over MAA's newly migrated settings/version fields.
+
+MAA's post-update `设置指引` is a human demo, not an AI workflow prerequisite.
+Skip it through its supported skip control or a source-verified version-specific
+configuration adapter. The supplied project adapter currently knows MAA
+6.21.2/6.21.3; unknown guide schemas go to AI rather than guessed completion.
+Re-read the real task page and require a visible, enabled Start control; do not
+invoke a hidden/disabled control behind the guide. This does not skip the
+recipient's own account/environment/resource setup in this Skill.
+
 ## Generic sign-in, not an activity-name macro
 
 Recognize entry text such as `签到`/login rewards, then establish the overlay with
@@ -47,9 +63,13 @@ Do not make one event's yellow-card skin or left-side label universal.
    marker or counter. A click alone does not prove a reward.
 3. Keep claim effect and closure separate. A received explanation page can stay
    open after the reward. Preserve the proved claim, do not tap it again, locate
-   its visible X, then confirm the overlay is gone and the home is real.
+   its visible X, then read the next page. Another recognized reward overlay is
+   a valid next step, not a failed claim merely because home is not visible yet.
+   Drain that chain through its own handlers; verify home at the chain boundary.
 4. If OCR misses X, reuse a verified visual template or graphic-shape locator
-   with page and geometry evidence. Do not guess a top-right point.
+   with page and geometry evidence. OCR `X` alone is insufficient: a currency
+   `+` on home can be misread as X. Validate stroke direction and contrast
+   polarity against the current image; do not guess a top-right point.
 5. If no reliable action is known, return `reward_pending` and a fresh frame to
    AI. A positively identified close control may return to a verified home so
    other daily work continues; unknown navigation must not be treated as home.
@@ -59,7 +79,15 @@ game day of a claim. On a wish-wall overlay, zero remaining choices alone
 does not prove payout; the received marker plus drawn/completed state is
 stronger. On a calendar overlay, match today's card or received result; future
 cards can be locked on a day that is already claimed. Close via the overlay's
-own X and verify home. Do not credit prior/manual receipt as automatic.
+own X, handle any next overlay, and verify home. Do not credit prior/manual
+receipt as automatic. Already-received evidence belongs to the actual account
+and game day; missing an unclaimed card does not establish a missing reward.
+
+For the ordinary `今日配给` / `每日配给` startup overlay, the title and its
+established bottom confirmation control are enough to dismiss it. Reward names
+are random and must not be a whitelist for clicking the checkmark. Re-read the
+page after the click. Sign-in and wish-wall activities are optional: absent or
+expired activities do not become mandatory startup failures.
 
 Keep actual announced start/end distinct from the
 first observed open time. New activity instances never inherit old claimed or
@@ -74,6 +102,13 @@ rechecks and resumes the same step. User absence is not a reason to stop this
 already-authorized chain. No new scheduler, mouse takeover or duplicate owner.
 
 Use an existing supported pause/reply seam to keep a healthy environment open.
+After the configured recovery budget (three rounds in the current adapter),
+retain the original controller, game, MAA and emulator and send the fresh frame
+to the execution AI. The AI corrects only the affected page, then the same owner
+performs a fresh read-only recheck before resuming the original step. Do not
+auto-close the environment just because the error has been reported. Keep any
+original explicit deadline and stop request effective. This is a startup seam,
+not a claim that every MAA-internal failure already supports live recovery.
 If that host lacks it, do not invent a live-wait capability: preserve an honest
 partial result and continue through the verified repair entry after safe
 reconciliation. A safe per-run stop does not abandon the objective.
@@ -109,6 +144,9 @@ scope, reward-versus-close effects, unknown-to-AI transfer, independent work and
 final report/cleanup separately. Candidate tests do not count as live passes,
 and user clicks never supply an automatic stability pass. Preserve readable
 fixtures outside disposable screenshots; do not export account IDs or progress.
+Do not replace the startup/navigation function under test with a mock that calls
+the desired handler: that can hide the real branch which skipped it. Stub only
+external device I/O and exercise the final composed entrypoint and transitions.
 
 Preserve decisive fault frames with a hash when the existing outbox is created;
 record missing/copy-failed evidence honestly without blocking independent work.
