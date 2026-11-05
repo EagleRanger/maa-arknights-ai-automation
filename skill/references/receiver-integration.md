@@ -14,13 +14,14 @@
 
 | 能力 | 现有实现与接缝 |
 | --- | --- |
-| 当前完整业务组合 | `run_daily_v160.full()`，实际串联160读图容错、159报纸服务与158已发布组合，继续沿原公共业务顺序。必须连同包内依赖使用。 |
-| 保留的旧组合 | V146/V153/V158原实现仍在；要用本稿修复，应把接收方自己的启动绑定更新到V160，而不是只复制新文件仍调用旧入口。 |
+| 当前完整业务组合 | `run_daily_v161.full()`，在最终消费者安装活动返回、签到同次结果复用和原控制器 AI 看图接回，继承 V160 OCR 容错、原报纸服务与业务顺序。 |
+| 保留的旧组合 | V146/V153/V158/V160原实现仍在；要用本稿修复，将接收方自己的启动绑定更新到V161，不只复制新文件。 |
+| 同日活动补做 | `run_daily_remaining_v7.admit/execute` 复用当前启动绑定与封口源run，仅续未完成的活动刷取、刷后领奖与必要收尾；不补药石、不重放周剿灭、首通、保全或报纸。 |
 | 仅补收尾 | `run_daily_final_tail_v2.py`、`daily_final_tail_scope_v1` 和 `continuation_report_v2` 复用原run的已完成事实，只做剩余项；不能以full代替、重刷已完成关卡。 |
 | 每日的外层任务绑定 | `daily_dispatch_v1.selected_scope(selected, checked)`。用当前发布文件清单、接收方当前任务和目标核验生成绑定；旧 `preflight()` 依赖作者生产登记，不直接照搬。 |
 | 主线推进与通用引擎 | `arknights_daily_runtime_v12.py` 的 `mode_mainline()` 等函数；共用环境、识别、独占和清理从 `ark_host` 装配。 |
 | 独立模块组合 | `ark_modules.assembly`、`ark_modules.operations`、`ark_modules.runtime_session`；面向已经准备好的 runtime，不默认升级为完整每日任务。 |
-| 银凇肉鸽监督、领奖、加点、异常协作 | `run_sami_progress_v3.main()` 复用 V2、V1 与 `run_sami_until_deadline`。V1 的 `admit()` 消费新的本次任务包，外层安装协作与监督逻辑。 |
+| 银凇肉鸽监督、领奖、加点、异常协作 | `run_sami_progress_v9.py` 复用原 `admit()` 与 `run_sami_until_deadline`，装配奖励转场、重复失败取证、启动层处理和同 owner 接回。Windows 后台宿主入口为 `tools/start_roguelike_owner_v3.py`；须先完成本地绑定。 |
 | 其他主题和功能 | 由 `runtime/` 内既有域模块和引擎实现，参见对应功能文档；当前银凇接法不等于所有主题均经新机器实跑。 |
 
 `runtime/SOURCE_MANIFEST.json` 记录发布源码的路径与 SHA-256。首次对接核对包内容，修改后为接收方自己的版本记录新指纹。新版本身份不表示已经完成游戏实测。
@@ -50,6 +51,8 @@
 
 可用覆盖项：`ARKNIGHTS_MAA_PATH`（MAA.exe 或目录）、`ARKNIGHTS_MAA_ROOT`、`ARKNIGHTS_MUMU_ROOT`、`ARKNIGHTS_PYTHON`。游戏包和设备使用接收方确认的 `ARKNIGHTS_GAME_PACKAGE`、`ARKNIGHTS_DEVICE`；不要套用作者的 B 服、端口或模拟器实例编号。
 
+V161 完整每日、活动补做和银凇后台宿主的原启动链还需要接收方自己的可写 **`runtime/.runtime_maa/MAA-App/`**。将合法取得、匹配版本的 MAA 程序与资源准备在此，建立自己的 `config/gui.new.json`；不要复制作者配置或从公共包找这套目录。绑定该树的程序、配置、资源和日志；普通 AppData 安装或仅设置外部路径不能代替这个启动树。先在 runtime 内用 `daily_portable_bootstrap_v1.preflight()` 检查文件、配置与写入能力，它不启动 MAA 或游戏。
+
 `config/game_runtime_target_v1.json` 需要接收方根据真实 MuMu 实例生成；`config/local_ocr_v6_small_v1.json` 需要按已安装 OCR 环境与模型建立，所有相对路径以 `runtime/` 为根。按 [OCR 来源、安装与自检](local-ocr-setup.md) 填写真实 `base_python` 和隔离 `environment`，校验三个模型的 SHA-256，再调用现有 `preflight()`。已有示例仅供结构参考，不能把 `.example.json` 当成已生效的配置。游戏截图仍要求横屏 1920×1080，这是现有识别/坐标的实际前提。
 
 签到、信赖、工坊及新版首页兼容识别所需参考图改为接收方自采，作者全屏和由其裁出的新模板均不随包。按 [运行资源边界](runtime-resources.md) 的界面、尺寸和裁框，使用 `python tools/collect_portable_resources_v1.py --kind <资源名> --source <自己的截图>`；工具只保留本机小裁片及指纹，不截图、不启动应用、不保留整屏。基建通知铃铛用 `--kind base_notification` 从接收方已安装 MAA 的 `resource/template/InfrastPic/Notification/InfrastNotification.png` 取得并检查指定上游指纹。另附原有不含账号标识的保全道具小图，它不是任何人的库存事实。
@@ -60,13 +63,17 @@
 
 作者工程的 `PROJECT_CONTRACT.json`、`.project-reasoning/AUTOMATION_HANDOFF.json`、`COMPONENTS.json` 和私人历史证据未公开。本机合同应按引擎 `validate_project_contract()` 与 `compile_execution_plan()` 的字段建立，并反映接收方用户真实目标；不得伪称源工程的历史验收在这台机器上已经通过。
 
-每日接法保留 `selected_scope` 的外层适配位置。按接收方当前任务和实际包内清单生成自己的启动绑定，再进入V160组合，不复制作者handoff/组件登记或账号事实。不要靠删除所有检查、忽略缺文件或无条件返回PASS来接通。
+每日接法保留 `selected_scope` 的外层适配位置。按接收方当前任务和实际包内清单生成自己的启动绑定，再进入V161组合，不复制作者handoff/组件登记或账号事实。进入前调用 `run_daily_v161.validate_current_plan()` 验证实际计划可编译。补做先以 `admit(source_run_id)` 读取同游戏日已封口、已清理且未完成刷取的源run，再把该结果与本机正常每日已有的 `selected, checked` 交给 `execute(source, source_hash, selected, checked)`。这复用原运行身份和资源门槛，不以旧作者登记代替接收方验证。已在本机建立兼容登记的接收方也可用脚本的 `--source-run-id ... --check-only` 走同一入口；空白解压包不能跳过配置直接执行。
+
+补做前核源run与当前授权账号/游戏实例一致，查看同日后续运行的真实效果；不能从模拟器名称推断同账号。`game_runtime_target_v1.json` 的游戏包必须与 `ARKNIGHTS_GAME_PACKAGE` 相同。已验证完成的五链保留旧证据，不重复跑；在本轮仍授权日常收尾时，调用现有轻量领取接口检查基建待收、已完成招募和新增任务奖励，不轮班、不新开招募、不花无人机。V7 是刷取未完成的补做入口；同一源run的后续刷取已完成时，不再开刷，剩余活动奖励用已有单项入口核查。
+
+当原日常控制器在导航等待中且 MAA 空闲，执行 AI 确认实际首页截图后可用 `runtime/tools/ark_navigation_reply_v1.py` 写入绑定原run/事件/截图的 recheck。旧事件和变化后的画面不能沿用；继续核原控制器确已接回。此回复不会把领奖、作战或其他业务判完成。每日等待没有内置截止计时；如果原任务有明确截止或停机要求，宿主仍负责通过原控制协议提交绑定当前事件的 `stop`，由原控制者安全收口。
 
 活动地图、接收方自己采集的小图及所需第三方资料，统一按 [runtime-resources.md](runtime-resources.md) 配置并验证。不要复制作者截图、账号进度或缺失文件时伪造通过。`release.json` 只供版本提示，不替代当前任务授权，也不自动更新执行文件。
 
-肉鸽接法创建新的 `outputs/continuations/` 任务包及本机当前指针，保留 `admit()` 对任务路径、workflow、SHA、有效起止时间、主题和 artifact 指纹的校验。普通肉鸽任务的 `daily_replay`、`recording` 都为 false。队伍、分队、难度和截止来自接收方用户；源码中的既有默认预设需据此核对，不能当作新用户已选择。
+银凇接法创建新的 `outputs/continuations/` 任务包及本机当前指针，保留 `admit()` 对任务路径、workflow、SHA、有效起止时间、主题和 artifact 指纹的校验。普通肉鸽任务的 `daily_replay`、`recording` 都为 false；V9 的 `workflow` 为 `ARK-SAMI-PROGRESS-V9`。任务包的 `exploration` 必须明确给出接收方选定的 `core_char`、`squad`、`roles`、`difficulty: "highest_unlocked"`；此路线保留原“当前最高已解锁难度”的机制，不会把它当任意难度适配。未选择时先停在准入，不套作者队伍。选定后先用 `python tools/start_roguelike_owner_v3.py --handoff <本机任务包> --check-only` 验证入口；去掉 `--check-only` 才是经当前授权的真实启动。
 
-共用的单控制者、MAA 队列归属、资源边界、失败分类、原步骤续接和结束清理仍沿用实际实现。AI 宿主消息/回复接口由接收方对接；`ark_host.cooperation_v1` 的事件与回复协议已在代码中，不要因为宿主不同就重做游戏流程。
+共用的单控制者、MAA 队列归属、资源边界、失败分类、原步骤续接和结束清理仍沿用实际实现。后台宿主保留 Windows 进程生命周期检查；若宿主无法脱离随父进程关闭的 Job，则在游戏启动前拒绝，不重复起 owner。公开包保留 `ark_host.cooperation_v1` 的事件文件与回复协议，不含作者的原生桥接、对话路由或自动唤醒设置；接收方可沿自己的消息入口消费事件，不把 pending 当作已送达。重复失败仅记录证据和建议，不自动改阵容、作业或参数。
 
 ## 本包验证范围
 

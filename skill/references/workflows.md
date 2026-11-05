@@ -27,7 +27,7 @@ as callable capability providers, not a mandatory replacement for the outer
 AI/script orchestration.
 
 1. Start and clear validated update/login/announcement blockers.
-2. On Monday, prioritize weekly Annihilation when incomplete. If a stamina-consuming battle flow fails, block later stamina use but continue safe non-stamina cleanup if the contract allows it.
+2. Prioritize unfinished weekly Annihilation. A navigation interruption goes to recovery/AI, not a permanent stamina block. For actual battle failure, follow the established attempt and continuation policy; only a still-uncertain resource commit or genuine unmet prerequisite blocks dependent actions.
 3. Inspect the terminal limited-event card before spending sanity. Determine rerun/new event and remaining days from current UI evidence.
 4. Validate a recorded todo before executing it. If already perfectly complete, repair the progress record instead of replaying it.
 5. Complete authorized event or mainline stages using the required MAA job/retry policy. Missing operators or an invalid job are job-selection failures, not battle defeats.
@@ -58,7 +58,9 @@ Keep completed-item facts in the recipient's account store. When all currently
 unlocked items are done, stop repeating them and check for the next unlock on a
 later normal login. When the whole event extra is verified complete, stop
 entering it for the rest of that event revision. Missing rules/effects go to
-AI locally without cancelling independent daily cleanup. Focus validation on
+AI locally without cancelling independent farming or daily cleanup once the
+page has been recovered. Keep the mini-game's pending outcome separate from
+the completed stage progression and the navigation result. Focus validation on
 the current event's continuity; a future mini-game is not automatically covered.
 
 For this Committee layout, read **all newspaper tabs**. Preserve completed

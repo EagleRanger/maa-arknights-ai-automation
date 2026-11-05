@@ -143,6 +143,11 @@
       "sha256": "d6418e78cd27418fedc241839650e11a69b311ec1821a49b8ea3b810d68e30dc"
     },
     {
+      "path": "ark_host/process_lifetime_v1.py",
+      "bytes": 1287,
+      "sha256": "ceb26f38981ad9544955df7318d45d4a5a07a1c37606e0aa15addf27eb06f488"
+    },
+    {
       "path": "ark_host/runtime_services_v1.py",
       "bytes": 3671,
       "sha256": "684cdd2bc4cf120954bbec930be6f9a4626d99a9c8067a7a78e67bf0df10b4f6"
@@ -416,6 +421,16 @@
       "path": "copilot_visual_usage_v4.py",
       "bytes": 677,
       "sha256": "e43edbaf5263427f4fe2e3169b082098e3f06188109cc50a97dc7ddc63d3a4da"
+    },
+    {
+      "path": "daily_activity_remainder_v1.py",
+      "bytes": 10546,
+      "sha256": "dde00b69e404c7e8d87fe482220c428e0c73191b8076da6c94ef7f8a161019ef"
+    },
+    {
+      "path": "daily_ai_navigation_v1.py",
+      "bytes": 7622,
+      "sha256": "a1b51d60df246d17ac717b1b8a8f48bf303451ac3441bf675379fd4a6bde4e2e"
     },
     {
       "path": "daily_base_333_cycle_balance_v2.py",
@@ -819,8 +834,8 @@
     },
     {
       "path": "daily_runtime_target_v1.py",
-      "bytes": 3674,
-      "sha256": "538dd44b4e693dc886e02c68b233959cc38ef64cfa45d07cb394a41d3e855426"
+      "bytes": 3958,
+      "sha256": "95f6106822df89c81c1d29a5300e5ef710903774bcf713b3e8cbbe946b2996b7"
     },
     {
       "path": "daily_same_day_effects_v1.py",
@@ -1171,6 +1186,11 @@
       "path": "event_navigation_recovery_v2.py",
       "bytes": 9686,
       "sha256": "7c7bbe2525e8a25956d2548fb9310a75febf7d2cc8ab8dafe03e989b125bdcab"
+    },
+    {
+      "path": "event_optional_recovery_v1.py",
+      "bytes": 6741,
+      "sha256": "31b160ff16e373ec21e0417f05b434c00d7a093b011dbc2ff973b8b374130436"
     },
     {
       "path": "event_page_guard_v1.py",
@@ -1543,9 +1563,24 @@
       "sha256": "ca7fe127b51fc64acce7ccd14237ec2df1183e3c794aa7b93705adcaeb41412e"
     },
     {
+      "path": "reward_transition_v1.py",
+      "bytes": 2792,
+      "sha256": "b8c3d4997f66609a3f7bffb12cebe7358a66279c386379ae285ee20d6c75176d"
+    },
+    {
+      "path": "roguelike_battle_watch_v1.py",
+      "bytes": 16126,
+      "sha256": "26ba2d52011fe650e26a482289f8e3247eee18b18bded4de032019d081adce99"
+    },
+    {
       "path": "roguelike_collapse_tracking.py",
       "bytes": 12602,
       "sha256": "bd9ea4be32636cb9b61f91617460dd97015dadad789bcef873a13aba127c57d7"
+    },
+    {
+      "path": "roguelike_mode_v1.py",
+      "bytes": 3616,
+      "sha256": "26a29c8503cdc572868efa3266d6217202edd230cfc1dd47cc3236463507ab84"
     },
     {
       "path": "run_activity_room_service_v1.py",
@@ -1561,6 +1596,11 @@
       "path": "run_daily_final_tail_v2.py",
       "bytes": 3184,
       "sha256": "3d83d964b68b8e996a100bc999234ef418502f7b85958794a8a3e284576d672e"
+    },
+    {
+      "path": "run_daily_remaining_v7.py",
+      "bytes": 3990,
+      "sha256": "73a4f1ab31aeefba134a360fd3ae7626eadee5e91cdd6716dbc6e9dea064e685"
     },
     {
       "path": "run_daily_tail_v2.py",
@@ -1911,6 +1951,11 @@
       "path": "run_daily_v160.py",
       "bytes": 836,
       "sha256": "30a4fac3ac01ea1e53efc6311af5991e4273e9f217d68a0a7c6fb0754f3cedee"
+    },
+    {
+      "path": "run_daily_v161.py",
+      "bytes": 1514,
+      "sha256": "97cd32a7dbe60a3f6642dbbd8e029b628ecdceb91607dfae7341664b938bd378"
     },
     {
       "path": "run_daily_v17.py",
@@ -2329,8 +2374,8 @@
     },
     {
       "path": "run_sami_progress_v1.py",
-      "bytes": 6801,
-      "sha256": "be05b5aaaf736837d55dd435fd7fb61a76c50b0026edc17e7f44c8eb43facbc1"
+      "bytes": 6966,
+      "sha256": "9bef0834e8c85ee9af1cdfa08407cc8219ceb3d33aaf8d9d87a56d54041067b6"
     },
     {
       "path": "run_sami_progress_v2.py",
@@ -2341,6 +2386,31 @@
       "path": "run_sami_progress_v3.py",
       "bytes": 1388,
       "sha256": "6fe4cde97485ed727763f407ffd07a10a0db3834c60a8c56b1d7ec1477181efd"
+    },
+    {
+      "path": "run_sami_progress_v4.py",
+      "bytes": 748,
+      "sha256": "bcc0c76db641f1461f617b383e0a9fa41d022fdd13f2d844c71ff904c7dbfc0f"
+    },
+    {
+      "path": "run_sami_progress_v6.py",
+      "bytes": 981,
+      "sha256": "6078b55bc25a9d11fd586cb99419eceaff16a8e99fdf19939c58319023d1dbb0"
+    },
+    {
+      "path": "run_sami_progress_v7.py",
+      "bytes": 1729,
+      "sha256": "dca72959a153176fae0a1db6a6897063132b7391efb7d11a3cf88918901ed856"
+    },
+    {
+      "path": "run_sami_progress_v8.py",
+      "bytes": 2031,
+      "sha256": "2f911dad0b6baf81b18206e95780e91d3e734881134c1fd25f691c2c084d9e3c"
+    },
+    {
+      "path": "run_sami_progress_v9.py",
+      "bytes": 2146,
+      "sha256": "61beab8985b006c1fbfbb60b2c0a46698c40ed59dc6b8db7a676d7e97a105c40"
     },
     {
       "path": "run_sami_until_deadline.py",
@@ -2376,6 +2446,11 @@
       "path": "sami_demo_session_v1.py",
       "bytes": 8523,
       "sha256": "40cebb483837a6ee468d0755da623691f4d2bbc33885ce22afdc600ea6ae7f06"
+    },
+    {
+      "path": "sami_enemy_details_v1.py",
+      "bytes": 3330,
+      "sha256": "12268cb8e42e1cc4b251e0579f7b938dc6b215a542d8061e06fe92c15b9a3503"
     },
     {
       "path": "sami_run_records.py",
@@ -2503,6 +2578,11 @@
       "sha256": "c39a21f4fdc930590ced79f31b7e210673b88ba7c5172f5f1f503ca615e4d327"
     },
     {
+      "path": "tools/ark_navigation_reply_v1.py",
+      "bytes": 766,
+      "sha256": "8d43fc15cc2c22834d5793cba25cb51cb23301b02c4fa95cf7673943f29aabc4"
+    },
+    {
       "path": "tools/collect_portable_resources_v1.py",
       "bytes": 3017,
       "sha256": "aaf88cb0f82984351a217620f1db7dc989117947a3c157247423f6fe22284eff"
@@ -2526,6 +2606,11 @@
       "path": "tools/module_upgrade_trial.py",
       "bytes": 3025,
       "sha256": "f11a7ecac3542b55aa8f2d63335c64130c59d08596fb47ae24c2b2e9b2c53c73"
+    },
+    {
+      "path": "tools/owned_roguelike_worker_v2.py",
+      "bytes": 2355,
+      "sha256": "9995cb75d44de079ce60d57bddbf477a6851d77a2e91b6cc8139ea050c0bec5d"
     },
     {
       "path": "tools/prepare_annihilation_rotation_trial_v2.py",
@@ -2591,6 +2676,11 @@
       "path": "tools/service_signin_rewards_v2.py",
       "bytes": 3590,
       "sha256": "9a85c8053b0a6df048136ddc30eefb96139e859d0abfea45133f24c94bfc9368"
+    },
+    {
+      "path": "tools/start_roguelike_owner_v3.py",
+      "bytes": 3014,
+      "sha256": "c5bd272641306da0b37be281386424e61ce77cf59afd157b9d68985a2b54a7fa"
     },
     {
       "path": "tools/tutorial_session_v2.py",

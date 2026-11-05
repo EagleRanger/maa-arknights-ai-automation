@@ -96,18 +96,22 @@ available but are no longer daily work.
 
 ## One script/AI handoff, not two blind watchers
 
-The script detects and captures; the execution lane relays current evidence;
-the project lane diagnoses and supplies a bounded repair; the original owner
-rechecks and resumes the same step. User absence is not a reason to stop this
-already-authorized chain. No new scheduler, mouse takeover or duplicate owner.
+The script detects and captures; the execution AI first reads the fresh image
+and handles an ordinary in-scope page recovery itself. It sends recurring code
+defects, missing capabilities or conflicting results to the project lane. A
+notification is not a requirement to wait for project approval before using an
+obvious observed Back/Close/Confirm control. The original owner rechecks and
+resumes the same step. User absence does not stop this already-authorized chain.
+No new scheduler, mouse takeover or duplicate owner.
 
 Use an existing supported pause/reply seam to keep a healthy environment open.
 After the configured recovery budget (three rounds in the current adapter),
 retain the original controller, game, MAA and emulator and send the fresh frame
 to the execution AI. The AI corrects only the affected page, then the same owner
 performs a fresh read-only recheck before resuming the original step. Do not
-auto-close the environment just because the error has been reported. Keep any
-original explicit deadline and stop request effective. This is a startup seam,
+auto-close the environment just because the error has been reported. The daily
+wait has no built-in timer; the owning host must honor any explicit deadline or
+stop by submitting a bound stop reply through this seam. This is a startup seam,
 not a claim that every MAA-internal failure already supports live recovery.
 If that host lacks it, do not invent a live-wait capability: preserve an honest
 partial result and continue through the verified repair entry after safe
@@ -115,6 +119,32 @@ reconciliation. A safe per-run stop does not abandon the objective.
 Outbox created, native delivery accepted, project received, repair applied and
 game effect verified are distinct states. A message or log alone proves none
 of the later states.
+
+### Navigation evidence is not tied to OCR agreement
+
+Prefer the existing recognizer when it works. If the execution AI sees the
+correct homepage but its typography still defeats OCR, use the navigation-only
+visual reply when that runtime provides it: `tools/ark_navigation_reply_v1.py`
+with the original run/event, the actual screenshot and a brief observation.
+The owner compares a fresh navigation surface to that picture before accepting
+it; a changed scene stays in the same wait for re-observation, not cleanup.
+This grants only navigation readiness, never a reward, battle, training or
+account completion. The ordinary `recheck` remains sufficient when OCR works.
+An older loaded owner without this adapter keeps its current supported seam;
+do not claim a source-file edit has hot-loaded into it.
+
+For optional services, restore navigation **before returning to the enclosing
+workflow**. A failed newspaper layout remains pending, but after home recovery
+the enclosing activity route keeps its successful stage result and may farm.
+Do not first freeze stamina, unwind into final cleanup, then call that recovery
+complete merely because the homepage was restored. If an older owner already
+skipped a phase, reconcile its effects and dispatch only that missing phase and
+the necessary post-action cleanup through the currently selected runtime.
+
+Use account/activity/game-day identity for a claim already verified in this run.
+Reopening a horizontally shifted calendar does not invalidate the proved claim
+just because its card moved. Reuse that claim proof, do not count it twice, and
+do not infer today's claim from an unrelated old stamp or zero counter.
 
 ## Tutorials are a capability gap, not automatically human-only
 
@@ -147,6 +177,13 @@ fixtures outside disposable screenshots; do not export account IDs or progress.
 Do not replace the startup/navigation function under test with a mock that calls
 the desired handler: that can hide the real branch which skipped it. Stub only
 external device I/O and exercise the final composed entrypoint and transitions.
+Include the real current-plan compiler in an entry test: artifact fingerprints
+alone do not detect a policy/schema mismatch. Check effective resource settings
+after legacy bootstrap wrappers rebuild arguments, not just the command passed
+to the launcher. Keep the bootstrap's one run identity. A legacy policy label
+such as `pause_and_report` can remain for compatibility while its defined scope
+is local recovery and AI continuation; renaming the label is not the behavior
+change, and must not create a new startup blocker.
 
 Preserve decisive fault frames with a hash when the existing outbox is created;
 record missing/copy-failed evidence honestly without blocking independent work.

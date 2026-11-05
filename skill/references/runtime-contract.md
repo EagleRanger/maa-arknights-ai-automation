@@ -58,6 +58,13 @@ really remains unknown, pause only the action that depends on it.
 - Long-running modes require a current checkpoint, correct theme/phase, live queue evidence, and deadline cleanup.
 - Final daily completion requires one truthful report and closure of game, MAA, MuMu, and owned log windows, unless the user explicitly keeps a later queue running.
 
+Acceptance is not a per-word permission gate. A missing numeric observation
+stays unknown in the report; it must not be replaced with zero or fabricated
+spending. It need not cancel independently authorized work when actual stage
+conditions and enforced resource settings still establish what can be done.
+If the missing fact really determines a resource choice or action target, hold
+that choice for current visual observation, not the entire daily workflow.
+
 ## Live-run boundary
 
 While a real MAA queue is active:

@@ -30,8 +30,11 @@ def admit(path, now=None):
             or packet['theme'] != 'Sami' or packet['daily_replay'] is not False
             or packet['recording'] is not False):
         raise ValueError('current_sami_continuation_mismatch')
+    (ROOT / packet['output']).resolve().relative_to((ROOT / 'outputs').resolve())
     for name, digest in packet['artifacts'].items():
-        if hashlib.sha256((ROOT / name).read_bytes()).hexdigest().upper() != digest:
+        artifact = (ROOT / name).resolve()
+        artifact.relative_to(ROOT.resolve())
+        if hashlib.sha256(artifact.read_bytes()).hexdigest().upper() != digest:
             raise ValueError('sami_dependency_changed: ' + name)
     return packet, deadline
 

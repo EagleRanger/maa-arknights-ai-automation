@@ -12,7 +12,10 @@ This does not remove account/resource/ownership boundaries or permit replay of
 an action whose commit is uncertain. Components return their own result; the
 outer coordinator decides continuation and final shutdown.
 
-Use the current screenshot/OCR, MAA Core tail, GUI queue state, checkpoint, and process list together.
+Use the relevant current screenshot/OCR, queue and checkpoint. Read a Core tail
+or process list only to resolve the actual uncertainty; do not require every
+source for a simple visible overlay. Execution AI may resolve that overlay
+directly under the current task and submit the original recovery reply.
 
 ### Verified UI interruption
 
@@ -68,8 +71,13 @@ Integrated Strategies defeat, a non-perfect stage result, or a completed explora
 A recovery is complete only when all applicable checks pass:
 
 - the blocking page changed;
-- the same MAA contract is still configured;
-- Core begins the intended task chain;
-- the intended theme/subtasks and real page progress are seen beyond startup, rather than a repeated click loop;
+- the intended goal/resource limits and owner are unchanged;
+- when the next step uses Core, it begins the intended task chain;
+- the expected next step actually proceeds, rather than merely another click;
 - the checkpoint advances with a current timestamp;
 - no second controller is alive.
+
+A navigation-only repair does not require a new battle or reward to prove the
+page was recovered. It does require the original workflow to continue. Do not
+ask the same failed OCR test to veto an AI-verified fresh navigation picture;
+use the supported visual reply, while keeping business-effect checks separate.

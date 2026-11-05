@@ -2,7 +2,7 @@
 
 让 AI 按玩家的实际需求安排《明日方舟》的日常，把刷图、找作业、推进关卡、领奖和基建生产接成一套自动化流程，减少反复查看进度和手动切换任务的时间。
 
-当前版本：**v1.2.2（2026-11-04）**。适用于Windows上的AI编程/执行工具，基于MAA与Android模拟器运行，附带完整执行源码与迁移说明。
+当前版本：**v1.2.2（2026-11-05 更新稿）**。适用于Windows上的AI编程/执行工具，基于MAA与Android模拟器运行，附带完整执行源码与迁移说明。日常异常由执行AI接回原运行，补做仅续未完项；银凇肉鸽新增可复用的取证与策略建议接口。
 
 [下载完整源码 ZIP](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/download/v1.2.2/arknights-automation-skill-v1.2.2-source-20261104.zip) · [查看最新稳定版 v1.2.2](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/latest) · [接收方 AI 对接说明](skill/references/receiver-integration.md) · [OCR 模型来源与安装自检](skill/references/local-ocr-setup.md)
 

@@ -36,6 +36,9 @@ def inventory(cli, target=None):
 def boundary(app, target=None, probe=None):
     from daily_environment_gate_v22 import EnvironmentStartupAbort
     target = target or json.loads(CONFIG.read_text(encoding='utf-8'))
+    if not target.get('package') or target['package'] != getattr(app, 'PKG', None):
+        raise EnvironmentStartupAbort('configured_game_package_disagrees_with_runtime',
+                                      'use the same selected package in the target and ARKNIGHTS_GAME_PACKAGE')
     probe = probe or inventory
     original_detect = app.detect_mumu_adb_port
     checked = set()

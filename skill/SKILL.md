@@ -7,15 +7,49 @@ metadata:
 
 # MAA Arknights AI Control
 
-本包是 **v1.2.2 · 2026-11-04**，含完整执行源码。推荐公开启动入口为 `run_daily_v160.full()`，串联OCR容错、报纸服务与既有V158组合，沿用原公共任务顺序、导航及单关/失败换作业循环。培养、模组和兑换仍按接收方自己的账号配置拼接。代码对接见 [接收方说明](references/receiver-integration.md)。
+本包为 **v1.2.2 · 2026-11-05 更新稿**。日常从 `run_daily_v161.full()` 接入；仅补活动余项从 `run_daily_remaining_v7` 接入。银凇由 V9 接回原奖励、加点和整轮监督。实际入口和接收方配置见 [接收方说明](references/receiver-integration.md)。
 
-Operate this project from its durable contract and current evidence. Never infer a new game goal merely because a technical action is convenient.
+Operate from the user's settled objective and current evidence. Stored contracts
+keep goals and resource limits; they are not a script of every permitted screen.
+Never infer a new game goal merely because a technical action is convenient.
+
+## Execution model: automate the routine, let AI reconnect exceptions
+
+Keep three results separate: **business effect**, **current page**, and **whether
+the next step can run**. An OCR mismatch or unfamiliar page is an observation gap,
+not a failed daily objective, a lost reward, or an order to close the game.
+
+- The script performs established actions and limited re-observation/recovery.
+  Exhausting that local budget (three rounds in the current project adapter)
+  triggers an execution-AI handoff, not whole-run failure or global cleanup.
+  Preserve the original controller and healthy game/MAA/emulator environment.
+  The daily wait does not add a timer; the owning host must honor any explicit
+  deadline or stop via the bound stop reply. Roguelike keeps its own deadline.
+- The execution AI inspects the fresh picture and handles ordinary in-scope
+  navigation directly. It need not wait for project code changes or renewed user
+  permission for each new overlay. The project lane handles recurring defects,
+  missing capabilities or contradictions that require code/strategy changes.
+- After recovery, resume the interrupted step. A current AI visual observation
+  can verify navigation when OCR remains wrong; do not demand the same failing
+  recognizer agree with it. Bind that observation to the waiting run and picture,
+  not to a generic “success” message. Business effects still need their own proof.
+- A deferred optional activity does not block independent farming or daily work
+  after navigation is restored. Keep its pending result visible. Never use a
+  global failure flag to erase successful effects or permanently skip the rest.
+  A child module returns its own effects, pending work and navigation readiness;
+  the owning workflow decides continuation and final cleanup. Do not collapse
+  these separate facts into one success/failure boolean.
+
+The shared recovery contract and implemented reply paths are in
+[continuity-and-signin.md](references/continuity-and-signin.md). Keep ownership,
+resource limits, explicit deadlines and honest effect accounting; remove exact
+font, cosmetic layout and historical-path checks that do not protect those facts.
 
 ## AI, MAA, and emulator boundary
 
 - Keep the project's proven navigator and per-stage loop in control of daily execution, including switching jobs and checking the real result. AI handles unfamiliar pages and exceptions; it is not a second watcher of a healthy run.
 - Invoke MAA as a plugin for the specific task it supports (for example Copilot battle or reading a training room). Do not switch back and forth just because MAA also offers its own daily workflow. Borrow a proven MAA recognition action when it closes a real gap.
-- Skip MAA's human-only post-update settings guide through a supported control or the source-verified adapter. Accept updates at the first daily startup; defer actual mid-run prompts until the next daily startup. This does not skip the recipient's own account/environment/resource setup. See [continuity-and-signin.md](references/continuity-and-signin.md).
+- Skip MAA's human-only post-update settings guide through a supported control or the source-verified adapter. Do not confuse that demo with this Skill's recipient account setup. Accept MAA updates before the first daily queue; defer prompts during the daily remainder until the next daily startup. See [continuity-and-signin.md](references/continuity-and-signin.md).
 - The project's background input path keeps ownership of existing navigation, state checks and recovery. It must not issue input during an active MAA action stream.
 - The emulator is the execution device. Its paths, instance, ADB port, package, and readiness are machine-local facts; its guest display is fixed at landscape 1920×1080 for this Skill.
 
@@ -25,7 +59,7 @@ This boundary is what makes the package an AI control Skill rather than a collec
 
 1. Read the nearest `AGENTS.md` and follow its current project-loop/contract pointers and role-specific resume bundle. An entry directory may link to an occupied implementation directory; use that implementation for scripts and relative dependencies. Do not load all historical state or infer missing files from a guessed location.
 2. Use the project reasoning loop when the current project requires or provides it; otherwise keep the same minimum discipline: separate observed facts, inference, and unverified hypotheses.
-3. Compile the current execution contract: target IDs, ordered steps, success evidence, failure transfer, prohibited substitutions, deadline, and control owner.
+3. Resolve the existing goal, priority, resources, effect evidence and owner. Reuse settled fields; do not make a new approval packet for a page recovery or technical continuation.
 4. Inspect the current process/queue/checkpoint state before changing anything. A visible window, running process, or completed shell command is not task success.
 5. Read verified facts for the currently identified game account through [account-progress.md](references/account-progress.md). Use those facts to select work, then feed verified effects back into that same account store. Shared Skill rules are not somebody else's account progress.
 
@@ -52,6 +86,7 @@ identity, control ownership or direct evidence changes.
 - For first-time setup, migration to another Windows PC, changed emulator/MAA/Python paths, ADB connection changes, or resolution/input problems, read [windows-portability.md](references/windows-portability.md) and run the read-only environment check before any real-account action.
 - For a daily full run, event/mainline progression, stamina use, final reward cleanup, and shutdown, read [workflows.md](references/workflows.md).
 - For Integrated Strategies reward tracks, permanent-growth trees, monthly/recollection teams, investigations, and settlement-boundary servicing, read [roguelike-rewards.md](references/roguelike-rewards.md).
+- For a shared multi-theme roguelike adapter, repeated-failure screenshots, or a recipient AI's strategy-research extension, read [roguelike-mode-and-extension.md](references/roguelike-mode-and-extension.md). The default extension collects evidence and proposals; it does not apply battle changes.
 - For account-specific completion memory, repeated already-complete work, or portable progress feedback, use [account-progress.md](references/account-progress.md) and the bundled `scripts/account_progress_v1.py` store; game adapters still own UI verification.
 - For operator mastery, module missions, or green/yellow/red voucher exchange, read [operator-and-voucher-interfaces.md](references/operator-and-voucher-interfaces.md). Native capability, a wired project adapter and a live-verified result are different states. Confirm actual operator/module progress before finding work; do not treat a started training or a won battle as a completed development goal.
 - 本版增量：干员培养、模组任务、凭证兑换按上面各自的 **Beta** 边界使用；当期逐日开放的附加任务和刷取后的领奖见 [日常与活动流程](references/workflows.md)。未配置的可选项跳过，不拦原有日常。接收方若只有本 Skill 源目录而没有相应运行模块，应报告缺少该模块，不能仅凭说明声称已经执行。
@@ -91,7 +126,7 @@ Classify before acting:
 - Ordinary game outcome: continue according to the active contract; do not consume the technical retry budget.
 - Verified recoverable UI interruption: clear it through the project ADB/screenshot path, confirm the page changed, then resume without consuming the technical retry budget.
 - Technical failure: diagnose and use the current project's bounded recovery, retry budget, cooldown and deadline. Do not invent a universal retry count or waiting period. Do not repeat an unchanged failed action. After a verified local repair, reconcile existing effects and resume the same authorized remainder through its original owner; preserve a resumable save and do not replay completed daily work.
-- Unknown state: preserve a current frame and pause only actions that depend on it. Route the unresolved page to AI through the existing execution channel, continue independent authorized work, and resume after repair. Do not invent clicks, mark an outbox as delivered, or wait for the user when the task already covers the remaining decision.
+- Unknown state: preserve a current frame and pause only actions that depend on it. The execution AI may use the visible controls to restore the route through the existing background path; it is not limited to a prewritten per-popup script. Continue independent authorized work after navigation is safe. Do not invent controls, mark an outbox as delivered, or wait for the user when the task already covers the remaining decision.
 
 Never silently change gameplay theme, task type, stage, difficulty, team, resource use, retry cap, or stop condition. A home-appearance compatibility repair is not a roguelike-theme change: inspect failed templates and supported MAA routes first, preserve the user's appearance choice where feasible, and disclose any necessary temporary change.
 
