@@ -14,8 +14,8 @@
 
 | 能力 | 现有实现与接缝 |
 | --- | --- |
-| 当前完整业务组合 | `run_daily_v161.full()`，在最终消费者安装活动返回、签到同次结果复用和原控制器 AI 看图接回，继承 V160 OCR 容错、原报纸服务与业务顺序。 |
-| 保留的旧组合 | V146/V153/V158/V160原实现仍在；要用本稿修复，将接收方自己的启动绑定更新到V161，不只复制新文件。 |
+| 当前完整业务组合 | `run_daily_v167.full()`，在最终消费者安装活动返回、签到同次结果复用和原控制器 AI 看图接回，继承 V160 OCR 容错、原报纸服务与业务顺序。 |
+| 保留的旧组合 | V146/V153/V158/V160原实现仍在；要用本稿修复，将接收方自己的启动绑定更新到V167，不只复制新文件。 |
 | 同日活动补做 | `run_daily_remaining_v7.admit/execute` 复用当前启动绑定与封口源run，仅续未完成的活动刷取、刷后领奖与必要收尾；不补药石、不重放周剿灭、首通、保全或报纸。 |
 | 仅补收尾 | `run_daily_final_tail_v2.py`、`daily_final_tail_scope_v1` 和 `continuation_report_v2` 复用原run的已完成事实，只做剩余项；不能以full代替、重刷已完成关卡。 |
 | 每日的外层任务绑定 | `daily_dispatch_v1.selected_scope(selected, checked)`。用当前发布文件清单、接收方当前任务和目标核验生成绑定；旧 `preflight()` 依赖作者生产登记，不直接照搬。 |
@@ -51,7 +51,7 @@
 
 可用覆盖项：`ARKNIGHTS_MAA_PATH`（MAA.exe 或目录）、`ARKNIGHTS_MAA_ROOT`、`ARKNIGHTS_MUMU_ROOT`、`ARKNIGHTS_PYTHON`。游戏包和设备使用接收方确认的 `ARKNIGHTS_GAME_PACKAGE`、`ARKNIGHTS_DEVICE`；不要套用作者的 B 服、端口或模拟器实例编号。
 
-V161 完整每日、活动补做和银凇后台宿主的原启动链还需要接收方自己的可写 **`runtime/.runtime_maa/MAA-App/`**。将合法取得、匹配版本的 MAA 程序与资源准备在此，建立自己的 `config/gui.new.json`；不要复制作者配置或从公共包找这套目录。绑定该树的程序、配置、资源和日志；普通 AppData 安装或仅设置外部路径不能代替这个启动树。先在 runtime 内用 `daily_portable_bootstrap_v1.preflight()` 检查文件、配置与写入能力，它不启动 MAA 或游戏。
+V167 完整每日、活动补做和银凇后台宿主的原启动链还需要接收方自己的可写 **`runtime/.runtime_maa/MAA-App/`**。将合法取得、匹配版本的 MAA 程序与资源准备在此，建立自己的 `config/gui.new.json`；不要复制作者配置或从公共包找这套目录。绑定该树的程序、配置、资源和日志；普通 AppData 安装或仅设置外部路径不能代替这个启动树。先在 runtime 内用 `daily_portable_bootstrap_v1.preflight()` 检查文件、配置与写入能力，它不启动 MAA 或游戏。
 
 `config/game_runtime_target_v1.json` 需要接收方根据真实 MuMu 实例生成；`config/local_ocr_v6_small_v1.json` 需要按已安装 OCR 环境与模型建立，所有相对路径以 `runtime/` 为根。按 [OCR 来源、安装与自检](local-ocr-setup.md) 填写真实 `base_python` 和隔离 `environment`，校验三个模型的 SHA-256，再调用现有 `preflight()`。已有示例仅供结构参考，不能把 `.example.json` 当成已生效的配置。游戏截图仍要求横屏 1920×1080，这是现有识别/坐标的实际前提。
 
@@ -63,7 +63,7 @@ V161 完整每日、活动补做和银凇后台宿主的原启动链还需要接
 
 作者工程的 `PROJECT_CONTRACT.json`、`.project-reasoning/AUTOMATION_HANDOFF.json`、`COMPONENTS.json` 和私人历史证据未公开。本机合同应按引擎 `validate_project_contract()` 与 `compile_execution_plan()` 的字段建立，并反映接收方用户真实目标；不得伪称源工程的历史验收在这台机器上已经通过。
 
-每日接法保留 `selected_scope` 的外层适配位置。按接收方当前任务和实际包内清单生成自己的启动绑定，再进入V161组合，不复制作者handoff/组件登记或账号事实。进入前调用 `run_daily_v161.validate_current_plan()` 验证实际计划可编译。补做先以 `admit(source_run_id)` 读取同游戏日已封口、已清理且未完成刷取的源run，再把该结果与本机正常每日已有的 `selected, checked` 交给 `execute(source, source_hash, selected, checked)`。这复用原运行身份和资源门槛，不以旧作者登记代替接收方验证。已在本机建立兼容登记的接收方也可用脚本的 `--source-run-id ... --check-only` 走同一入口；空白解压包不能跳过配置直接执行。
+每日接法保留 `selected_scope` 的外层适配位置。按接收方当前任务和实际包内清单生成自己的启动绑定，再进入V167组合，不复制作者handoff/组件登记或账号事实。进入前调用 `run_daily_v167.validate_current_plan()` 验证实际计划可编译。补做先以 `admit(source_run_id)` 读取同游戏日已封口、已清理且未完成刷取的源run，再把该结果与本机正常每日已有的 `selected, checked` 交给 `execute(source, source_hash, selected, checked)`。这复用原运行身份和资源门槛，不以旧作者登记代替接收方验证。已在本机建立兼容登记的接收方也可用脚本的 `--source-run-id ... --check-only` 走同一入口；空白解压包不能跳过配置直接执行。
 
 补做前核源run与当前授权账号/游戏实例一致，查看同日后续运行的真实效果；不能从模拟器名称推断同账号。`game_runtime_target_v1.json` 的游戏包必须与 `ARKNIGHTS_GAME_PACKAGE` 相同。已验证完成的五链保留旧证据，不重复跑；在本轮仍授权日常收尾时，调用现有轻量领取接口检查基建待收、已完成招募和新增任务奖励，不轮班、不新开招募、不花无人机。V7 是刷取未完成的补做入口；同一源run的后续刷取已完成时，不再开刷，剩余活动奖励用已有单项入口核查。
 
@@ -78,3 +78,7 @@ V161 完整每日、活动补做和银凇后台宿主的原启动链还需要接
 ## 本包验证范围
 
 发布方检查源码来源、依赖清单、必要文件、路径改写、语法、隐私以及 ZIP 内容。接收方配置和自然运行结果属于接收方环境；本包不声称新电脑无需适配或已实机通过。接口对接成本不等于 Skill 缺少业务逻辑。
+
+## 本版模块与接缝
+
+先读[功能总览](capability-map.md)与[保全编队桥接](sss-formation-bridge.md)，再按目标选择入口。原公开每日顺序保持；V167继承签到接回、领奖→公告、原AI重验后解除旧导航阻断、活动领奖标题与ROI容错。肉鸽/生息永久进度是[独立测试模块](progress-modules.md)，不是替换成熟探索入口。已完成同源业务不重做，账号可选培养/凭证等仍由接收方配置。

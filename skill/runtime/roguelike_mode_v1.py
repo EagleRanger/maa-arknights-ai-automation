@@ -5,7 +5,7 @@ No launcher, scheduler, game input, or policy change is hidden in this module.
 from dataclasses import dataclass
 from typing import Callable
 
-THEMES = ('Phantom', 'Mizuki', 'Sami', 'Sarkaz', 'JieGarden')
+THEMES = ('Phantom', 'Mizuki', 'Sami', 'Sarkaz', 'JieGarden', 'BlackFlow')
 MODES = {'exp': ('Exp', 0), 'monthly': ('Squad', 6), 'deep': ('Exploration', 7)}
 
 

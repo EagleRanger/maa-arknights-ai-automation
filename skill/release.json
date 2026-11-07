@@ -1,7 +1,7 @@
 {
   "repository": "EagleRanger/maa-arknights-ai-automation",
-  "version": "1.2.2",
-  "build_date": "2026-11-05",
-  "recommended_entrypoint": "runtime/run_daily_v161.py",
-  "build_revision": "2026-11-05-daily-continuity"
+  "version": "1.2.3",
+  "build_date": "2026-11-07",
+  "recommended_entrypoint": "runtime/run_daily_v167.py",
+  "build_revision": "2026-11-07-progress-and-navigation"
 }

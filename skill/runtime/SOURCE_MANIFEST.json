@@ -1,5 +1,5 @@
 {
-  "version": "1.2.2",
+  "version": "1.2.3",
   "kind": "source-integrity-only",
   "files": [
     {
@@ -238,6 +238,11 @@
       "sha256": "c7a7c0317f479e2e7c3e204650d70092fbcd71495de88750948f037f284475a4"
     },
     {
+      "path": "ark_modules/domains/progress.py",
+      "bytes": 1088,
+      "sha256": "59354fd8c1c98d9ea47cc11a2ec339bd02739d6a736197feb816d60fae992729"
+    },
+    {
       "path": "ark_modules/domains/weekly.py",
       "bytes": 713,
       "sha256": "5aca7a9fc4050b0bdb6a2f18022f07b79158ac5845055657e63e7b386ffdc1f9"
@@ -271,6 +276,11 @@
       "path": "ark_modules/orchestration.py",
       "bytes": 19343,
       "sha256": "3c6507109eabc83614b9dd6edf1b5d143090085ebaac6bbe7f751593bf283c2a"
+    },
+    {
+      "path": "ark_modules/progress_operations_v1.py",
+      "bytes": 1035,
+      "sha256": "2cc42f86855617e7e589065b45414447b8afcbb731c2f8ceb6f637e29d17b399"
     },
     {
       "path": "ark_modules/run_accounting.py",
@@ -853,6 +863,16 @@
       "sha256": "b4b02351d74f03350d011c62a23ac60e9beaf816de3d73f112deee985d5a81b1"
     },
     {
+      "path": "daily_signin_recovery_v1.py",
+      "bytes": 5047,
+      "sha256": "22a3f9eeda10992d0b46caeee41c33c1c169e7c42adb3c5364ae24d111f70c33"
+    },
+    {
+      "path": "daily_signin_recovery_v2.py",
+      "bytes": 3420,
+      "sha256": "7d4fd2d67da3f6c4cd87a970cd14c70412fc841256edeb1f47c2466548699d53"
+    },
+    {
       "path": "daily_sss_current_route_v1.py",
       "bytes": 2007,
       "sha256": "9e72d7351b331fd6ac0253531b246eeda606f4d709de7d172ea43889b63da8ee"
@@ -1133,6 +1153,11 @@
       "sha256": "8e9f72426cb33ddd169aec98d672c63b7351e6566a272e4b24b6b4396b06253e"
     },
     {
+      "path": "event_daily_reward_chain_v2.py",
+      "bytes": 2444,
+      "sha256": "c81416615a20ba6a838e0296d2b7da457fde2c2bb50ad998e35b4bd6d136f2c7"
+    },
+    {
       "path": "event_daily_reward_claim_v2.py",
       "bytes": 9227,
       "sha256": "fbb7f67908774b383d933125b670038a52880b4fb306257ce394f57d12a21cd2"
@@ -1303,6 +1328,16 @@
       "sha256": "37a0c0bde897d9b7e5568c65d430c466c51567f334ae7b621584767646100b1a"
     },
     {
+      "path": "event_tl_task_rewards_v2.py",
+      "bytes": 1268,
+      "sha256": "e5dccaae41908beebc547b2b6d7b05815e054afa3cd5cbae7f48c05ee8da5a24"
+    },
+    {
+      "path": "event_tl_task_rewards_v3.py",
+      "bytes": 2428,
+      "sha256": "3b388e56a5a006d490b0611971bfb04e281371df3bee0bd4eee79d090c836406"
+    },
+    {
       "path": "event_wish_wall_v1.py",
       "bytes": 9312,
       "sha256": "ee319c461835a30312e1fe25725eda70d81bff31a9e6403f0160077c28e4a13f"
@@ -1463,6 +1498,11 @@
       "sha256": "46c0f181f1310f44b0836072c4ac22ecc308eff4b96e47510762d4ac99f73b2f"
     },
     {
+      "path": "navigation_text_v1.py",
+      "bytes": 5271,
+      "sha256": "e36b7c27ceec62a951e23915698cf5a8a4106927c5c906c6b395403851a5bcc7"
+    },
+    {
       "path": "ocr_tolerance_v1.py",
       "bytes": 5226,
       "sha256": "f7fff4dbfc7cc4371c1c1d1b57a652df0a03efe5e3b0c4b723432f1f6743e756"
@@ -1518,6 +1558,11 @@
       "sha256": "486b3587ac486acdef4eb6bd4635dfba015c63bd8761283ed0824739ec7c42bd"
     },
     {
+      "path": "permanent_progress_modules_v1.py",
+      "bytes": 19953,
+      "sha256": "d271a6fea0fdafb6f484bcad516a6461e604ef1d74f73674bd5f32a26167d09f"
+    },
+    {
       "path": "phantom_collapse_tracking.py",
       "bytes": 41700,
       "sha256": "af1453324370e67e54dc300011f2495154fb4cd8442f078aa82d74546bf0a37e"
@@ -1563,6 +1608,11 @@
       "sha256": "ca7fe127b51fc64acce7ccd14237ec2df1183e3c794aa7b93705adcaeb41412e"
     },
     {
+      "path": "reclamation_rewards_state_v1.py",
+      "bytes": 1365,
+      "sha256": "d555a17b98f5a616901fe8f9b2c029a48360ba822b5edc27b3e5fefc35142c09"
+    },
+    {
       "path": "reward_transition_v1.py",
       "bytes": 2792,
       "sha256": "b8c3d4997f66609a3f7bffb12cebe7358a66279c386379ae285ee20d6c75176d"
@@ -1579,8 +1629,13 @@
     },
     {
       "path": "roguelike_mode_v1.py",
-      "bytes": 3616,
-      "sha256": "26a29c8503cdc572868efa3266d6217202edd230cfc1dd47cc3236463507ab84"
+      "bytes": 3712,
+      "sha256": "90e61e453253c62e19a2cd09c8753d55878e472dae2ab2465b4d999ab1e3eaaa"
+    },
+    {
+      "path": "roguelike_progress_adapter_v1.py",
+      "bytes": 1111,
+      "sha256": "fe11d6ea9b520cfb785164188fbe7f22cccf2b9464ebb9158f3c4eb88ba8a2f2"
     },
     {
       "path": "run_activity_room_service_v1.py",
@@ -1601,6 +1656,11 @@
       "path": "run_daily_remaining_v7.py",
       "bytes": 3990,
       "sha256": "73a4f1ab31aeefba134a360fd3ae7626eadee5e91cdd6716dbc6e9dea064e685"
+    },
+    {
+      "path": "run_daily_remaining_v8.py",
+      "bytes": 2688,
+      "sha256": "fd01ae5b2d58c27754c2a1b03e55a4a8d2ca5225a2d7226f33257b4768b1916c"
     },
     {
       "path": "run_daily_tail_v2.py",
@@ -1956,6 +2016,31 @@
       "path": "run_daily_v161.py",
       "bytes": 1514,
       "sha256": "97cd32a7dbe60a3f6642dbbd8e029b628ecdceb91607dfae7341664b938bd378"
+    },
+    {
+      "path": "run_daily_v162.py",
+      "bytes": 935,
+      "sha256": "f99f3ee2f60b2495e709f9d7e47703f5afc900e37325278ef1540ae61a2e799e"
+    },
+    {
+      "path": "run_daily_v164.py",
+      "bytes": 942,
+      "sha256": "78dcbd8e6b4b3bf00282c6ca8014af75df7a79c9c1fc9357683e3de03d4d5f00"
+    },
+    {
+      "path": "run_daily_v165.py",
+      "bytes": 942,
+      "sha256": "d1120dbc0008a86f8ac23066d92f8a981fd594db63a53de7016c698c635543ba"
+    },
+    {
+      "path": "run_daily_v166.py",
+      "bytes": 944,
+      "sha256": "cf425571ac1cef677d15b6865682c63c9e46982685a6a210c60c86070bc837f1"
+    },
+    {
+      "path": "run_daily_v167.py",
+      "bytes": 936,
+      "sha256": "34a3e17839e9e5325073dba816a5e86f0204738fdfa3ade0fcfa889374e29100"
     },
     {
       "path": "run_daily_v17.py",

@@ -63,9 +63,13 @@ Do not make one event's yellow-card skin or left-side label universal.
    marker or counter. A click alone does not prove a reward.
 3. Keep claim effect and closure separate. A received explanation page can stay
    open after the reward. Preserve the proved claim, do not tap it again, locate
-   its visible X, then read the next page. Another recognized reward overlay is
+   its visible X, then read the next page. Another recognized reward or notice overlay is
    a valid next step, not a failed claim merely because home is not visible yet.
    Drain that chain through its own handlers; verify home at the chain boundary.
+   When the next page already has a working handler (for example the announcement
+   tabs and their close button), return it to that existing startup loop. Preserve
+   the local claim/close result and `home_verified=false`; don't route a known
+   successor through a home-only failure wait or develop another click sequence.
 4. If OCR misses X, reuse a verified visual template or graphic-shape locator
    with page and geometry evidence. OCR `X` alone is insufficient: a currency
    `+` on home can be misread as X. Validate stroke direction and contrast
@@ -109,16 +113,43 @@ After the configured recovery budget (three rounds in the current adapter),
 retain the original controller, game, MAA and emulator and send the fresh frame
 to the execution AI. The AI corrects only the affected page, then the same owner
 performs a fresh read-only recheck before resuming the original step. Do not
-auto-close the environment just because the error has been reported. The daily
-wait has no built-in timer; the owning host must honor any explicit deadline or
-stop by submitting a bound stop reply through this seam. This is a startup seam,
-not a claim that every MAA-internal failure already supports live recovery.
+auto-close the environment just because the error has been reported. Keep any
+original explicit deadline and stop request effective. Startup is one consumer
+of this protocol; an optional activity needs its own waiting hook at the
+failed step. Do not assume every MAA-internal failure already supports it.
 If that host lacks it, do not invent a live-wait capability: preserve an honest
 partial result and continue through the verified repair entry after safe
 reconciliation. A safe per-run stop does not abandon the objective.
 Outbox created, native delivery accepted, project received, repair applied and
 game effect verified are distinct states. A message or log alone proves none
 of the later states.
+
+### Take over an unfinished step in place
+
+1. After the MAA action stream stops and the queue is verified idle, capture the
+   actual current screen **before** leaving the step. If it contains usable
+   partial progress, the original controller holds navigation and sends the
+   current screenshot, task identity, unfinished effect and reply path to its
+   execution AI. Don't discard the progress just to get back to a known page.
+2. The AI confirms the same live owner, run/event, idle queue and remaining
+   handoff window. It uses the existing background input on fresh frames,
+   checks the effect after each action, and completes only the missing part.
+   Don't run MAA again in parallel, reuse old coordinates or add resources.
+3. Return control with a run/event-bound `recheck`. The original owner uses a
+   fresh observation to verify the exact business outcome before crediting it.
+   If the effect is still unknown, recovery continues within the agreed
+   window. An AI reply or a return to home is not business completion.
+   After verified navigation recovery, release only that same incident's active
+   navigation block; preserve its history, delivery provenance and unresolved
+   business effects. Verify the previously blocked planner actually continues.
+   Reaching home or starting an unrelated cleanup queue is not proof of this.
+4. At the window's end the AI stops input. An unresolved optional step stays
+   pending; the owner uses its safe return route and continues independent
+   work only when navigation is ready. Do not overlap AI taps with resumed
+   script actions or close the whole daily run for one optional failure.
+
+See the [Committee example](workflows.md#committee-live-visual-takeover) for the
+live-tested difference between MAA failure, AI takeover and effect verification.
 
 ### Navigation evidence is not tied to OCR agreement
 

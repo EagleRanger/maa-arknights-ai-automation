@@ -74,6 +74,30 @@ these recognized pages through an old event's generic map navigator. Defer
 locked editions to their opening date; all currently unlocked editions done
 is enough to continue the daily route, without claiming future editions.
 
+### Committee live visual takeover
+
+If MAA stops after placing some articles, identify the named edition and
+editor in a fresh frame. Use [in-place takeover](continuity-and-signin.md#take-over-an-unfinished-step-in-place)
+before any Back or discard-layout action. The execution AI reads the remaining
+article and free slot, preserves placed articles, and verifies the displayed
+sales target before choosing End Layout. After printing and claiming, return to
+the same edition and send `recheck`; the original controller must observe all
+four reward checkmarks on that edition. The editor preview, the print result
+and the reward marks are separate checks.
+
+In the live `求真报` trial, MAA had placed two articles but could not read the
+tram headline. The AI selected the visible tram article and filled the only
+free slot: 3500 became 5000 MAX, above the 4000 goal. Printing and rewards were
+confirmed, then the same owner independently verified all four marks and
+returned home. These numbers describe that edition; read other editions'
+actual targets. Test this module from the current account state without
+clearing existing claims or replaying a completed daily.
+
+The project candidate `press_committee_ai_takeover_v1.py` was exercised in an
+isolated live session. This confirms the in-place pause, visual actions, reply
+and recheck; it does not establish unattended cross-chat delivery, inclusion
+in a public package or selection by the daily launcher.
+
 Do not couple a non-combat event utility's entry to unrelated battle-map tile
 fingerprints. Identify its current event period and lobby/utility page instead;
 keep map integrity checks at the actual battle consumer. A native action that
@@ -105,6 +129,16 @@ User-confirmed manual sign-in skips only that day's sign-in navigation. Technica
 run end, partial report and daily-objective completion remain distinct. Repair
 and resume authorized unfinished work without waiting for another user message;
 use [continuity-and-signin.md](continuity-and-signin.md) for the boundaries.
+
+## Stationary Security Service / 保全派驻
+
+Use the existing periodic/reward service and the [SSS formation bridge](sss-formation-bridge.md).
+Native MAA's SSS battle entry and this project's automatic formation are separate
+capabilities. Resolve the exact job and a recipient-specific compatible roster,
+run the bridge at the formation page, verify the result, then hand battle back
+to the unchanged SSS job. Do not silently replace physical battle with a
+delegation-card action. Period rewards, region records and game clearance remain
+separate results; skip a verified completed reward cycle until its actual refresh.
 
 ## Long-running modes
 

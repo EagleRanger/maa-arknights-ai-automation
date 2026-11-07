@@ -1,13 +1,11 @@
 ---
 name: arknights-automation
-description: "Control, diagnose, migrate, configure, recover, monitor, and verify AI-orchestrated Windows Arknights automation built on MAA and a supported emulator. Use when an AI agent must manage MAA beyond one-click tasks: first-time setup on another Windows PC, daily full runs, event or mainline progression, Integrated Strategies or Reclamation Algorithm supervisors, image/log evidence fusion, MAA update/announcement/story interruptions, stale queues, cooldown recovery, duplicate controllers, final cleanup, and evidence-backed project retrospectives."
-metadata:
-  version: "1.2.2"
+description: "Control, diagnose, migrate, configure, recover, monitor, and verify AI-orchestrated Windows Arknights automation built on MAA and a supported emulator. Use for recipient integration, daily runs, annihilation, event/mainline progression, base production, SSS formation bridging and rewards, roguelike exploration/rewards/growth, operator mastery/modules, voucher exchange, Reclamation Algorithm, image/log evidence, MAA updates, interrupted workflows, final cleanup, and project retrospectives."
 ---
 
 # MAA Arknights AI Control
 
-本包为 **v1.2.2 · 2026-11-05 更新稿**。日常从 `run_daily_v161.full()` 接入；仅补活动余项从 `run_daily_remaining_v7` 接入。银凇由 V9 接回原奖励、加点和整轮监督。实际入口和接收方配置见 [接收方说明](references/receiver-integration.md)。
+For a new receiver or an upgrade, start with [receiver integration](references/receiver-integration.md); the bundled runtime and recipient configuration take precedence over any author's machine paths.
 
 Operate from the user's settled objective and current evidence. Stored contracts
 keep goals and resource limits; they are not a script of every permitted screen.
@@ -22,11 +20,11 @@ not a failed daily objective, a lost reward, or an order to close the game.
 - The script performs established actions and limited re-observation/recovery.
   Exhausting that local budget (three rounds in the current project adapter)
   triggers an execution-AI handoff, not whole-run failure or global cleanup.
-  Preserve the original controller and healthy game/MAA/emulator environment.
-  The daily wait does not add a timer; the owning host must honor any explicit
-  deadline or stop via the bound stop reply. Roguelike keeps its own deadline.
-- The execution AI inspects the fresh picture and handles ordinary in-scope
-  navigation directly. It need not wait for project code changes or renewed user
+  Preserve the original controller and healthy game/MAA/emulator environment;
+  the original explicit deadline and stop request remain effective.
+- The execution AI inspects the fresh picture and handles the authorized
+  unfinished step directly. Preserve useful progress on the current page
+  before considering a return to home. It need not wait for project code changes or renewed user
   permission for each new overlay. The project lane handles recurring defects,
   missing capabilities or contradictions that require code/strategy changes.
 - After recovery, resume the interrupted step. A current AI visual observation
@@ -83,9 +81,12 @@ identity, control ownership or direct evidence changes.
 
 ## Route the work
 
+- 接收方首次对接、介绍支持功能或升级后检查漏接模块时，先读[功能总览与调用地图](references/capability-map.md)。按用户需要选择已有入口，不把“MAA 原生不支持”直接等同于本 Skill 没有桥接，也不把文件存在当成已经接入。
+- 保全派驻的自动编队、现成作业执行、周期奖励或新区域适配，读[保全编队桥接](references/sss-formation-bridge.md)：AI 按作业和本账号生成配置，脚本调用 MAA 选人，再交回原保全作业；不是直接点原生保全开始就会自动编队。
 - For first-time setup, migration to another Windows PC, changed emulator/MAA/Python paths, ADB connection changes, or resolution/input problems, read [windows-portability.md](references/windows-portability.md) and run the read-only environment check before any real-account action.
 - For a daily full run, event/mainline progression, stamina use, final reward cleanup, and shutdown, read [workflows.md](references/workflows.md).
 - For Integrated Strategies reward tracks, permanent-growth trees, monthly/recollection teams, investigations, and settlement-boundary servicing, read [roguelike-rewards.md](references/roguelike-rewards.md).
+- For Reclamation Algorithm prosperity-point rewards, use that same reference's Reclamation section. Earning and redeeming are complementary phases; a standalone reward call must not start farming or reset a save.
 - For a shared multi-theme roguelike adapter, repeated-failure screenshots, or a recipient AI's strategy-research extension, read [roguelike-mode-and-extension.md](references/roguelike-mode-and-extension.md). The default extension collects evidence and proposals; it does not apply battle changes.
 - For account-specific completion memory, repeated already-complete work, or portable progress feedback, use [account-progress.md](references/account-progress.md) and the bundled `scripts/account_progress_v1.py` store; game adapters still own UI verification.
 - For operator mastery, module missions, or green/yellow/red voucher exchange, read [operator-and-voucher-interfaces.md](references/operator-and-voucher-interfaces.md). Native capability, a wired project adapter and a live-verified result are different states. Confirm actual operator/module progress before finding work; do not treat a started training or a won battle as a completed development goal.

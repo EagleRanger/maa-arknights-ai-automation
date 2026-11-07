@@ -31,6 +31,19 @@ layout-specific: an observed accent artifact in a complete status word may
 be normalized for that status, but must not alter costs, counters, Chinese
 button names or click targets globally. Preserve near-match rejection tests.
 
+For navigation labels in a known entry region, font style, simplified/traditional
+glyphs, width, spacing and decorative punctuation do not change their meaning.
+Normalize equivalent forms locally; a real repeat visit read the same banner
+with `！` and `!`. Judge near-matches using the title length, independent page
+anchors and a unique spatial candidate, not a universal percentage. Preserve
+meaning-changing words (such as not/already), directions and numbered identity.
+After a failed full-frame read, crop and enlarge the relevant region using the
+selected OCR model, then re-observe if necessary. Keep raw and recovered text;
+test the final navigation consumer with actual failed frames and changed-layout
+negatives. Remaining ambiguity goes to the original execution AI with the game
+kept open, not global cleanup. This navigation rule does not establish resource
+amounts, purchase decisions or successful claims.
+
 Require only observations that establish the decision at hand. Do not make
 unrelated low-contrast text (for example health when confirming an unplayed
 first-floor route) a mandatory identity check. Use multiple relevant page

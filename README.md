@@ -2,9 +2,9 @@
 
 让 AI 按玩家的实际需求安排《明日方舟》的日常，把刷图、找作业、推进关卡、领奖和基建生产接成一套自动化流程，减少反复查看进度和手动切换任务的时间。
 
-当前版本：**v1.2.2（2026-11-05 更新稿）**。适用于Windows上的AI编程/执行工具，基于MAA与Android模拟器运行，附带完整执行源码与迁移说明。日常异常由执行AI接回原运行，补做仅续未完项；银凇肉鸽新增可复用的取证与策略建议接口。
+当前版本：**v1.2.3（2026-11-07 更新稿）**。适用于Windows上的AI编程/执行工具，基于MAA与Android模拟器运行，附带完整执行源码与迁移说明。日常异常由执行AI接回原运行，补做仅续未完项；银凇肉鸽新增可复用的取证与策略建议接口。
 
-[下载完整源码 ZIP](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/download/v1.2.2/arknights-automation-skill-v1.2.2-source-20261104.zip) · [查看最新稳定版 v1.2.2](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/latest) · [接收方 AI 对接说明](skill/references/receiver-integration.md) · [OCR 模型来源与安装自检](skill/references/local-ocr-setup.md)
+[下载完整源码 ZIP](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/download/v1.2.3/arknights-automation-skill-v1.2.3-source-20261107.zip) · [查看最新稳定版 v1.2.3](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/latest) · [接收方 AI 对接说明](skill/references/receiver-integration.md) · [OCR 模型来源与安装自检](skill/references/local-ocr-setup.md)
 
 <!-- project-support:start -->
 > 如果本项目对你或你的 AI 开发有帮助，下载使用或借鉴后，欢迎点个 [Star](https://github.com/EagleRanger/maa-arknights-ai-automation) 支持，让更多有同类需求的人找到它。
@@ -19,7 +19,7 @@
 - **查找与更换作业**：结合已有干员与练度寻找可用作业，交给 MAA 执行；作业不适合时，在用户允许的范围内更换方案。
 - **安排理智与材料**：按玩家设置的优先级安排剿灭、活动、主线和材料补充，不反复重打已有完成记录的内容。
 - **按库存调整基建**：根据固源岩、源石碎片、赤金和龙门币储备，调整刷取、生产、贸易订单与干员安排；支持以搓玉为目标的生产策略。
-- **肉鸽探索、领奖和加点**：支持持续探索、结算后自动领取积累奖励、分配常驻成长点，并接续同一主题的任务；当前重点为银凇主题。
+- **肉鸽探索、领奖和加点**：支持持续探索、结算后自动领取积累奖励、分配常驻成长点，并接续同一主题的任务；原探索重点为银凇；新六主题单项模块按各自测试边界使用。
 - **周期与长期玩法**：包含保全奖励进度/封顶检查、生息演算等流程；具体玩法的执行能力以现有模块和适用作业为限。
 - **异常续接与结果汇报**：处理已覆盖的中断和异常，接续未完成步骤；结束后汇总做了什么、理智用在哪里、还有哪些未完成，并按约定停止和清理。
 
@@ -27,11 +27,11 @@
 
 ## 本次更新
 
-- 修复本期活动及运行流程，包括OCR容错、报纸翻页返回、任务领奖与收尾衔接。
-- 接入绿票、黄票和红票兑换接口（测试）：绿票、黄票可读取商店并规划兑换；红票已实测兑换芯片助剂。
-- 新增干员模组与技能专精养成流程（测试）：检查模组任务和等级，按设定顺序安排技能专精。
+- 肉鸽六主题的领奖、永久加点检查与生息演算领奖拆成可单项调用、也可组合的模块（测试）。
+- 优化导航文字、简繁字形与标点容错，失败后局部放大、新帧重读，保留数值和实际效果核验。
+- 修复领奖转场及AI恢复后的业务续接，补齐功能地图与保全编队对接说明，保留原有每日顺序。
 
-原默认日常与推图链保持不动，具体调用见 [接收方说明](skill/references/receiver-integration.md)。
+具体入口与测试边界见[功能地图](skill/references/capability-map.md)和[接收方说明](skill/references/receiver-integration.md)。
 
 ## 从玩家实际操作需求出发
 
