@@ -1,5 +1,5 @@
 {
-  "version": "1.2.3",
+  "version": "1.2.4",
   "kind": "source-integrity-only",
   "files": [
     {
@@ -691,6 +691,11 @@
       "path": "daily_inventory_dependency_v1.py",
       "bytes": 3559,
       "sha256": "f1dc49381035015c2362a03bd7255aa9f8d35f4d7b2bf19e6fb2919f3c375268"
+    },
+    {
+      "path": "daily_local_popup_v1.py",
+      "bytes": 5595,
+      "sha256": "eff4d2c78c95cdc73b6354afb63d7ddd13478f1b02173b1298a8edbc6c795374"
     },
     {
       "path": "daily_login_recovery_v1.py",
@@ -1466,6 +1471,11 @@
       "path": "maa_setup_guide_ai_v1.py",
       "bytes": 1734,
       "sha256": "6223b7e526896020fecdcee5449b568f4c7000a550372aaa25c8313d3b4419ea"
+    },
+    {
+      "path": "maa_spa_resources_v1.py",
+      "bytes": 6829,
+      "sha256": "265c0fde78f2c949f3c195a70ed795a495101d668f438219a64347d60fb177f2"
     },
     {
       "path": "maa_utility_custom_v1.py",
@@ -2558,6 +2568,16 @@
       "sha256": "0da7d160e94e41c545018d12525fe47805cbc95627a6c366dd116d31c9ff778e"
     },
     {
+      "path": "spa_core_trial_v1.py",
+      "bytes": 5297,
+      "sha256": "a67f258f464d104990fa4c84faf9c9be9a82806f2135c13763f9ba85386f6369"
+    },
+    {
+      "path": "spa_rewards_state_v1.py",
+      "bytes": 3624,
+      "sha256": "c5b4bd33930e72543511dd7fef9af021f4a96123629b57860ad12104c2da75de"
+    },
+    {
       "path": "special_run_reporting_v1.py",
       "bytes": 3720,
       "sha256": "efd181ea5f9cfb5af7b67e76d4501ec5984ff8bcea752a68fc24b519db9f3625"
@@ -2658,6 +2678,31 @@
       "sha256": "97cf355e7678a9ae61a995129e8ead9e11d171fb1d1a95f66a4a883c2537a391"
     },
     {
+      "path": "tests/test_ocr_tolerance_v1.py",
+      "bytes": 2916,
+      "sha256": "bb84cb5dbc867d25d8be4194287c5dac464e504ae2a1b4a5a712c15e6ca885ed"
+    },
+    {
+      "path": "tests/test_spa_current_resources_v1.py",
+      "bytes": 5319,
+      "sha256": "772a18dc1ed084133aa640083284d386c3df5b53d47470e825476fecd580796e"
+    },
+    {
+      "path": "tests/test_spa_evidence_replay_v1.py",
+      "bytes": 729,
+      "sha256": "60a1fe503c6c9b198bdb3a0e9cd9bba2fbf55d9c65849116bea8a54aa4d2d432"
+    },
+    {
+      "path": "tests/test_spa_receiver_wiring_v1.py",
+      "bytes": 3168,
+      "sha256": "faafd4f2872af4cbe682124b67b3578ec92164dfa5fe5733fe082345b6994eef"
+    },
+    {
+      "path": "tests/test_spa_rewards_state_v1.py",
+      "bytes": 2888,
+      "sha256": "034b095237020e51b376ceee1a38ce41a804f2a71f27fe2f32c56d23949b2b43"
+    },
+    {
       "path": "tools/ark_cooperation_control.py",
       "bytes": 3947,
       "sha256": "c39a21f4fdc930590ced79f31b7e210673b88ba7c5172f5f1f503ca615e4d327"
@@ -2748,6 +2793,11 @@
       "sha256": "4214ab3dee055019d029eb2f52f0160e485f318fea84814087d85cb33b148a5e"
     },
     {
+      "path": "tools/run_spa_trial_v1.py",
+      "bytes": 10557,
+      "sha256": "e09cb75b4eaae3215dee16e82a9e9e7d2370eb39bc50e574367a59ae8014b2ab"
+    },
+    {
       "path": "tools/run_training_room_probe_v1.py",
       "bytes": 3891,
       "sha256": "4c61dc4128bb3a24db2d978c861a7984704ebcba486bdc42a40651ae8eb854a5"
@@ -2771,6 +2821,11 @@
       "path": "tools/tutorial_session_v2.py",
       "bytes": 7407,
       "sha256": "a462d055120e8e214c47630949f48453328fd1cb22b62f67d930cf583b742327"
+    },
+    {
+      "path": "tools/verify_spa_trial_evidence_v1.py",
+      "bytes": 2215,
+      "sha256": "81603504d9ce2ff7d0c301bfe1cdf6211d8508b51efce9e6f97a3a4cb7237e63"
     },
     {
       "path": "tutorial_ai_handoff_v1.py",

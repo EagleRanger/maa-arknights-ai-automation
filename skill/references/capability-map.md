@@ -8,7 +8,7 @@
 
 | 功能 | 已有代码／接口 | 接收方需要做什么、当前范围 |
 | --- | --- | --- |
-| 每日日常 | 当前发布组合（本次核验 v1.2.3 为 `run_daily_v167.full()`）；`ark_modules/domains/daily.py` | 绑定本机启动器与日常选择。沿既有链完成启动、招募、信用商店、基建、任务奖励和收尾，不另造每日流程。以后升级使用新包的实际入口，不永久锁定这个历史文件名。 |
+| 每日日常 | 当前发布组合（本次核验 v1.2.4 为 `run_daily_v167.full()`）；`ark_modules/domains/daily.py` | 绑定本机启动器与日常选择。沿既有链完成启动、招募、信用商店、基建、任务奖励和收尾，不另造每日流程。以后升级使用新包的实际入口，不永久锁定这个历史文件名。 |
 | 周剿灭 | 引擎 `mode_annihilation()`、`annihilation_rotation_v4.py`、`annihilation_postclear_v2.py` | 核当周报酬、当前轮换图和首通状态；未通关时匹配作业，已满足条件按用户策略用代理卡；400 杀与后续奖励分别核验。 |
 | 活动普通／突袭／EX、复刻与主线 | 引擎 `mode_event_today()`／`mode_mainline()`；`event_layout_profiles_v1.py`、`event_copilot_feedback_v1.py` | 用真实开放时间、关卡和通关标记决定未完项。AI 选适用现成作业，MAA 执行，原循环核结果、按预算重试或换作业。新玩法需要对应适配，不能凭旧活动编号直接跳转。 |
 | 教学关代理逻辑（测试） | `tutorial_ai_handoff_v2.py`、`tools/tutorial_session_v2.py`、`tutorial_session_result_v1.py`；[教学关说明](tutorial-ai.md) | 无适用作业时，先由 AI 依当前提示、部署格与朝向通过原后台通道操作；实际尝试仍不能完成才提示人工。已有单关实测，不宣称所有教学都能自动通过。 |
@@ -21,6 +21,7 @@
 | 肉鸽探索、领奖、永久加点 | `run_sami_progress_v9.py`、`roguelike_mode_v1.py`；[共用模式](roguelike-mode-and-extension.md) | 原生探索、整轮结算后领奖／加点，已验证满级由账号记忆跳过。银凇为当前主要接入；其它主题、月度／调查等模式要看实际适配，不把协议支持当全部 UI 已实测。 |
 | 肉鸽反复失败观察与优化接口 | `roguelike_battle_watch_v1.py` 的 `boundary`、`proposal_hook` | 记录重点关、部署与少量截图，交 AI 分析；默认只产建议，不在战斗中改作业或自动换阵容，不增加第二个控制器。 |
 | 生息演算 | 引擎 `mode_reclamation()` 与所装 MAA 的对应能力 | 保留独立任务入口。MAA 将原队列功能迁到小工具时，核实际消费者再用；旧入口存在不代表更新后已经兼容。 |
+| 卫戍协议「规程」 | `maa_spa_resources_v1.py`、`spa_core_trial_v1.py`、`spa_rewards_state_v1.py`；[调用说明](stronghold-protocol.md) | 按需调用新版官方刷取策略，条件教学由原 AI 接回；一轮刷取及积分增长已实测。功勋为刷取所得兑换积分，兑换与领奖是后续奖励链；当前自动兑换执行仍为 Beta 待接入，不宣称自动清店，不改变每日默认链。 |
 | 技能专精培养（Beta） | `operator_training_v2.py`、`operator_training_infrast_v1.py`、`tools/run_operator_training_v1.py` | 用户指定干员、技能与顺序；先复用基建训练室观察，保留正在训练的目标，实际等级达到后才推进下一项。见[培养接口](operator-and-voucher-interfaces.md)。 |
 | 模组任务、解锁与升级（Beta） | `operator_module_missions_v2.py`、`tools/run_module_missions_v2.py`、`tools/module_upgrade_trial.py` | 先查实际模组进度，再补任务与指定等级；当前具名样例为怒潮凛冬 HAM-X，不能给其它分支直接套。未授权解锁／升级只观察或做指定任务。 |
 | 绿票、黄票、红票（Beta） | `voucher_exchange_plan_v1.py`、`maa_utility_custom_v1.py`；[凭证接口](operator-and-voucher-interfaces.md) | 黄票有整套预算规划，绿黄票有原生兑换接缝但购买闭环仍待实测；红票已接一件芯片助剂试用。信物换票、干员兑换未由当前适配验证，不宣传为已自动完成。 |
