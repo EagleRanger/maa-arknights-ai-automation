@@ -1,83 +1,52 @@
-# Recovery playbook
+# 故障恢复：先看卡在哪里，再接着做
 
-## First classify the incident
+## 先分清是命令错了，还是游戏卡了
 
-An invalid command shape, stale observation number or missing diagnostic field
-before any game action is an **input/coordination error**, not a game failure.
-Have the command adapter fill mechanical counters from its current receipt;
-reject/resynchronize a bad instruction without clicking or closing the healthy
-game. Use the project's existing bounded retries/AI feedback if it still cannot
-proceed. Do not wire a minor parser error straight to whole-run cleanup.
-This does not remove account/resource/ownership boundaries or permit replay of
-an action whose commit is uncertain. Components return their own result; the
-outer coordinator decides continuation and final shutdown.
+命令格式、截图编号或诊断字段出错，而且还没有点击游戏，这是工具调用问题，不是游戏失败。纠正命令或重新取得当前编号即可；不要因此关闭健康的游戏，也不要重打一遍。
 
-Use the relevant current screenshot/OCR, queue and checkpoint. Read a Core tail
-or process list only to resolve the actual uncertainty; do not require every
-source for a simple visible overlay. Execution AI may resolve that overlay
-directly under the current task and submit the original recovery reply.
+已有运行编号后，只看这次运行的记录、当前截图和必要的 MAA 日志。不要为一个普通弹窗列全机进程、递归扫描所有输出或把所有历史文档重新读一遍。已有工具就用已验证的路径和参数，不临时猜工具名字。
 
-### Verified UI interruption
+在 Windows 上尤其注意：PowerShell 命令放到 PowerShell 执行，不能直接交给 `cmd`；Python 使用项目已经配置且依赖齐全的解释器，不能因为裸 `python` 缺包就断定整个项目坏了。检查失败只修调用方法，不退出游戏。
 
-Known recoverable pages include:
+## 看得懂的页面，AI 可以直接处理
 
-- MAA update announcement: scroll the announcement body to the bottom, select "下次公告更新前不再显示", confirm, and verify the main MAA UI returns.
-- Game login/update notice: dismiss only validated controls and verify the terminal or home page returns.
-- First-emulator tutorial: use the existing project handler and verify the tutorial overlay disappears.
-- Roguelike first-clear/ending story: MAA may emit `TaskChainError` after the ending while the game shows story text plus `跳过` or `自动 OFF`. Skip/advance the story through the ADB screenshot path, confirm the page is no longer `story`, and resume without incrementing technical restarts.
-- Mid-stage story segment: advance it only when the stage-specific flow and on-screen evidence confirm this is the blocker.
+先确认 MAA 没在连续操作，再通过项目已有后台输入处理当前可见控件：
 
-Never repeatedly restart MAA against an unchanged story page.
+- 普通“今日配给/每日配给”：看标题与底部确认勾，点勾后看下一张页面，不必读懂随机奖励名称。
+- MAA 公告：按实际页面滚到确认区域，选择存在的“不再显示”选项并确认，核对是否回到 MAA 任务页。
+- 游戏登录通知、资源下载或首次模拟器教学：调用现有处理方法，完成后看真实页面，不把“点过了”当成功。
+- 肉鸽结束剧情：MAA 可能报错，但画面其实是剧情和“跳过”。按图跳过后继续，不把普通剧情当技术故障反复重启。
+- 误入页面：例如看到“长期探索/集成战略/生息演算”，通过可见返回按钮实际回到需要的页面，重截确认，不把错误页当首页提交。
+- 关卡中途剧情：先确认确实是本关需要推进的剧情，不在实际战斗中同时操作。
 
-For client/resource updates and new sign-in skins, use
-[continuity-and-signin.md](continuity-and-signin.md). A received reward overlay
-may still need closing; do not erase a proved reward or repeat its claim.
+更新、签到和一张弹窗关掉后又出现另一张的处理，见[中断续跑与签到](continuity-and-signin.md)。已领的奖励保留，不因说明页没关就再领一次。
 
-### Technical failure
+## 真正的程序或连接故障
 
-Examples:
+例如 MAA 退出、任务队列无结果消失、排除普通剧情后仍然报错、模拟器断连、Python 选错、更新安装不完整、日志读到了旧运行或出现两个控制器抢同一队列。
 
-- MAA process or Core dies while no ordinary settlement is visible;
-- task queue vanishes before a verified outcome;
-- `TaskChainError` remains after recoverable UI pages are excluded;
-- emulator/device/ADB becomes unavailable;
-- wrong interpreter lacks project OCR/UI packages;
-- MAA update leaves a partial installation or incompatible client/resource state;
-- rotated logs make the monitor read stale completion evidence;
-- duplicate supervisors or a stale single-instance owner contend for the same queue.
+按项目已有重试和截止设置处理，不额外发明统一重启次数或一小时等待。先核对已经发生的战斗/奖励，只停止确实需要停止的本任务故障部分；能保留的游戏环境不关。修好原因再接原任务，准备失败不算一次战败，重复同一失败命令不叫恢复。
 
-Follow the current project's explicit retry, cooldown and deadline policy; do not impose a universal number of restarts or a one-hour wait. Stop only the faulty owned queue when needed and safe, preserve its save and evidence, and repair the verified cause before resuming the same remaining objective. Keep a healthy game instance open when the repair can reuse it. Reconcile effects first: a preparation failure or parser error is not a spent battle attempt, and a technical continuation must not replay completed daily work. Repeating the same failure without new evidence is not recovery.
+如果多个功能都在同一张首页识别失败，先检查共同的图像/模板/皮肤问题，不把每个功能各重跑一遍。
 
-### Ordinary game outcome
+## 正常游戏结果不是技术错误
 
-If several unrelated daily chains fail at the same home/entry template, inspect
-their shared raw frame and resource/theme compatibility before rerunning each
-chain. This is a common-entry failure, not several independent battle failures.
+肉鸽战败、未满星或探索正常结束，按用户原定重试、换作业和领奖流程处理。不能因此擅自换主题、难度、核心干员、药石策略或增加尝试次数。
 
-Integrated Strategies defeat, a non-perfect stage result, or a completed exploration is not automatically technical. Record it as gameplay evidence and follow the active phase policy. Never use a normal defeat to change theme, difficulty, core operator, retries, or objective.
+## 只检查与这次问题有关的项目
 
-## Recurrent recent-week checks
+- 谁在操作：保持一个控制器，MAA 队列是否已经在跑；`queue already running` 不等于启动失败。
+- 依赖与版本：实际项目解释器能否加载当前配置的 OCR/UI 库；更新后客户端和资源是否完整。不把某个旧 OCR 包名写成所有版本都必须安装的条件。
+- 日志是否是这次的：按本次开始时间、任务和日志轮转位置取证。有些回调文件退出时才刷新，旧文件不能代替当前日志。
+- 记录是否过期：旧检查点与新画面冲突时以实际状态对账，不重放旧动作。
+- 什么时候退出：明确到截止或用户要求停止时，先停止本任务 MAA 队列，再关闭本任务游戏、模拟器和日志窗，并核对是否真的退出。不要误停其他模拟器或共用的 ADB 服务。
 
-1. Ensure there is one supervisor and one MAA queue owner.
-2. Confirm the actual Python interpreter has `rapidocr_onnxruntime`, `uiautomation`, and `cv2`; do not trust the command name alone.
-3. Confirm MAA resource/client versions after an update and handle the announcement before queue setup.
-4. Bind Core evidence to the active run's start time and controller identity, accounting for rotation. If callbacks flush only on exit, the latest callback file may belong to the previous run; inspect the active live log or terminal instead.
-5. Distinguish GUI `queue already running` from a fresh start failure.
-6. If a checkpoint is stale, reconcile it with current MAA/game evidence instead of replaying old progress.
-7. At the hard deadline, stop the MAA queue first, then close game, MAA, MuMu, and owned log windows; verify they are gone.
+## 怎样才算接回成功
 
-## Recovery evidence
+看三件事：
 
-A recovery is complete only when all applicable checks pass:
+1. 原来卡住的页面已经处理，新截图证明到了预期页面或完成了缺失步骤。
+2. 还是同一个任务，没有多开脚本，没有改变用户的资源与玩法要求。
+3. 原脚本实际继续了刚才的步骤，记录有新的进展；需要 MAA 的步骤已启动正确的任务。
 
-- the blocking page changed;
-- the intended goal/resource limits and owner are unchanged;
-- when the next step uses Core, it begins the intended task chain;
-- the expected next step actually proceeds, rather than merely another click;
-- the checkpoint advances with a current timestamp;
-- no second controller is alive.
-
-A navigation-only repair does not require a new battle or reward to prove the
-page was recovered. It does require the original workflow to continue. Do not
-ask the same failed OCR test to veto an AI-verified fresh navigation picture;
-use the supported visual reply, while keeping business-effect checks separate.
+“恢复回执写入成功”只代表通知已提交。首页证明工具不执行返回动作；先实际返回，后提交。OCR 认不出但 AI 已看新图确认首页时，可走运行版本支持的看图确认，不要求同一错误 OCR 再同意一遍。页面恢复也不能冒充战斗、领奖或整日日常完成。

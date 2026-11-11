@@ -1,5 +1,5 @@
 {
-  "version": "1.2.4",
+  "version": "1.2.5",
   "kind": "source-integrity-only",
   "files": [
     {
@@ -111,6 +111,11 @@
       "path": "annihilation_rotation_v4.py",
       "bytes": 1428,
       "sha256": "1377444d997c352b19ef985d8cd93bd0d995e02fddaea0a3f08d226c31cca16f"
+    },
+    {
+      "path": "ark.py",
+      "bytes": 17459,
+      "sha256": "50b799ae549c43377e8773d1b65887afa319a9bc946955d8701a60036f5976be"
     },
     {
       "path": "ark_host/__init__.py",
@@ -309,8 +314,8 @@
     },
     {
       "path": "arknights_auto.py",
-      "bytes": 1027419,
-      "sha256": "e8f2f42f950bb493d99bb825e228dcd6e0db56defe3a65207a21cc9b90e9c428"
+      "bytes": 267,
+      "sha256": "9d262ada96878d61a6865a5807c1007dbef53992c0711651fd3474b66389974b"
     },
     {
       "path": "arknights_auto_production_v11.py",
@@ -381,6 +386,11 @@
       "path": "config/press_committee_plan.example.json",
       "bytes": 37,
       "sha256": "656c3b4ae935a03a69e22135d79bd4226c4313e74b6d3f305985a5c077a84d84"
+    },
+    {
+      "path": "config/receiver_profile.example.json",
+      "bytes": 477,
+      "sha256": "c1f52e093c39fd0aa4b110b464bbe5a61b33389cb90685aff606937f9f991272"
     },
     {
       "path": "config/roguelike_tree_revisions.json",
@@ -1334,13 +1344,13 @@
     },
     {
       "path": "event_tl_task_rewards_v2.py",
-      "bytes": 1268,
-      "sha256": "e5dccaae41908beebc547b2b6d7b05815e054afa3cd5cbae7f48c05ee8da5a24"
+      "bytes": 1632,
+      "sha256": "a20f291b06ee105e29326436d2e0d33befe66264a5f02a1af4e35649d517a02d"
     },
     {
       "path": "event_tl_task_rewards_v3.py",
-      "bytes": 2428,
-      "sha256": "3b388e56a5a006d490b0611971bfb04e281371df3bee0bd4eee79d090c836406"
+      "bytes": 2485,
+      "sha256": "a97749c0dc7e0bd952c654eb4863827a3c580e1c38934740c342ab85e0c003ac"
     },
     {
       "path": "event_wish_wall_v1.py",
@@ -1611,6 +1621,36 @@
       "path": "rapidocr_compat_v1.py",
       "bytes": 1534,
       "sha256": "7b49475032d7c2a2403ebdfdd2d64c4182339e039430c7d89ad92acb85200c68"
+    },
+    {
+      "path": "receiver_catalog_v1.py",
+      "bytes": 10937,
+      "sha256": "4816b1d116e85ee91d8b9b704a28b63f5dedc66030988a7d2f493922caa8a656"
+    },
+    {
+      "path": "receiver_goals_v1.py",
+      "bytes": 10701,
+      "sha256": "62ed829b70995853e83f915471603beb759a3f9fdea09dac80d424657ecdd545"
+    },
+    {
+      "path": "receiver_operations_v1.py",
+      "bytes": 16821,
+      "sha256": "d458b98aec45e74ae74528473fd47643878cd9f305069eb8d8d4f844cfaab053"
+    },
+    {
+      "path": "receiver_session_v1.py",
+      "bytes": 14539,
+      "sha256": "0d22c747da2a57bbae98d0ee0900061c4f6e122fb0bc4083a73b70f28e9e0986"
+    },
+    {
+      "path": "receiver_setup_v1.py",
+      "bytes": 19423,
+      "sha256": "bb92237121aac8f6c86536762435ac139f5efc9f52fd269dc5d541e747e3ad98"
+    },
+    {
+      "path": "receiver_sss_formation_v1.py",
+      "bytes": 5414,
+      "sha256": "80790f6fe8f8a35f357c5cc25e3df2ba30da9ff9e5bfefa7306e9c8b66212ae4"
     },
     {
       "path": "recipient_beta_v1.py",
@@ -2678,9 +2718,19 @@
       "sha256": "97cf355e7678a9ae61a995129e8ead9e11d171fb1d1a95f66a4a883c2537a391"
     },
     {
+      "path": "tests/probe_receiver_assembly_v1.py",
+      "bytes": 7031,
+      "sha256": "a5262e1b6550d4fc908fb0a7b006dcac48900eada8bcedf3922d73223ca54226"
+    },
+    {
       "path": "tests/test_ocr_tolerance_v1.py",
       "bytes": 2916,
       "sha256": "bb84cb5dbc867d25d8be4194287c5dac464e504ae2a1b4a5a712c15e6ca885ed"
+    },
+    {
+      "path": "tests/test_receiver_entry_v1.py",
+      "bytes": 33717,
+      "sha256": "539f16e6b265005679ce9bfc974eeed9d9c68171ed0353f5c98a4c179e22841e"
     },
     {
       "path": "tests/test_spa_current_resources_v1.py",
@@ -2703,6 +2753,11 @@
       "sha256": "034b095237020e51b376ceee1a38ce41a804f2a71f27fe2f32c56d23949b2b43"
     },
     {
+      "path": "tests/test_tl_banner_rows_public.py",
+      "bytes": 2566,
+      "sha256": "5341abf3efb0972daaf106de1013656a9ab3bbf9ea180d3302f99556cb5725c0"
+    },
+    {
       "path": "tools/ark_cooperation_control.py",
       "bytes": 3947,
       "sha256": "c39a21f4fdc930590ced79f31b7e210673b88ba7c5172f5f1f503ca615e4d327"
@@ -2711,6 +2766,11 @@
       "path": "tools/ark_navigation_reply_v1.py",
       "bytes": 766,
       "sha256": "8d43fc15cc2c22834d5793cba25cb51cb23301b02c4fa95cf7673943f29aabc4"
+    },
+    {
+      "path": "tools/build_receiver_manifest_v1.py",
+      "bytes": 1832,
+      "sha256": "d671ec55017106d447e1eb55b642c51466f074a18f1fc2a37885ea8781c74603"
     },
     {
       "path": "tools/collect_portable_resources_v1.py",

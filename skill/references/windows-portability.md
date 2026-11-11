@@ -66,6 +66,11 @@ The port `16384` is not a constant. MuMu multi-instance ports can change; discov
 
 ## First-run inventory
 
+First use the [capability map](capability-map.md) to find the requested business
+module; the published package's `receiver-integration.md` describes its host
+binding. Do not rebuild an existing module from the workflow prose or assume
+native MAA limitations also apply to the project's adapters.
+
 Before controlling a new PC, record these values in a machine-local profile or environment variables. Never write another person's username or this PC's paths into shared Skill instructions.
 
 1. Windows version/build and architecture.

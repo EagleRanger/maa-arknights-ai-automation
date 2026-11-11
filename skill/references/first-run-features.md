@@ -16,9 +16,17 @@ adapters and not-yet-integrated native capabilities. The user need not configure
 every module. Retain their existing explicit choices; do not force an already
 configured account through setup again.
 
+Use the [capability map](capability-map.md) for that introduction and the actual
+runtime entrypoints. In particular, SSS automatic formation is a project bridge,
+not a checkbox supported by native SSSCopilot. Explain its recipient roster
+configuration using [the SSS integration guide](sss-formation-bridge.md).
+
 Label a working but incompletely validated feature **Beta 测试** in release
 notes and identify the specific step tested. An optional beta does not delay
 the established daily workflow. A read-only planner is not a purchase feature.
+Use the normal numeric release version. “测试” describes the individual
+feature, not the whole release. Keep public notes short: what changed and what
+the recipient can use. No special disclaimer or repeated setup is needed.
 
 For later special settings, tell the recipient to ask **their own AI** to adjust
 the corresponding interface/profile. Examples are a named operator/skill order,

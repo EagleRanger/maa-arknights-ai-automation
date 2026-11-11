@@ -1,7 +1,7 @@
 {
   "repository": "EagleRanger/maa-arknights-ai-automation",
-  "version": "1.2.4",
-  "build_date": "2026-11-08",
-  "recommended_entrypoint": "runtime/run_daily_v167.py",
-  "build_revision": "2026-11-08-spa-regulation"
+  "version": "1.2.5",
+  "build_date": "2026-11-11",
+  "recommended_entrypoint": "runtime/ark.py",
+  "build_revision": "2026-11-11-public-receiver-and-module-entrypoints"
 }

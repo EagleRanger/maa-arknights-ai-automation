@@ -1,245 +1,123 @@
-# Continuation, updates and sign-in
+# 中断续跑、更新与签到
 
-Use this when a daily run stops at startup, an activity page, a claim, or an AI
-handoff. The user's remaining objective persists across technical run IDs.
+用在启动卡住、活动领奖、页面误入以及脚本需要 AI 帮忙的情况。换了运行编号，不代表用户的任务结束了。
 
-## Continue the right remainder
+## 只补没做完的内容
 
-- Reconcile the previous run and real controller/queue state. A preserved
-  interrupted manifest can say `running` after its controller has exited; use
-  the same-run reconciliation rather than invent a live process or success.
-- A user-completed substep is a scoped fact. Bind it to the current account or
-  device session and game day/activity period; skip only that substep. Expire or
-  recheck on a new day, account or period. Do not skip battles/base/Award because
-  the user completed sign-in, or credit manual work as automation.
-- A partial run report is not the end of the authorized daily objective. Repair
-  the cause, preserve effects, and dispatch the unchanged remainder to its
-  original owner. Do not ask the user to repeat the same authorization.
+- 先看原脚本是否还活着、MAA 是否在操作、游戏实际停在哪。旧记录写着 `running` 不一定真在运行；脚本已经退出时，先对账再接续。
+- 用户手动完成哪一项，就只跳过哪一项，并记录账号、日期或活动周期。手动签到不等于日常全做完，也不能算成自动领奖。
+- 报告写“部分完成”不代表可以丢下剩下的任务。修好原因后，沿原任务继续；已经产生的奖励和理智消耗保留，不从头重跑，不再让用户重复许可。
 
-## Separate updates
+## 模块独立调用与组合
 
-- A required client-package upgrade is not a network timeout. Discover the
-  installed package/channel/version, use the channel's official source, preserve
-  data, rely on Android signature validation, and read back the installed version.
-  Never uninstall, clear account data, downgrade, or swap channels as a shortcut.
-- In-game resource download, extraction and verification are progress states.
-  Locate the explicit resource-download confirmation, wait while progress moves,
-  and use the current host's bounded stall/deadline policy. Recheck the actual
-  home after completion. A successful install is not a completed daily run.
-- MAA application, task definitions/templates, game maps and activity calendars
-  have separate versions. Read each relevant source. A stale calendar or missing
-  navigation entry does not prove that Copilot jobs or game maps do not exist.
-- Research current official resources and exact-stage jobs while independent
-  daily work continues. Do not replace active-event stamina with unrelated farms
-  just because route metadata is missing. Apply resource changes only when the
-  relevant MAA owner is idle, preserving local overlays and rollback evidence.
+本版V1.2.5尚未纳入新 `run_ark_modules_v1.py`/`daily_task_return_v1` 接收适配；以下相关命令是“工程已具备该入口”时的条件用法，不是本包直接可运行清单。公开入口与现有替代接缝统一看[本版入口](entrypoints-v125.md)，不为缺口另造控制器。
 
-For MAA application updates, finish the daily objective first: an explicit
-update prompt on the initial MAA startup may be accepted before any queue;
-after daily work starts, choose the prompt's actual `稍后`/`否` and finish the
-remaining modules. Remember the deferred package for the next daily startup,
-not the next mid-run MAA reload. A successful update is not successful gameplay.
-Temporary task configuration must restore only its own changes; do not write an
-old whole-file snapshot over MAA's newly migrated settings/version fields.
+- 像 MAA 的任务选择一样，基建、招募、领奖、关卡推进、刷材料、肉鸽等各管自己的输入、动作和结果；日常只决定选哪些模块、先后顺序和特调参数，不复制另一套业务实现。
+- 单独执行某项就只选该模块；已有环境直接复用。不要写“只做 EX 和补领”这类新的专用程序，也不要启动整日日常再想办法跳过无关步骤。
+- 工程包含 `run_ark_modules_v1.py` 时，`--list`查看模块，`--plan <配置文件> --check-only`检查后，用同一入口执行一个或多个明确的`steps`；`inputs`是参数，`requires`是实际前置依赖。支持`recipe: daily`时，当前观察`facts`编成同一模块清单，可先调整组合再执行；不是另一套每日引擎。
+- 每个模块返回后仍由原执行AI核对目标和新指令。正常返回、局部失败都不隐式关环境；未知现场先接回，再继续不依赖失败项的其他模块。已验证的效果保留，不因恢复换编号重放。
+- 长期模式或活动室如提示缺少已有服务绑定，只补该模块的连接；不能回退到 full 冒充单项调用。目录有名字、离线调用通过、实机效果完成是三件事，按安装包实际能力说明。
+- 结束追加任务后，把`daily.collect`作为明确的补领模块，再决定收尾；不能把“日常以前做过”当成现在没有新产出、招募或奖励。
 
-MAA's post-update `设置指引` is a human demo, not an AI workflow prerequisite.
-Skip it through its supported skip control or a source-verified version-specific
-configuration adapter. The supplied project adapter currently knows MAA
-6.21.2/6.21.3; unknown guide schemas go to AI rather than guessed completion.
-Re-read the real task page and require a visible, enabled Start control; do not
-invoke a hidden/disabled control behind the guide. This does not skip the
-recipient's own account/environment/resource setup in this Skill.
+## 接回后，先判断下一步是否还合适
 
-## Generic sign-in, not an activity-name macro
+每个业务模块返回、修复或人工接回后、转去批量刷材料前、最后收尾前，由执行AI把旧队列的下一步与最新相关用户指令比较一次：
 
-Recognize entry text such as `签到`/login rewards, then establish the overlay with
-its date, repeated day cards, current highlight or explicit claim/received state.
-An activity name or red dot is a clue, not the whole recognizer or claim proof.
-Do not make one event's yellow-card skin or left-side label universal.
+- 没有相关变化，且当前页面、资源和剩余任务仍支持原计划，就直接继续。
+- 用户补充或纠正了要求，只调整受影响的未完成步骤；其他有效要求保留，已经完成的效果不重做。催进度或问状态不自动撤销原任务。
+- 核对活动新开放阶段、EX/突袭和待领奖励是否在本次任务里。普通关完成、某个模块返回成功，不等于全部目标完成。
+- 两条要求真的冲突且无法判断时，只问冲突点；不是每次切阶段都询问用户、发项目或等批准。
 
-1. Locate the current reward card or explicit free claim control. Never infer
-   permission for paid catch-up, purchases, gacha, or a reward choice.
-2. After one claim, read a fresh reward/result and the same card's received
-   marker or counter. A click alone does not prove a reward.
-3. Keep claim effect and closure separate. A received explanation page can stay
-   open after the reward. Preserve the proved claim, do not tap it again, locate
-   its visible X, then read the next page. Another recognized reward or notice overlay is
-   a valid next step, not a failed claim merely because home is not visible yet.
-   Drain that chain through its own handlers; verify home at the chain boundary.
-   When the next page already has a working handler (for example the announcement
-   tabs and their close button), return it to that existing startup loop. Preserve
-   the local claim/close result and `home_verified=false`; don't route a known
-   successor through a home-only failure wait or develop another click sequence.
-4. If OCR misses X, reuse a verified visual template or graphic-shape locator
-   with page and geometry evidence. OCR `X` alone is insufficient: a currency
-   `+` on home can be misread as X. Validate stroke direction and contrast
-   polarity against the current image; do not guess a top-right point.
-5. If no reliable action is known, return `reward_pending` and a fresh frame to
-   AI. A positively identified close control may return to a verified home so
-   other daily work continues; unknown navigation must not be treated as home.
+这个判断在安全边界进行，不中断在途战斗、不抢控制权，也不修改仍在运行的脚本。记录在原执行对话/运行记录中即可，不另建台账。安装版本带有`tools/daily_execution_brief.py --transition --next-step <下一步>`时，可用它读取原计划和运行证据；最新用户要求仍由执行AI从对话核对，工具本身不会理解聊天或自动重排队列。旧版本没有此参数时按同样思路直接判断，不阻塞日常。
 
-Record activity identity and actual announced start/end separately from the
-game day of a claim. On a wish-wall overlay, zero remaining choices alone
-does not prove payout; the received marker plus drawn/completed state is
-stronger. On a calendar overlay, match today's card or received result; future
-cards can be locked on a day that is already claimed. Close via the overlay's
-own X, handle any next overlay, and verify home. Do not credit prior/manual
-receipt as automatic. Already-received evidence belongs to the actual account
-and game day; missing an unclaimed card does not establish a missing reward.
+判断后要落实到脚本当前读取的任务范围，不能只在对话里说“先打 EX”。例如用户补的理智用于 EX，就在原续接配置中限制为缺失 EX，禁用材料刷取；不能用旧的材料续跑入口代替。没有热更新能力的旧控制器须在安全边界交接，改磁盘上的新版文件不会改变已经加载的旧队列。
 
-For the ordinary `今日配给` / `每日配给` startup overlay, the title and its
-established bottom confirmation control are enough to dismiss it. Reward names
-are random and must not be a whitelist for clicking the checkmark. Re-read the
-page after the click. Sign-in and wish-wall activities are optional: absent or
-expired activities do not become mandatory startup failures.
+### 追加任务结束后，只补新待办
 
-Keep actual announced start/end distinct from the
-first observed open time. New activity instances never inherit old claimed or
-expired state just because both say `签到`. Expired instances leave their template
-available but are no longer daily work.
+- 日常完成记录只跳过已经做过的五链，不能让之后几个小时产生的新招募、产出和任务奖励也跳过。
+- 追加任务结束后先判断是否还有用户指定的未完任务；有就继续该任务，无则调用“基建产出/已完成招募 → 基建通知 → 任务奖励”的轻量补领，最后由调用方决定退出。不自动买物品、开新招募、重排班或开新战斗。
+- 新的追加任务完成后使用新的补领记录；同一个追加任务的完成回执可复用，避免恢复时重复执行。上次领取中途断了，先核对实际页面和效果再补缺，不能靠改一个编号重领。
+- 安装包若有`daily_task_return_v1.collect_after_operation`，由现有唯一控制者提供当前运行身份、空闲状态和截止时间调用；它只返回补领结果，不自行关游戏。尚未接此接口的旧肉鸽宿主由执行AI在整轮结算后调用，不能声称所有旧宿主都已自动接好。
+- 最后实读理智照实汇报。剩余理智属于资源事实，不是新的刷取指令；材料刷取只由总流程按当前任务安排。
 
-## One script/AI handoff, not two blind watchers
+## 更新要分清对象
 
-The script detects and captures; the execution AI first reads the fresh image
-and handles an ordinary in-scope page recovery itself. It sends recurring code
-defects, missing capabilities or conflicting results to the project lane. A
-notification is not a requirement to wait for project approval before using an
-obvious observed Back/Close/Confirm control. The original owner rechecks and
-resumes the same step. User absence does not stop this already-authorized chain.
-No new scheduler, mouse takeover or duplicate owner.
+- 游戏安装包必须更新：确认当前渠道、包名和版本，从该渠道官方来源更新，保留账号数据，安装后核对版本。不卸载、不清数据、不降级或换渠道。
+- 游戏内资源下载/解压/校验：点画面上实际的下载确认，进度在走就等待。按已有超时策略处理停滞，结束后确认进入首页。更新成功不等于日常成功。
+- MAA 软件、任务模板、地图、活动日历各自可能有不同版本。日历过期或导航条目缺失，不代表地图和作业也不存在；可以查当前官方资料和具体关卡作业，其余日常能继续就继续，不能因此擅自改刷不相关材料。
+- MAA 第一次启动时弹更新，可在日常开始前更新。日常已开始则点实际的“稍后/否”，留到下一次日常启动处理，不在中途再次打开 MAA 时又升级。
+- 临时设置只恢复自己改过的字段，不用旧配置整份覆盖 MAA 更新后迁移的新字段。修改资源前确认 MAA 已空闲，并保留本地改动。
+- 更新后的“设置指引”是给人看的示范，可以点实际的跳过按钮，或调用已验证的对应版本配置方法。当前项目配置方法已知支持 6.21.2/6.21.3；其他结构不能猜。跳过后检查真正任务页的开始按钮是否可用，不操作引导后面隐藏或禁用的按钮。接收方账号首次设置不是这个指引，不能混为一谈。
 
-Use an existing supported pause/reply seam to keep a healthy environment open.
-After the configured recovery budget (three rounds in the current adapter),
-retain the original controller, game, MAA and emulator and send the fresh frame
-to the execution AI. The AI corrects only the affected page, then the same owner
-performs a fresh read-only recheck before resuming the original step. Do not
-auto-close the environment just because the error has been reported. Keep any
-original explicit deadline and stop request effective. Startup is one consumer
-of this protocol; an optional activity needs its own waiting hook at the
-failed step. Do not assume every MAA-internal failure already supports it.
-If that host lacks it, do not invent a live-wait capability: preserve an honest
-partial result and continue through the verified repair entry after safe
-reconciliation. A safe per-run stop does not abandon the objective.
-Outbox created, native delivery accepted, project received, repair applied and
-game effect verified are distinct states. A message or log alone proves none
-of the later states.
+## 签到识别不写死活动名字
 
-### Take over an unfinished step in place
+入口可能写“签到”，也可能是首页左上角标签或登录弹窗。结合日期、重复日期卡片、今日高亮、“领取/已领取”等判断；红点和活动名称只是线索。不要把一种活动的颜色、布局当成全部活动的固定样式。
 
-1. After the MAA action stream stops and the queue is verified idle, capture the
-   actual current screen **before** leaving the step. If it contains usable
-   partial progress, the original controller holds navigation and sends the
-   current screenshot, task identity, unfinished effect and reply path to its
-   execution AI. Don't discard the progress just to get back to a known page.
-2. The AI confirms the same live owner, run/event, idle queue and remaining
-   handoff window. It uses the existing background input on fresh frames,
-   checks the effect after each action, and completes only the missing part.
-   Don't run MAA again in parallel, reuse old coordinates or add resources.
-3. Return control with a run/event-bound `recheck`. The original owner uses a
-   fresh observation to verify the exact business outcome before crediting it.
-   If the effect is still unknown, recovery continues within the agreed
-   window. An AI reply or a return to home is not business completion.
-   After verified navigation recovery, release only that same incident's active
-   navigation block; preserve its history, delivery provenance and unresolved
-   business effects. Verify the previously blocked planner actually continues.
-   Reaching home or starting an unrelated cleanup queue is not proof of this.
-4. At the window's end the AI stops input. An unresolved optional step stays
-   pending; the owner uses its safe return route and continues independent
-   work only when navigation is ready. Do not overlap AI taps with resumed
-   script actions or close the whole daily run for one optional failure.
+1. 找到当天奖励或明确的免费领取按钮。不能由此推导出付费补签、抽卡或购买许可；有需要用户选择且未规定的奖励再询问。
+2. 点击一次后看新截图：取得物资、对应卡片已领标记或数量变化，才能说领取成功。只发出点击命令不算。
+3. 奖励领了，说明页可能还在。保留已领取结果，不重复领取；找到实际关闭按钮，再看下一张页面。后面又出现签到或公告很正常，不要求一次关闭后必须直接到首页。已有公告处理方法就复用，不另造一套点击。
+4. OCR 没读出关闭按钮时，可用已有图形模板或形状识别补充。不能仅凭文字 `X` 就点击：首页货币的加号曾被读成 X。结合斜线方向、明暗和位置确认，不猜右上角坐标。
+5. 真不会处理时保存最新截图，交 AI 看。能确认关闭控件就可先回首页做其余日常；未知页不能报成首页。
 
-See the [Committee example](workflows.md#committee-live-visual-takeover) for the
-live-tested difference between MAA failure, AI takeover and effect verification.
+普通“今日配给/每日配给”只要标题和已有底部确认勾明确，就点勾继续。奖励名称是随机的，不要求落在某个名单。
 
-### Navigation evidence is not tied to OCR agreement
+许愿墙剩余次数为 0 不单独证明奖励已领，要结合“物资已领取”和已抽取/已完成标记。日历要看今天的卡片：明天锁着不代表今天漏领。已经领取的原图只说明当前已领，不能算本轮新得奖励。
 
-Prefer the existing recognizer when it works. If the execution AI sees the
-correct homepage but its typography still defeats OCR, use the navigation-only
-visual reply when that runtime provides it: `tools/ark_navigation_reply_v1.py`
-with the original run/event, the actual screenshot and a brief observation.
-The owner compares a fresh navigation surface to that picture before accepting
-it; a changed scene stays in the same wait for re-observation, not cleanup.
-This grants only navigation readiness, never a reward, battle, training or
-account completion. The ordinary `recheck` remains sufficient when OCR works.
-An older loaded owner without this adapter keeps its current supported seam;
-do not claim a source-file edit has hot-loaded into it.
+记录公告中的活动开始/结束时间，和某天领取时间分开。活动已结束或没出现就没有这项每日任务，保留识别模板等下次活动使用。新活动不能继承旧活动的“已领/结束”。同一天已验证的卡片横移了，不必再次领取。
 
-For optional services, restore navigation **before returning to the enclosing
-workflow**. A failed newspaper layout remains pending, but after home recovery
-the enclosing activity route keeps its successful stage result and may farm.
-Do not first freeze stamina, unwind into final cleanup, then call that recovery
-complete merely because the homepage was restored. If an older owner already
-skipped a phase, reconcile its effects and dispatch only that missing phase and
-the necessary post-action cleanup through the currently selected runtime.
+## AI 接手时到底要做什么
 
-Use account/activity/game-day identity for a claim already verified in this run.
-Reopening a horizontally shifted calendar does not invalidate the proved claim
-just because its card moved. Reuse that claim proof, do not count it twice, and
-do not infer today's claim from an unrelated old stamp or zero counter.
+本版实际提供Python导航回复工具，完整参数见[异常接回配套](entrypoints-v125.md#只有异常时才用的配套)；未附新版PowerShell回复器或新简报工具，不假定它们已安装。
 
-## Tutorials are a capability gap, not automatically human-only
+以下步骤与模型厂商无关。执行 AI 是当前负责游戏的对话；可以与负责改代码的对话是同一个。原脚本仍在时，不开第二个控制器。
 
-Detailed execution, visual-step checks and human fallback are in
-[tutorial-ai.md](tutorial-ai.md), released as “教学关代理逻辑（测试）”.
+1. **看当前页面。** 确认 MAA 已停止连续操作、当前队列空闲，查看这次问题附带的新图。还有未完成的排版/领奖就先完成它，不为回到已知页面而丢掉进度。
+2. **实际操作。** 用项目已有后台截图/点击工具，按新图上能看见的控件处理。每次关键操作后重新截图，确认页面或任务状态改变。没有必要先把每种弹窗写成专用脚本，也不必为普通关闭/返回等范围内动作再次问用户。
+3. **通知原脚本重新检查。** 从当前运行记录读 `run_id`（本次运行）和 `event_id`（本次问题），通过它实际支持的回复工具提交 `recheck`。这一步只发通知，不会替你点击或自动完成任务。
+4. **确认真的继续。** 原脚本应重新检查并继续刚才那一步；看新的状态和后续动作。文件写入成功、消息发出或回到首页，都不能单独算本日日常完成。
 
-When the active user task permits tutorial progression, first check exact-stage
-Copilot work and the game's visible instructions. No compatible Copilot result
-is not proof that AI cannot complete the tutorial. At an idle control boundary,
-use fresh frames to follow the highlighted clicks, deployments and facing
-gestures through the existing background input path. Public shipped tutorial
-scripts can clarify required signals and target tiles; reconcile them with the
-actual stage, frame and map projection rather than blindly replaying coordinates.
-Selecting a deployment card can tilt the camera. Capture that selected state
-before locating its destination; validate selection, placement and facing as
-separate transitions. Wait for the new frame sequence before the next command.
-Verify each requested transition and the final game result. Hand off only the
-unresolved step when no safe next action is known. Preserve successful steps and
-continue independent daily work; never add a universal “TR means manual” gate.
+脚本自动恢复次数耗尽后（当前实现三轮），应保留健康的游戏、MAA、模拟器和等待中的脚本。AI 解决不了的可选项留作未完成，恢复导航后继续独立任务；不因已经报错就自动关全套程序。用户指定的截止时间/停止要求仍要遵守。旧脚本若没有等待回复功能，不能声称已经支持；先保留结果、对账，再走已验证的维修续跑入口。
 
-## Validate the consumer that runs
+“保存了待发送消息”“发送接口接收了消息”“对话收到了消息”“修复已经应用”“游戏已经恢复”是五件不同的事。跨对话接口不存在时，由当前执行对话接手或明确报告接口缺失；不要用后台子代理工具冒充发送到用户对话，也不要把发不出消息当成不能处理眼前返回按钮。
 
-Replay the actual missed frame and negatives. Then assert the actual handler
-result after every historical installer/wrapper is active; an entry reached,
-imported function or install flag can hide an overwritten handler. Test manual
-scope, reward-versus-close effects, unknown-to-AI transfer, independent work and
-final report/cleanup separately. Candidate tests do not count as live passes,
-and user clicks never supply an automatic stability pass. Preserve readable
-fixtures outside disposable screenshots; do not export account IDs or progress.
-Do not replace the startup/navigation function under test with a mock that calls
-the desired handler: that can hide the real branch which skipped it. Stub only
-external device I/O and exercise the final composed entrypoint and transitions.
-Include the real current-plan compiler in an entry test: artifact fingerprints
-alone do not detect a policy/schema mismatch. Check effective resource settings
-after legacy bootstrap wrappers rebuild arguments, not just the command passed
-to the launcher. Keep the bootstrap's one run identity. A legacy policy label
-such as `pause_and_report` can remain for compatibility while its defined scope
-is local recovery and AI continuation; renaming the label is not the behavior
-change, and must not create a new startup blocker.
+对话本身报错时先分清：是消息投递失败、模型请求失败，还是游戏脚本真的失败。原生回合未开始就报错，不能写成已启动游戏，也不触发游戏清理。核对已有控制者后，使用平台提供的原对话恢复方法；同一确定性错误复现就停止重复发送，保留明确阻碍，不改聊天数据库、伪造工具返回或新开控制器来掩盖。普通游戏页面问题仍由执行AI接回，不上升成整个项目停工。
 
-Preserve decisive fault frames with a hash when the existing outbox is created;
-record missing/copy-failed evidence honestly without blocking independent work.
-Do not re-copy or rewrite an already acknowledged packet. Keep this bounded
-(for example only the few frames explaining the failure), not an archive of
-every screenshot. An absent historical test image is missing coverage, not a
-passing regression; replacement real frames must be labelled as replacements.
+具体实测例子见[委员会看图接手](workflows.md#committee-live-visual-takeover)。
 
-## Copilot failures and upstream holds
+### 已经回到首页，但 OCR 还认不出来
 
-Use exact-stage packaged Copilot work, honoring the user's configured author
-and idle-play preferences within compatible candidates. Read the job's current
-instructions before execution: an explicit unresolved map/deployment defect is
-not a reason to spend another game attempt. A video is not a packaged job and
-does not authorize writing a new battle controller.
+先使用正常的重新检查；只有 AI 看新图确认已经是首页、OCR 仍误判时，才使用安装版本支持的“首页看图确认”工具。
 
-Separate preparation retries, actual battle-budget use, observed defeats and
-unverified outcomes. A budget list may contain stalled or non-perfect battles;
-only count a defeat from its real result. Keep the final popup concise (stage,
-unfinished state, verified failure count); detailed causes belong in the chat
-and evidence. Never reset the budget just because the process resumed.
+- 该工具的意思是“我已经看图确认到首页，请脚本复核并继续”，**不是“请帮我回首页”**。
+- 安装版本带有 `tools/ark_navigation_reply.ps1` 时，在本机已配置的 PowerShell 中执行：
+  ```powershell
+  powershell -NoProfile -ExecutionPolicy Bypass -File tools/ark_navigation_reply.ps1 -Output <当前运行目录> -RunId <运行编号> -EventId <问题编号> -Screenshot <新首页原图> -State main_menu -Note <图上可见的首页特征>
+  ```
+  占位内容必须换成当前记录里的实际值。该命令不点击、不启动程序、不领奖；`main_menu` 只能在实际看见首页后填。未指定或不是首页时，新版只提示先做导航，不写首页证明。
+- 只有旧 `tools/ark_navigation_reply_v1.py` 的版本，用该项目配置好的 Python 调用，仍然只能提交实际首页的新原图。不要假设旧版有新版参数或已加载新修复。
+- 原脚本会另截新图对比，画面已变就继续等待观察，不关闭游戏。该证明只解除当前导航问题，不能证明领奖、战斗或培养完成。
+- 示例：图上是“长期探索/集成战略/生息演算”，先按可见返回按钮实际回到首页，再截新图。不能拿长期探索原图直接提交首页证明，也不能连续提交 `recheck` 等它自己返回。
 
-When the user elects to wait for an upstream fix, store a scoped stage/mode hold
-in their existing local configuration. Do not replay it each daily run or mark
-it cleared. Keep eligible independent activity farming/rewards/daily work on
-their existing evidence checks; do not silently divert active-event sanity to
-unrelated resources. A new version number or homepage-fix announcement does
-not by itself prove that the held stage's deployment defect is fixed.
+可选活动没做完但已恢复首页时，保留其未完成项，继续原本能够进行的刷取和日常。若旧程序已经跳过了某阶段，核清实际效果后只补缺失阶段及其战后收尾，不重做已完成的部分。
+
+## 教学关先尝试，不默认要求手动
+
+详见[教学关 AI 操作](tutorial-ai.md)，公开名称是“教学关代理逻辑（测试）”。
+
+任务范围允许推进教程时，先找本关兼容作业；没有作业，再按当前教学文字、高亮和箭头操作。没有 MAA 作业不等于 AI 一定做不了。选择干员后镜头可能倾斜，要重新截图确认落点；选卡、落位、朝向和生效分别核对。参考别人脚本时也要对上本关实际画面，不盲抄坐标。仍无法确认下一步才请用户，已完成部分保留，其余日常继续。
+
+## 测试要测真正运行的流程
+
+- 先复测实际出错截图和相反场景，再测试正式启动入口最终调用的处理函数。不能把入口里坏掉的导航函数换成模拟成功函数，随后称流程已通过。
+- 隔离测试只替代外部设备输入输出。导航、相邻弹窗、AI 接手、回执、继续原步骤和最终报告之间的连接都要测；文件哈希正确或导入成功不证明连接正确。
+- 测资源设置时，检查经过所有旧包装层后真正生效的值，不只检查传给启动器的参数。测试通过与实机通过分开，用户手动操作不算自动稳定次数。
+- 复用已经保存的关键故障图。图已丢失就注明缺覆盖，不能算通过；替换图说明来源，不带出账号隐私。
+- `pause_and_report` 等旧字段名可为兼容保留，关键是实际行为只暂停相关步骤并接给 AI，不能为改名再制造新阻塞。
+
+## 作业失败和等待官方修复
+
+按确切关卡/模式选择打包作业，沿用户已有的作者及挂机偏好。执行前看作业当前说明；已明确地图或部署故障未修复的，不浪费一次战斗尝试。视频不是 MAA 打包作业，不自动授权另写战斗控制器。
+
+准备失败、进入战斗、实际战败、结果未知分别记录。最终弹窗只需简短写关卡、未完成状态和真实失败次数；细节留在对话/记录。接续不重置累计次数。
+
+用户已决定等官方修复的关卡，按关卡和模式保存到本机设置，日常不每天重打。新版本号或首页修复公告不证明那个战斗问题已修好。独立的活动刷取、领奖和日常继续，不擅自转刷无关材料。

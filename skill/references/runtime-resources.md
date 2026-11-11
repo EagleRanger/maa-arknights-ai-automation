@@ -74,7 +74,7 @@ python tools/prepare_yw_catalog_local_v1.py --source-dir 'D:/自己的数据/yw-
 
 MAA/MuMu、ADB、Python 环境和 OCR 模型由接收方安装配置；本包不附安装程序、游戏、凭据或环境。PP-OCRv6 的固定 URL、SHA 和配置流程见 [local-ocr-setup.md](local-ocr-setup.md)。启动前仍会核模型、库版本及路径，未准备不能宣称完整入口通过。
 
-完整入口还需要接收方自己的 `PROJECT_CONTRACT.json`、`.project-reasoning/AUTOMATION_HANDOFF.json`、`COMPONENTS.json`、账号实例绑定、资源上限和工作流选择；这些不能从作者机器复制。已安装 MAA 应提供 `config/gui.new.json`、`resource/tasks/tasks.json`、`resource/tasks/UiTheme/`、`resource/item_index.json`、`resource/Arknights-Tile-Pos/`、相关模板、MaaCore 等原文件。异常反馈线程、活动布局缓存、肉鸽/主线完成事实、商店/基建策略和运行回执均由接收方本机形成。
+新公共入口用 `ark.py init` 根据本机配置生成通用 `PROJECT_CONTRACT.json`、`BUSINESS_RULES.json` 和 `.project-reasoning/AUTOMATION_HANDOFF.json` 兼容元数据，不需要作者Loop或`COMPONENTS.json`，也不伪造已验证历史。已有兼容工程继续自己的登记，不复制作者机器的文件。已安装 MAA 应提供 `config/gui.new.json`、`resource/tasks/tasks.json`、`resource/tasks/UiTheme/`、`resource/item_index.json`、`resource/Arknights-Tile-Pos/`、相关模板、MaaCore 等原文件。账号实例、异常反馈线程、活动布局缓存、肉鸽/主线完成事实、商店/基建策略和运行回执均由接收方本机形成，接入步骤见[本机接入](receiver-integration.md)。
 
 引擎还会读取接收方根目录的 `BUSINESS_RULES.json`，以及按已选能力需要的 `config/base_orundum_333_dynamic_v1.json`、基建库存/排班计划和相应 MAA 配置。示例只是结构参考，不能把作者策略或 `.example.json` 自动视为用户已批准。MuMu CLI、ADB、MaaCore/DirectML 等来自接收方官方安装；此资源适配未新增外部 PowerShell/批处理脚本依赖，也未自动下载这些程序。
 

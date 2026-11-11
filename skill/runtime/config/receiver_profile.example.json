@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "account_key": "",
+  "game_package": "",
+  "mumu_root": "",
+  "python": "",
+  "device": "127.0.0.1:0",
+  "resources": {"originium": 0, "medicine": 0},
+  "max_attempts": 5,
+  "enable_sss_in_daily": false,
+  "base_plan": "",
+  "_说明": "按实际安装填写并保存为receiver_profile.json。先配置MuMu目标/OCR/便携MAA及自己的基建方案；ark.py init只建本机绑定，不运行游戏、不安装软件、不继承作者进度。"
+}

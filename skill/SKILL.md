@@ -1,137 +1,85 @@
 ---
 name: arknights-automation
-description: "Control, diagnose, migrate, configure, recover, monitor, and verify AI-orchestrated Windows Arknights automation built on MAA and a supported emulator. Use for recipient integration, daily runs, annihilation, event/mainline progression, base production, SSS formation bridging and rewards, roguelike exploration/rewards/growth, operator mastery/modules, voucher exchange, Reclamation Algorithm, image/log evidence, MAA updates, interrupted workflows, final cleanup, and project retrospectives."
+description: 通过现有脚本和MAA执行明日方舟日常、剿灭、活动推图刷取、基建、保全派驻、肉鸽与生息领奖加点，以及已接入的培养和凭证功能。用于Windows本机首次配置、单项调用、日常组合、页面异常接回和真实结果核验；不重新编写控制器，不假装待接入功能已经可用。
 ---
 
-# MAA Arknights AI Control
+# 明日方舟自动化
 
-For a new receiver or an upgrade, start with [receiver integration](references/receiver-integration.md); the bundled runtime and recipient configuration take precedence over any author's machine paths.
+这是带执行源码的脚本程序；AI对话是自然语言入口，不需要额外图形前端。AI理解用户任务、填本机参数、调用现成接口并看图处理异常；脚本负责固定动作、范围隔离、记录和效果核验。
 
-Operate from the user's settled objective and current evidence. Stored contracts
-keep goals and resource limits; they are not a script of every permitted screen.
-Never infer a new game goal merely because a technical action is convenient.
+**按程序使用，不重新做源码审计。** 正常接入先运行下面的只读目标菜单和参数说明，再按[本机接入](references/receiver-integration.md)补配置，最后调用用户目标。只读入门咨询也按这些公开接口答复；不需要沿历史版本链逐个读函数来证明它们存在。只有具体命令实际报错或用户要求研发时，才按报错定位相应实现。参数模板里没有填好的账号数据不能猜，但这不妨碍解释真实可用命令。
 
-## Execution model: automate the routine, let AI reconnect exceptions
+## 先知道能做什么
 
-Keep three results separate: **business effect**, **current page**, and **whether
-the next step can run**. An OCR mismatch or unfamiliar page is an observation gap,
-not a failed daily objective, a lost reward, or an order to close the game.
+在完整包的 `runtime/` 工作目录，用已配置的Python运行：
 
-- The script performs established actions and limited re-observation/recovery.
-  Exhausting that local budget (three rounds in the current project adapter)
-  triggers an execution-AI handoff, not whole-run failure or global cleanup.
-  Preserve the original controller and healthy game/MAA/emulator environment;
-  the original explicit deadline and stop request remain effective.
-- The execution AI inspects the fresh picture and handles the authorized
-  unfinished step directly. Preserve useful progress on the current page
-  before considering a return to home. It need not wait for project code changes or renewed user
-  permission for each new overlay. The project lane handles recurring defects,
-  missing capabilities or contradictions that require code/strategy changes.
-- After recovery, resume the interrupted step. A current AI visual observation
-  can verify navigation when OCR remains wrong; do not demand the same failing
-  recognizer agree with it. Bind that observation to the waiting run and picture,
-  not to a generic “success” message. Business effects still need their own proof.
-- A deferred optional activity does not block independent farming or daily work
-  after navigation is restored. Keep its pending result visible. Never use a
-  global failure flag to erase successful effects or permanently skip the rest.
-  A child module returns its own effects, pending work and navigation readiness;
-  the owning workflow decides continuation and final cleanup. Do not collapse
-  these separate facts into one success/failure boolean.
+```powershell
+python ark.py list
+python ark.py describe <任务名>
+python ark.py template <任务名>
+```
 
-The shared recovery contract and implemented reply paths are in
-[continuity-and-signin.md](references/continuity-and-signin.md). Keep ownership,
-resource limits, explicit deadlines and honest effect accounting; remove exact
-font, cosmetic layout and historical-path checks that do not protect those facts.
+这是按人类业务目标组织的公共目录，列明目标参数、命令与当前范围。截图、OCR、环境准备、返回、分步提交和核验是内部配套，不是用户任务。列目录、看说明、输出模板都不会启动游戏；不要从历史脚本中猜入口，也不让用户或AI正常调用时手工拼内部步骤。
 
-## AI, MAA, and emulator boundary
+| 用户要做的事 | 公共任务名 |
+| --- | --- |
+| 完成默认日常，或选模块、改顺序组合日常 | `daily` |
+| 完成本周剿灭并领奖 | `annihilation` |
+| 推进活动已开放普通/EX/突袭和附加内容，最后领奖 | `event` |
+| 刷活动材料或用户指定资源关 | `farm` |
+| 领取当期签到、许愿墙和活动任务奖励 | `activity-rewards` |
+| 管理基建、生产轮班，或指定活动室信赖/无人机目标 | `base` |
+| 完成保全及周期奖励（内部自动编队和战斗） | `sss` |
+| 肉鸽刷经验并在结算后领奖加点，或只处理已有奖励/加点 | `roguelike`，`mode`区分目标 |
+| 生息刷分或领取已有繁荣奖励 | `reclamation` |
+| 新版卫戍协议一轮刷取积分并核验 | `stronghold` |
+| 完成配置中指定干员的技能专精 | `training`（Beta） |
+| 处理指定干员的模组任务、解锁和目标等级 | `module`（Beta） |
+| 凭证商店观察、整套黄票规划、具名红票兑换 | `vouchers`（按当前接入范围） |
+| 推进指定主线目标 | `mainline` |
 
-- Keep the project's proven navigator and per-stage loop in control of daily execution, including switching jobs and checking the real result. AI handles unfamiliar pages and exceptions; it is not a second watcher of a healthy run.
-- Invoke MAA as a plugin for the specific task it supports (for example Copilot battle or reading a training room). Do not switch back and forth just because MAA also offers its own daily workflow. Borrow a proven MAA recognition action when it closes a real gap.
-- Skip MAA's human-only post-update settings guide through a supported control or the source-verified adapter. Do not confuse that demo with this Skill's recipient account setup. Accept MAA updates before the first daily queue; defer prompts during the daily remainder until the next daily startup. See [continuity-and-signin.md](references/continuity-and-signin.md).
-- The project's background input path keeps ownership of existing navigation, state checks and recovery. It must not issue input during an active MAA action stream.
-- The emulator is the execution device. Its paths, instance, ADB port, package, and readiness are machine-local facts; its guest display is fixed at landscape 1920×1080 for this Skill.
+活动室整套升级、绿/黄票完整自动购买、卫戍自动清店等尚未形成完整公共执行链，不冒称能自动完成。具名模组升级当前只适配怒潮凛冬HAM-X，不给其它干员硬套。教学关和陌生页面的AI看图操作、截图/状态查询、报价核验等属于目标内部的配套能力；研发扩展和内部步骤只在需要时用`ark.py debug list`查，不混在正常目标菜单里。
 
-This boundary is what makes the package an AI control Skill rather than a collection of fixed macros or an MAA usage guide.
+## 第一次安装
 
-## Start every task
+先读[本机接入](references/receiver-integration.md)，按真实MAA、MuMu、游戏渠道、OCR和基建配置填写 `runtime/config/receiver_profile.json`。用户自行登录账号，不需要密码或验证码。再运行：
 
-1. Read the nearest `AGENTS.md` and follow its current project-loop/contract pointers and role-specific resume bundle. An entry directory may link to an occupied implementation directory; use that implementation for scripts and relative dependencies. Do not load all historical state or infer missing files from a guessed location.
-2. Use the project reasoning loop when the current project requires or provides it; otherwise keep the same minimum discipline: separate observed facts, inference, and unverified hypotheses.
-3. Resolve the existing goal, priority, resources, effect evidence and owner. Reuse settled fields; do not make a new approval packet for a page recovery or technical continuation.
-4. Inspect the current process/queue/checkpoint state before changing anything. A visible window, running process, or completed shell command is not task success.
-5. Read verified facts for the currently identified game account through [account-progress.md](references/account-progress.md). Use those facts to select work, then feed verified effects back into that same account store. Shared Skill rules are not somebody else's account progress.
+```powershell
+python ark.py init
+python ark.py check
+python ark.py check --task daily --probe
+```
 
-For a new installation with no project contract, use [PROJECT_CONTRACT.example.json](templates/PROJECT_CONTRACT.example.json) as a schema reference. Do not start real-account actions until the user has supplied or approved the active goals and resource policy.
+`init`生成本机运行绑定和通用任务规则，不复制作者Loop、组件历史或账号完成状态；不覆盖已有工程/用户修改。`check`不是游戏操作；`--probe`核MuMu身份、OCR及便携MAA，包含一个临时写入探针，不开始业务。缺配置按错误中指出的字段/文件补齐，不另写适配器。已有工程继续原入口，升级由用户自己的AI对照本地修改合并，不强制重新安装。
 
-On first installation, use [first-run-features.md](references/first-run-features.md)
-to confirm the recipient's account/environment, resource boundaries and optional
-modules once. Keep the **previously published daily/progression chain** as the
-default; this update does not redesign its order or require the user to assemble
-a new chain. Save recipient choices privately and let their own AI adjust them
-through the existing module interfaces. Do not repeat setup before every daily
-run, or copy the publisher's account targets/settings into the recipient profile.
+## 按业务目标调用
 
-Read [runtime-contract.md](references/runtime-contract.md) for authority and acceptance rules.
+用户明确任务就是相应正常准备、执行与核验的授权，不为同范围普通点击反复确认；账号、药石、购买及截止边界不扩大。本版公共入口只用现有理智，不用源石或药剂。
 
-For unchanged continuation within the same task, reuse the accepted contract
-and launcher selection and read the current brief/run delta. Do not repeatedly
-reload the launcher source, full handoff or long history before the next known
-action. Recheck the affected fields when user scope, selected artifacts,
-identity, control ownership or direct evidence changes.
+```powershell
+python ark.py run daily
+# inputs.json例：{"theme":"Sami","mode":"rewards"}。这里只领奖，不加点、不探索。
+python ark.py run roguelike --inputs inputs.json
+# 独立保全模块：内部完成编队、战斗、结算及领奖，不附带整日日常。
+python ark.py run sss
+```
 
-## Route the work
+调用返回本次目录，准备环境、安排内部步骤和保存过程由脚本负责。普通单项目标返回后保活，便于同一AI处理异常或继续其它已授权目标，不自动关游戏。正常执行不要求调用者手工组合截图、编队确认或领奖核验；只有异常接回/研发才查看内部步骤。**“已提交”不是完成；原MAA仍在运行时不要抢控。** 配套`status/action`和独立卫戍/肉鸽控制方法见[入口与续接](references/entrypoints-v125.md)。
 
-- 接收方首次对接、介绍支持功能或升级后检查漏接模块时，先读[功能总览与调用地图](references/capability-map.md)。按用户需要选择已有入口，不把“MAA 原生不支持”直接等同于本 Skill 没有桥接，也不把文件存在当成已经接入。
-- 保全派驻的自动编队、现成作业执行、周期奖励或新区域适配，读[保全编队桥接](references/sss-formation-bridge.md)：AI 按作业和本账号生成配置，脚本调用 MAA 选人，再交回原保全作业；不是直接点原生保全开始就会自动编队。
-- For first-time setup, migration to another Windows PC, changed emulator/MAA/Python paths, ADB connection changes, or resolution/input problems, read [windows-portability.md](references/windows-portability.md) and run the read-only environment check before any real-account action.
-- For a daily full run, event/mainline progression, stamina use, final reward cleanup, and shutdown, read [workflows.md](references/workflows.md).
-- For Integrated Strategies reward tracks, permanent-growth trees, monthly/recollection teams, investigations, and settlement-boundary servicing, read [roguelike-rewards.md](references/roguelike-rewards.md).
-- For Reclamation Algorithm prosperity-point rewards, use that same reference's Reclamation section. Earning and redeeming are complementary phases; a standalone reward call must not start farming or reset a save.
-- For optional Stronghold Protocol / 卫戍协议「规程」 farming and earned-token rewards, read [stronghold-protocol.md](references/stronghold-protocol.md). Reuse current official MAA resources; tutorials are conditional. Farming is live-tested; automatic redemption remains a separate Beta implementation gap, not a reason to invent a purchase-approval workflow.
-- For a shared multi-theme roguelike adapter, repeated-failure screenshots, or a recipient AI's strategy-research extension, read [roguelike-mode-and-extension.md](references/roguelike-mode-and-extension.md). The default extension collects evidence and proposals; it does not apply battle changes.
-- For account-specific completion memory, repeated already-complete work, or portable progress feedback, use [account-progress.md](references/account-progress.md) and the bundled `scripts/account_progress_v1.py` store; game adapters still own UI verification.
-- For operator mastery, module missions, or green/yellow/red voucher exchange, read [operator-and-voucher-interfaces.md](references/operator-and-voucher-interfaces.md). Native capability, a wired project adapter and a live-verified result are different states. Confirm actual operator/module progress before finding work; do not treat a started training or a won battle as a completed development goal.
-- 本版增量：干员培养、模组任务、凭证兑换按上面各自的 **Beta** 边界使用；当期逐日开放的附加任务和刷取后的领奖见 [日常与活动流程](references/workflows.md)。未配置的可选项跳过，不拦原有日常。接收方若只有本 Skill 源目录而没有相应运行模块，应报告缺少该模块，不能仅凭说明声称已经执行。
-- For a training shortlist from recent idle-play Copilots, use the dated stage sample and fixed-core counts in that same reference. For an equipped module use the read-only [operator badge reader](scripts/operator_module_badge.py) on the actual character page; it does not operate the game.
-- For MAA errors, emulator exits, update prompts, announcements, story/tutorial pages, queue stalls, log rotation, interpreter problems, cooldown, or duplicate supervisors, read [recovery-playbook.md](references/recovery-playbook.md).
-- For interrupted daily continuation, user-completed substeps, game updates, new sign-in layouts or unknown-page handoff, read [continuity-and-signin.md](references/continuity-and-signin.md). A local failure or absent user reply does not cancel the authorized remainder.
-- For a tutorial without a compatible job, use [tutorial-ai.md](references/tutorial-ai.md): AI first follows current deployment/facing instructions; only an unresolved AI attempt requests human play. Publish this capability as “教学关代理逻辑（测试）”.
-- For OCR conflicts, reward/status misclassification, balance-versus-battle discrepancies, or final-report corrections, read [evidence-validation.md](references/evidence-validation.md). Diagnose the producing layer before changing a model or retrying gameplay.
-- For daily release notices or a user-requested upgrade, read [release-notices-and-local-merge.md](references/release-notices-and-local-merge.md). Daily runs only append a version notice to the existing final report; upgrades are requested through the recipient's own AI conversation, never an automatic overwrite.
-- For a live queue, do only targeted, non-contending diagnostics. Do not run full offline regression or start a second controller.
-- For source changes, patch the implementation directory, replay the actual failure, and test the final composed call path as well as the module. Reuse sealed game evidence for a pure verifier/report correction; new navigation or action behavior still needs a natural authorized live validation. Update project records, then sync a packaged/runtime copy only when requested.
+日常就像MAA勾选任务：默认`run daily`沿原组合不变；用户特调时用`run daily --inputs daily.json`，例如`{"modules":["base","recruit","mall","award"]}`。只执行所选模块并保留数组顺序，不补进战斗或其它未选任务。每项也可写`{"task":"base","inputs":{"action":"routine"},"enabled":true}`；可选模块和参数边界由`describe daily`列出，AI负责配置，不要求用户拼内部步骤。自定义组合返回原模块会话，做完用`finish`补收新待办再退出；不会回退整日full。
 
-## Windows portability invariant
+可配置不等于所有原生选项都已接入：当前卫戍自定义阵容/难度会明确拒绝，不能丢掉参数后跑默认；新剿灭首通找作业链尚未接到公共目标；主线公共核验当前适配1—9章点名普通关，其它难度不能拿默认层次代替。具体限制按`describe`和入口说明，不从“MAA有此能力”推定本包已接通。
 
-Treat the workflow and evidence model as portable, but never copy this computer's absolute paths, ADB port, package name, or checkpoint locations to another PC without discovery. This automation deliberately standardizes the emulator guest at landscape `1920×1080`; it does not support coordinate rescaling. A different resolution is a preflight failure, not a reason to guess scaled taps.
+## 脚本不会时AI接着做
 
-Distinguish the guest's ADB frame from MAA's internally rescaled `1280×720`
-recognition frame. The latter is normal, not evidence that the emulator changed
-resolution; never reuse its coordinates as raw ADB taps.
+先确认原控制器和MAA队列。队列仍运行时不点击、不抢鼠标。队列空闲后看新图，处理已授权的关闭、返回、确认或当前未完成动作；识字差异或陌生弹窗不等于整日失败。使用原会话 `action` 的 `observe/tap/back/swipe/home/prepare`，参数格式见入口说明。点按/拖动必须绑定刚看过的新图序号。
 
-## Evidence hierarchy
+动作后重新看图，再用 `continue <业务目标> --output <原目录>` 继续未完目标。原日常若正在导航等待，沿已附 `tools/ark_navigation_reply_v1.py` 提交真实首页证明并确认原脚本继续；证明工具不代替点击，也不证明领奖。效果未知先对账，不为修报告重打；某可选活动无法处理时，只暂停其依赖，继续独立任务。确需改代码才转项目，不要求每次普通恢复先找作者。
 
-Prefer direct evidence in this order:
+## 真正完成与退出
 
-1. Game screenshot/OCR or visible result screen.
-2. MAA Core task-chain evidence and GUI queue state.
-3. Supervisor checkpoint and project state.
-4. Process/window presence.
-5. Assistant inference.
+战斗看实际结算/通关标记；奖励看已领取或数量变化；培养看实际等级，不能把“训练开始”算专三完成。账号事实按[账号记录](references/account-progress.md)保存，未知不填零，手动完成不记为自动成果。
 
-Treat a conflict by preserving the higher evidence and investigating the lower layer. Never convert `TaskChainError`, queue end, or process death directly into a game defeat or completion.
+普通模块会话中，本次用户目标做完、没有后续目标时，使用配套`ark.py finish --output <本次目录>`；脚本自行补收新增基建、招募和任务待办，再核验并退出，不要求AI手工拼收尾、不重跑五链或战斗。完整daily沿原日常自动收尾；持续肉鸽和卫戍沿各自原宿主结束口，不把普通会话命令交给另一个控制器，见[入口与续接](references/entrypoints-v125.md)。异常不默认关闭健康环境；明确停止/截止按原任务收口。最终用人话说已成、未成、剩余资源和环境状态，不用文件存在、进程存在、回调完成或测试通过替代游戏效果。
 
-## Safe recovery rule
-
-Classify before acting:
-
-- Ordinary game outcome: continue according to the active contract; do not consume the technical retry budget.
-- Verified recoverable UI interruption: clear it through the project ADB/screenshot path, confirm the page changed, then resume without consuming the technical retry budget.
-- Technical failure: diagnose and use the current project's bounded recovery, retry budget, cooldown and deadline. Do not invent a universal retry count or waiting period. Do not repeat an unchanged failed action. After a verified local repair, reconcile existing effects and resume the same authorized remainder through its original owner; preserve a resumable save and do not replay completed daily work.
-- Unknown state: preserve a current frame and pause only actions that depend on it. The execution AI may use the visible controls to restore the route through the existing background path; it is not limited to a prewritten per-popup script. Continue independent authorized work after navigation is safe. Do not invent controls, mark an outbox as delivered, or wait for the user when the task already covers the remaining decision.
-
-Never silently change gameplay theme, task type, stage, difficulty, team, resource use, retry cap, or stop condition. A home-appearance compatibility repair is not a roguelike-theme change: inspect failed templates and supported MAA routes first, preserve the user's appearance choice where feasible, and disclose any necessary temporary change.
-
-## Finish
-
-Report what was actually completed, failed, deferred, and still running. Include decisive evidence, cleanup state, and the next recoverable checkpoint. Update `.project-reasoning/STATE.md`; record a lesson only when the root cause is proven.
+特殊规则按需读：[活动与逐关](references/workflows.md)、[保全桥接](references/sss-formation-bridge.md)、[肉鸽/生息](references/progress-modules.md)、[卫戍](references/stronghold-protocol.md)、[培养/凭证](references/operator-and-voucher-interfaces.md)、[故障接回](references/continuity-and-signin.md)、[教学](references/tutorial-ai.md)。不要首次恢复就加载全部参考或任何作者私有Loop。

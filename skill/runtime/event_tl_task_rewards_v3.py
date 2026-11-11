@@ -3,6 +3,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from unittest.mock import patch
 import event_tl_task_rewards_v1 as old
+from event_tl_task_rewards_v2 import VISIBLE_BANNER_RECT
 from navigation_text_v1 import Target, key, same_label, recover
 from ocr_tolerance_v1 import navigation_home
 
@@ -10,7 +11,7 @@ HOME = {'采购中心': (1080,600,1420,825), '公开招募': (1380,650,1660,840)
         '基建': (1320,780,1680,1040), '仓库': (1650,800,1910,1060),
         '干员': (1330,410,1650,610), '编队': (1000,410,1320,620),
         '终端': (1300,100,1600,420)}
-BANNER = Target(old.NAME, (1500,160,1880,350))
+BANNER = Target(old.NAME, VISIBLE_BANNER_RECT)
 LOBBY = Target(old.LABEL, (1470,260,1910,540))
 HEADER = Target(old.LABEL, (550,0,1130,105))
 

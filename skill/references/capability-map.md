@@ -2,19 +2,21 @@
 
 先从用户要做的事情找到已有实现，再绑定本机环境和账号配置；不要只看 MAA 主界面有哪些按钮。MAA 是具体执行能力的集合，本 Skill 负责外层目标、顺序、桥接、结果核验和异常接回。
 
-下面的路径相对完整包的 `skill/runtime/`。它们是源码定位点，不是让接收方裸调用所有旧脚本的启动命令：实际执行沿本机已装配的宿主、当前发布组合和单项入口。仅有 Skill 说明目录、没有 `runtime/`，不等于安装了执行代码。
+下面的路径相对完整包的 `skill/runtime/`，是进一步研究时的源码定位点。正常执行直接用`python ark.py list/describe/template`取得对应任务、参数和命令，不需要先读这些实现。仅有说明目录、没有`runtime/`不等于安装了执行代码。
+
+当前命令见[公共入口](entrypoints-v125.md)。本版已提供公开本机配置和单项/组合宿主；其它工程内旧`run_ark_modules_v1`、新SPA连续宿主不因文档出现而自动纳入。待接入功能在统一目录中明确标注，不能当作已能自动执行。
 
 ## 能做什么、接哪里
 
 | 功能 | 已有代码／接口 | 接收方需要做什么、当前范围 |
 | --- | --- | --- |
-| 每日日常 | 当前发布组合（本次核验 v1.2.4 为 `run_daily_v167.full()`）；`ark_modules/domains/daily.py` | 绑定本机启动器与日常选择。沿既有链完成启动、招募、信用商店、基建、任务奖励和收尾，不另造每日流程。以后升级使用新包的实际入口，不永久锁定这个历史文件名。 |
+| 每日日常 | 当前发布组合（本次v1.2.5固定为 `run_daily_v167.full()`）；`ark_modules/domains/daily.py` | 绑定本机启动器与日常选择。沿既有链完成启动、招募、信用商店、基建、任务奖励和收尾，不另造每日流程。以后升级使用新包的实际入口，不永久锁定这个历史文件名。 |
 | 周剿灭 | 引擎 `mode_annihilation()`、`annihilation_rotation_v4.py`、`annihilation_postclear_v2.py` | 核当周报酬、当前轮换图和首通状态；未通关时匹配作业，已满足条件按用户策略用代理卡；400 杀与后续奖励分别核验。 |
 | 活动普通／突袭／EX、复刻与主线 | 引擎 `mode_event_today()`／`mode_mainline()`；`event_layout_profiles_v1.py`、`event_copilot_feedback_v1.py` | 用真实开放时间、关卡和通关标记决定未完项。AI 选适用现成作业，MAA 执行，原循环核结果、按预算重试或换作业。新玩法需要对应适配，不能凭旧活动编号直接跳转。 |
 | 教学关代理逻辑（测试） | `tutorial_ai_handoff_v2.py`、`tools/tutorial_session_v2.py`、`tutorial_session_result_v1.py`；[教学关说明](tutorial-ai.md) | 无适用作业时，先由 AI 依当前提示、部署格与朝向通过原后台通道操作；实际尝试仍不能完成才提示人工。已有单关实测，不宣称所有教学都能自动通过。 |
 | 理智与批量代理 | `daily_batch_proxy_v1.py`、`event_farm_detail_handoff_v1.py`；引擎资源／搓玉材料兜底入口 | 根据实际理智、费用、代理条件和倍率控件决定批量，不固定每次只打一次。材料选择按当前库存和目标；周剿灭、活动及无活动兜底沿用户已定优先级。 |
 | 登录配给、限时签到、许愿墙 | `daily_login_supply_v4.py`、`event_daily_reward_chain_v1.py`、`event_signin_generic_v3.py`、`event_wish_wall_v1.py` | 识别当期弹窗和首页标签、核活动有效期；支持已覆盖布局的领奖和返回。活动结束即跳过，陌生布局交执行 AI，不把签到做成全年硬前置。 |
-| 活动任务与逐日解锁附加内容 | `event_tl_task_rewards_v1.py`、`event_press_committee_v2.py`、`press_committee_native_fallback_v1.py` | 刷取后再核新奖励。本期报纸按分页、解锁状态和完成标记处理；MAA 停在部分组版时可用[原地看图接手](workflows.md#committee-live-visual-takeover)，新接手候选已单项实测，仍要核实际运行版本是否接入。新增活动按实际界面适配。 |
+| 活动任务与逐日解锁附加内容 | `event_tl_task_rewards_v3.py`（沿v2/v1） 、`event_press_committee_v2.py`、`press_committee_native_fallback_v1.py` | 刷取后再核新奖励。本期报纸按分页、解锁状态和完成标记处理；MAA 停在部分组版时可用[原地看图接手](workflows.md#committee-live-visual-takeover)，新接手候选已单项实测，仍要核实际运行版本是否接入。新增活动按实际界面适配。 |
 | 基建收菜、轮班、生产贸易与无人机 | `ark_modules/domains/base.py`、`ark_modules/base_forecast.py`、`daily_base_333_drones_v1.py`、`daily_recycle_infrast_v1.py` | 配置本账号实际设施、库存、搓玉／赤金等目标，兼顾产出和消耗；无人机与升级预留按用户目标。333 是已有策略，不是强制每个用户改建。 |
 | 活动室升级、材料与信赖培养 | `run_activity_room_service_v1.py`、`activity_room_plan_v2.py`、`activity_room_upgrade_v1.py`、`activity_room_trust_select_v1.py` | 可选单项，绑定本账号设施、材料和升级／信赖目标；升级完成后再把无人机交回生产策略。不给新用户默认下达升级或材料消费任务。 |
 | 保全自动编队、作业战斗和周期领奖 | 引擎 `mode_security()`／`run_sss_copilot()`；`sss_cycle_service_v1.py`、`sss_reward_pages_v3.py` | 关键：先接[编队桥接](sss-formation-bridge.md)，不是直接调用原生 SSSCopilot。新区域可由 AI 按作业生成账号配置；委托卡、区域记录和周期封顶分别处理。 |
