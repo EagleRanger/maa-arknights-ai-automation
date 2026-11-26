@@ -114,8 +114,8 @@
     },
     {
       "path": "ark.py",
-      "bytes": 17459,
-      "sha256": "50b799ae549c43377e8773d1b65887afa319a9bc946955d8701a60036f5976be"
+      "bytes": 20706,
+      "sha256": "b3086e4871b9a22106262547d42713d5e067c189fd0aa7bedd629fbbb34e3d32"
     },
     {
       "path": "ark_host/__init__.py",
@@ -1549,8 +1549,8 @@
     },
     {
       "path": "operator_module_queue_v1.py",
-      "bytes": 11516,
-      "sha256": "70a69ae52592c3f965c6d6f0eb599f805d7d13f2863dda2b0e72b3f5634814bc"
+      "bytes": 11672,
+      "sha256": "bcb889683b3821ef0be34ee6286adccf418c7206552746275f113604a9f31a81"
     },
     {
       "path": "operator_optional_inspection_v1.py",
@@ -1608,6 +1608,11 @@
       "sha256": "09399eca7eafb8388e733e12bb63964d451dce5ce086e31d857bb22f02f7cee1"
     },
     {
+      "path": "player_module_v1.py",
+      "bytes": 3021,
+      "sha256": "e4c926821f5a0d921a5a96a957e81615eb9f06bd4341a439b6f874fc3e7cd45a"
+    },
+    {
       "path": "poll_frames_v1.py",
       "bytes": 10343,
       "sha256": "97e62784605a586bc8f1f6a8d98d6f6fd73e3bdb939aefbc4c1076048643aad5"
@@ -1644,23 +1649,28 @@
     },
     {
       "path": "receiver_catalog_v1.py",
-      "bytes": 11799,
-      "sha256": "e41fed196d66ecf93455d7184105fa8a4b8418f7562b364b1ffea840fe6142a9"
+      "bytes": 12520,
+      "sha256": "0fc037952daed1a63604f3ee65aa453f28c363a84231531790600e1141f1f935"
     },
     {
       "path": "receiver_goals_v1.py",
-      "bytes": 11474,
-      "sha256": "712a5dd9b3b34be76b55dc2796881d9a1befa035b1d017fd096f564d23a22adf"
+      "bytes": 10821,
+      "sha256": "e8f93980352ae2f31fbdbf9a793d09dd10f00b4a9115bad9355784398fe9f8c0"
     },
     {
       "path": "receiver_operations_v1.py",
-      "bytes": 17692,
-      "sha256": "2ae799ba45b52a32c16c1f02ad1f5e68d6d4439b2d63007880cca4012e87620d"
+      "bytes": 17707,
+      "sha256": "1a1647689395c6051c1f35d6bee3863422da67210136a30ce3af375a4de2f652"
+    },
+    {
+      "path": "receiver_resume_v1.py",
+      "bytes": 1784,
+      "sha256": "36982c908188e518f9145d05aae04928fa39a0ae6d1279f35363e55db404b036"
     },
     {
       "path": "receiver_session_v1.py",
-      "bytes": 14539,
-      "sha256": "0d22c747da2a57bbae98d0ee0900061c4f6e122fb0bc4083a73b70f28e9e0986"
+      "bytes": 15917,
+      "sha256": "345f7a1576c25d9112e699a4dba3951601aed53975e07fa0499d7b5e741a386b"
     },
     {
       "path": "receiver_setup_v1.py",
@@ -2769,8 +2779,8 @@
     },
     {
       "path": "tests/test_receiver_entry_v1.py",
-      "bytes": 33717,
-      "sha256": "539f16e6b265005679ce9bfc974eeed9d9c68171ed0353f5c98a4c179e22841e"
+      "bytes": 34000,
+      "sha256": "f812fb0cd43a9425873553c87a34a5a24bc17a4a38e979a6f5064d2300e3058d"
     },
     {
       "path": "tests/test_receiver_paradox_v1.py",
@@ -2819,8 +2829,8 @@
     },
     {
       "path": "tools/build_receiver_manifest_v1.py",
-      "bytes": 2155,
-      "sha256": "d9e3040ad166509db9bd5eb0d4aae6af658a602b288bb8a9f87136f61b77282a"
+      "bytes": 2205,
+      "sha256": "7d524568d8de312d42a53043e856a8237ea0e130b8b6451cbd9e5c78fe492a06"
     },
     {
       "path": "tools/collect_portable_resources_v1.py",

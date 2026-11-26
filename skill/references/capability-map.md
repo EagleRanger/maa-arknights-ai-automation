@@ -24,9 +24,8 @@
 | 卫戍协议「规程」 | `maa_spa_resources_v1.py`、`spa_core_trial_v1.py`、`spa_rewards_state_v1.py`；[调用说明](stronghold-protocol.md) | 按需调用新版官方刷取策略，条件教学由原 AI 接回；一轮刷取及积分增长已实测。功勋为刷取所得兑换积分，兑换与领奖是后续奖励链；当前自动兑换执行仍为 Beta 待接入，不宣称自动清店，不改变每日默认链。 |
 | 干员培养（可选） | [培养模块](operator-and-voucher-interfaces.md#干员培养可选)；完整包 `ark.py describe training`／`module` | 可选近期自在道爷挂机流参考，也可换成自己的目标；先核实际，只补缺项。升级／精英化、专精及模组的已接／Beta范围分别核，不自动加入所有人的日常。 |
 | 悖论模拟（可选，Beta） | 完整包 `python ark.py run paradox`；[调用与验收](paradox-simulation.md) | 从本账号“未通过”卡选一关，找同一地图作业、选技能、调用 MAA、核实结算。不是日常默认项。 |
-| 自在道爷挂机阵容模组库（可选） | `scripts/select_module_presets.py`、`runtime/ark.py run module-queue` | 先列作业与具名分支，再将用户所选追加到本人队列；默认一阶。详见[选择模组并入队](operator-and-voucher-interfaces.md#选择模组并入队)。 |
 | 技能专精培养（Beta） | 完整包 `python ark.py run training`；`operator_training_v2.py`、`operator_training_infrast_v1.py` | 读取本机专精计划；先复用基建训练室观察，保留正在训练的目标，实际等级达到后才推进下一项。旧tools试验入口不作为公开通用启动命令。 |
-| 模组任务、解锁与升级（Beta） | `operator_module_missions_v2.py`、`tools/run_module_missions_v2.py`、`tools/module_upgrade_trial.py` | 先查实际模组进度，再补任务与指定等级；当前具名样例为怒潮凛冬 HAM-X，不能给其它分支直接套。未授权解锁／升级只观察或做指定任务。 |
+| 干员模组（Beta） | `python ark.py describe module` | 查看、点名、加入或处理下一项用同一入口。按[模组说明](operator-and-voucher-interfaces.md#选择模组并入队)执行。 |
 | 绿票、黄票、红票（Beta） | `voucher_exchange_plan_v1.py`、`maa_utility_custom_v1.py`；[凭证接口](operator-and-voucher-interfaces.md) | 黄票有整套预算规划，绿黄票有原生兑换接缝但购买闭环仍待实测；红票已接一件芯片助剂试用。信物换票、干员兑换未由当前适配验证，不宣传为已自动完成。 |
 | 单项插入、补做与最后补领 | `ark_modules`、`run_daily_remaining_v7.py`、`run_daily_final_tail_v2.py`、`ark_modules/exit_tail.py` | 单项不带出整日流程；只补未完成的域。退出前按任务范围核新产生的基建／招募／任务奖励，不能重放已完成战斗或轮班。 |
 | 异常恢复、实图判断与账号记忆 | `ark_host/cooperation_v1.py`、`daily_ai_navigation_v1.py`、`ocr_tolerance_v1.py`；[账号事实](account-progress.md) | 脚本有界恢复，仍不明确交执行 AI；接收方绑定自己的消息／回复通道。记录实际效果并影响下次决策，不拿回调成功代替游戏完成。 |

@@ -191,7 +191,7 @@ def binding(task):
     if task == 'spa.badges':
         from stronghold_badges_trial_v1 import run
         return Operation(task,'exploration','badges',('ocr','shot','_maa_install_root')),run
-    if task == 'operator.modules':
+    if task in ('module.one','operator.modules'):
         from operator_module_queue_v1 import one_module
         return Operation(task,'operators','modules',('ocr','shot','tap','goto_main_menu')),one_module
     if task == 'operator.paradox':

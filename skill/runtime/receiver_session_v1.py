@@ -55,7 +55,7 @@ def serve(app, rows, out, data, *, deadline=None, clock=time.time, sleep=time.sl
     state = dict(schema_version=1, run_id=run_id, status='preparing', context=asdict(context),
         goal=data.get('current_goal'),
         controller_pid=os.getpid(), account_key=data['account_key'], client=app.PKG,
-        frames=[], actions=[], module_results=[], results={}, daily_invoked=False,
+        requested_steps=list(rows),in_flight=None,frames=[], actions=[], module_results=[], results={}, daily_invoked=False,
         cleanup_verified=False, finished_at=None)
     sink.save(state)
     commands = out / 'commands'
@@ -73,13 +73,20 @@ def serve(app, rows, out, data, *, deadline=None, clock=time.time, sleep=time.sl
 
     def perform(selected):
         steps(selected, state['results'])
-        prior = {}
+        keys={r['key']:r for r in state['requested_steps']}
+        for row in selected:
+            if row['key'] in keys and keys[row['key']]!=row:raise ValueError('已有步骤不可换成另一目标')
+            if row['key'] not in keys:state['requested_steps'].append(row)
+        sink.save(state)
+        from ark_modules.core import Result
+        prior = {k:Result(v['status'],v['detail'],tuple(v.get('evidence',())),v.get('data') or {})
+                 for k,v in state['results'].items()}
         for row in selected:
             key, task, inputs = row['key'], row['task'], row.get('inputs', {})
             if key in state['results']:
                 raise ValueError('该步骤已有结果，请核原效果后只提交新步骤：' + key)
             if any(state['results'].get(dep, {}).get('status') != 'succeeded' for dep in row.get('requires', [])):
-                raise ValueError('前置步骤未核验，只暂停其依赖：' + key)
+                continue
             if clock() >= owner.deadline or not owner.owns() or app._maa_task_queue_running() is not False:
                 raise ValueError('控制权/截止/队列不允许开始下一模块')
             if inputs.get('event') and inputs['event'] not in session.events:
@@ -95,10 +102,12 @@ def serve(app, rows, out, data, *, deadline=None, clock=time.time, sleep=time.sl
                 from receiver_setup_v1 import base_scope
                 scope = base_scope(app)
             with scope:
+                state['in_flight']=key;sink.save(state)
                 result = session.execute(task, inputs, context, prior)
             prior[key] = result
             state['results'][key] = dict(asdict(result), task=task)
             state['module_results'].append(dict(task=task, result=asdict(result)))
+            state['in_flight']=None
             sink.save(state)
             if result.status in ('unknown', 'interrupted'):
                 raise ValueError('本模块效果未知，请AI先对账，不继续依赖动作')
@@ -120,6 +129,7 @@ def serve(app, rows, out, data, *, deadline=None, clock=time.time, sleep=time.sl
                 raise RuntimeError('环境未就绪，保留现场交AI')
             if app._ensure_execution_plan('full') is None:
                 raise RuntimeError('本机任务/资源计划未通过')
+            state['environment_ready']=True
             capture('start')
             perform(rows)
         except Exception as exc:
@@ -166,7 +176,17 @@ def serve(app, rows, out, data, *, deadline=None, clock=time.time, sleep=time.sl
                                  remaining=remaining)
                     ack.save(dict(status='returned', result=state['status']))
                     break
-                if action == 'goal':
+                if action == 'resume_remaining':
+                    from receiver_resume_v1 import decision
+                    advice=decision(state)
+                    if not owner.ready or advice['next']!='continue_remaining':
+                        raise ValueError('当前回执不允许续跑：'+advice['next'])
+                    while advice['next']=='continue_remaining':
+                        perform(advice['steps'])
+                        advice=decision(state)
+                elif action == 'goal':
+                    if state.get('in_flight') or any(v.get('status') in ('unknown','interrupted') for v in state['results'].values()):
+                        raise ValueError('原步骤效果未知，先核对原回执，不另提交目标')
                     from receiver_goals_v1 import compile_goal, goal_steps
                     goal_inputs = command.get('inputs', {})
                     task, params = compile_goal(command['goal'], goal_inputs)
@@ -185,6 +205,7 @@ def serve(app, rows, out, data, *, deadline=None, clock=time.time, sleep=time.sl
                     if not app._runtime_dependencies_ready() or app.goto_main_menu() is not True:
                         raise ValueError('当前环境/首页仍未核验')
                     owner.ready = True
+                    state['environment_ready']=True
                     capture('prepared')
                 elif action in ('observe', 'tap', 'back', 'swipe', 'home', 'wait'):
                     if action in ('tap', 'swipe'):

@@ -32,11 +32,10 @@ GOALS = (
     Goal('stronghold-badges','卫戍协议刷策略角标（待测试）',{},'默认金色；一胜、最多一次尝试，非刷分'),
     Goal('stronghold', '新版卫戍协议刷取一轮积分并核验结果', {}, '沿原单轮宿主；不冒称已能自动清店'),
     Goal('paradox', '自动找一名已开放且未通过的干员并打一次悖论模拟', {}, 'Beta；不指定干员，不培养；游戏结算单独核实'),
-    Goal('module-queue', '按本人所选模组队列核进度并处理一档', {}, '可选；默认一阶，未启用不花材料'),
     Goal('training', '按指定干员和顺序完成技能专精培养', {},
          '使用本机培养计划；忙碌训练室保留，真实等级完成才推进，Beta'),
     Goal('module', '处理指定干员模组任务、解锁和目标等级',
-         {'action': 'inspect'}, 'develop需operator/module/target_level；先读实际进度，当前升级Beta仅怒潮凛冬HAM-X'),
+         {}, '无参数只看清单；--operator 点名只做该干员（默认一阶），--action add 入队，--action next 跑队列一项'),
     Goal('vouchers', '凭证商店观察、整套黄票规划或具名红票兑换',
          {'action': 'inspect'}, 'action为inspect/plan-yellow/chip-catalyst；绿黄票完整自动购买仍待接入'),
     Goal('mainline', '推进用户指定的主线目标关卡',
@@ -44,6 +43,7 @@ GOALS = (
          '当前公开核验适配第1至9章点名普通单关；范围由AI逐关调用，不自动重扫旧主线。高章难度切换尚未接入，不用默认层次替代'),
 )
 BY_GOAL = {g.id: g for g in GOALS}
+BY_GOAL['module-queue']=BY_GOAL['module']  # accepted for old callers, not advertised
 
 
 def describe(goal=None):
@@ -54,7 +54,7 @@ def describe(goal=None):
     for row in output:
         if row['id'] == 'daily':
             row.update(custom_command='python ark.py run daily --inputs <日常模块JSON>',
-                selectable_modules=list(DAILY_MODULES),
+                selectable_modules=[k for k in DAILY_MODULES if k!='module-queue'],
                 custom_example={'modules': ['base', 'recruit', 'mall', 'award']},
                 module_parameters='每项可为task字符串或{task,inputs,enabled}；只执行启用项并保留数组顺序。默认MAA参数沿本机配置，不默默忽略未支持的临时参数。',
                 finish='自定义组合复用原模块会话；AI完成所选目标后调用finish，内部补收新增待办再退出')
@@ -115,16 +115,8 @@ def compile_goal(goal, inputs):
             raise ValueError('生息演算mode为rewards或score')
         return ('reclamation.rewards' if mode == 'rewards' else 'reclamation.run'), value
     if goal == 'module':
-        action = value.pop('action', 'inspect')
-        if action == 'inspect':
-            return 'operator.module.inspect', value
-        if action != 'develop' or any(name not in value for name in ('operator', 'module', 'target_level')):
-            raise ValueError('模组养成须明确develop及operator/module/target_level；只检查用inspect')
-        if (value['operator'], value['module']) != ('怒潮凛冬', 'HAM-X'):
-            raise ValueError('当前具名模组升级Beta仅适配怒潮凛冬HAM-X，不替换用户目标')
-        if type(value['target_level']) is not int or not 1 <= value['target_level'] <= 3:
-            raise ValueError('模组目标等级为1到3，先核实际进度')
-        return 'goal.module', value
+        from player_module_v1 import route
+        return route(value)
     if goal == 'vouchers':
         action = value.pop('action', 'inspect')
         task = {'inspect': 'vouchers.inspect', 'plan-yellow': 'vouchers.yellow.plan',
@@ -136,6 +128,7 @@ def compile_goal(goal, inputs):
 
 
 DAILY_MODULES = {
+    'module': ('operator.modules', None),
     'module-queue': ('operator.modules', None),
     'startup': ('daily.startup', None),
     'annihilation': ('weekly.annihilation', None),

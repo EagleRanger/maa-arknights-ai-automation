@@ -141,12 +141,17 @@ def run_task(args, *, internal=False):
         inputs = checked_inputs(task, args.inputs)
         goal = None
     else:
-        goal_inputs = setup.read(args.inputs) if args.inputs else {}
+        goal_inputs = player_inputs(args)
         task, inputs = compile_goal(args.task, goal_inputs)
         validate(task, inputs)
         goal = dict(id=args.task, requested=goal_inputs)
     row = BY_ID[task]
     if row.route == 'offline':
+        if task in ('module.list','module.add'):
+            from player_module_v1 import offline
+            import os
+            emit(offline(Path(os.environ.get('ARKNIGHTS_AUTO_BASE') or ROOT),task,inputs))
+            return 0
         from voucher_exchange_plan_v1 import service
         emit(service(ROOT))
         return 0
@@ -176,6 +181,17 @@ def run_task(args, *, internal=False):
                 if args.output and output_path(args.output) != output_path(active['output']):
                     raise ValueError('已有原会话，请使用其返回的目录，不另开或静默换目录')
                 from receiver_session_v1 import submit
+                receipt_path=output_path(active['output'])/'receipt.json'
+                if not receipt_path.is_file():raise ValueError('原控制器没有可核实的回执，不追加或重开')
+                receipt=setup.read(receipt_path)
+                if receipt.get('run_id')!=active.get('run_id') or receipt.get('controller_pid')!=active.get('controller_pid'):
+                    raise ValueError('控制器与回执不一致，不追加或重开')
+                from receiver_resume_v1 import decision
+                last=receipt.get('goal') or {}
+                if last.get('id') and compile_goal(last['id'],last.get('requested') or {})==(task,inputs):
+                    emit(dict(output=active['output'],**decision(receipt)));return 0
+                if decision(receipt)['next'] not in ('finish',):
+                    raise ValueError('原目标未结清。先看 status；用户明确改目标时才用 continue。')
                 emit(submit(output_path(active['output']), dict(action='goal', goal=goal['id'], inputs=goal['requested'])))
                 return 0
     default_name = ('spa-trial-' if task == 'spa.trial' else 'goal-') + datetime.now().strftime('%Y%m%d-%H%M%S-') + uuid4().hex[:8]
@@ -213,6 +229,16 @@ def run_task(args, *, internal=False):
             return int(execute() or 0)
 
 
+def player_inputs(args):
+    v=setup.read(args.inputs) if args.inputs else {}
+    for attr,key in [('operator','operator'),('branch','branch'),('level','target_level'),('action','action')]:
+        value=getattr(args,attr,None)
+        if value is not None:
+            if args.task!='module' or key in v:raise ValueError('模组专用参数不能重复或用于其他目标')
+            v[key]=value
+    return v
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description='明日方舟公共接口；不带子命令只显示帮助，不启动游戏')
     subs = parser.add_subparsers(dest='command')
@@ -246,7 +272,18 @@ def main(argv=None):
     p.add_argument('operation', choices=('list', 'describe', 'run'))
     p.add_argument('task', nargs='?', choices=tuple(BY_ID)); p.add_argument('--profile')
     p.add_argument('--inputs'); p.add_argument('--output'); p.add_argument('--deadline')
+    p=subs.add_parser('plan',help='预览玩家请求将执行的目标；不配置账号、不操作游戏')
+    p.add_argument('task',choices=tuple(BY_GOAL));p.add_argument('--inputs')
+    for n in ('plan','run','continue'):
+        cmd=subs.choices[n]
+        cmd.add_argument('--operator');cmd.add_argument('--branch');cmd.add_argument('--level',type=int)
+        cmd.add_argument('--action',choices=('list','add','next','develop','inspect'))
+    p=subs.add_parser('resume',help='按原会话回执续一个未执行的步骤；不重放已完成或不明操作')
+    p.add_argument('--output',required=True);p.add_argument('--check-only',action='store_true')
     args = parser.parse_args(argv)
+    if args.command=='plan':
+        task,v=compile_goal(args.task,player_inputs(args));validate(task,v)
+        emit(dict(task=task,inputs=v,game_actions=0));return 0
     if args.command is None:
         parser.print_help()
         return 0
@@ -279,13 +316,26 @@ def main(argv=None):
     if args.command == 'run':
         return run_task(args)
     out = output_path(args.output)
-    if args.command == 'status':
+    if args.command in ('status','resume'):
         receipt = setup.read(out / 'receipt.json')
-        emit(dict(status=receipt.get('status'), run_id=receipt.get('run_id'),
-            goal=receipt.get('goal'),
-            controller_pid=receipt.get('controller_pid'), finished_at=receipt.get('finished_at'),
-            results=receipt.get('results'), latest_frame=(receipt.get('frames') or [None])[-1],
-            error=receipt.get('error'), cleanup_verified=receipt.get('cleanup_verified')))
+        from receiver_resume_v1 import decision
+        from tools.ark_cooperation_control import process_alive
+        preview=args.command=='resume' and args.check_only
+        # A portable dry run only interprets this saved receipt. No OS
+        # process query is needed. Real dispatch still checks PID and owner.
+        if preview:
+            advice=decision(receipt,alive=True)
+            advice.update(owner_check='not_performed_preview_only',game_actions=0,
+                          dispatch='须在实际续跑时匹配原控制器；预览不会提交')
+        else:
+            advice=decision(receipt,alive=process_alive(receipt.get('controller_pid')) is True)
+        if args.command=='resume' and not args.check_only and advice['next']=='continue_remaining':
+            from receiver_session_v1 import submit
+            active=setup.read(ROOT/'runtime_state/public_receiver_owner.json')
+            if active.get('run_id')!=receipt.get('run_id') or output_path(active['output'])!=out:
+                raise ValueError('归属变化，不续跑')
+            emit(submit(out,dict(action='resume_remaining')));return 0
+        emit(dict(advice,goal=receipt.get('goal'),error=receipt.get('error'),cleanup_verified=receipt.get('cleanup_verified')))
         return 0
     if args.command == 'sequence':
         from receiver_session_v1 import steps, serve
@@ -300,7 +350,7 @@ def main(argv=None):
                 return int(execute() or 0)
     from receiver_session_v1 import submit
     if args.command == 'continue':
-        emit(submit(out, dict(action='goal', goal=args.task, inputs=setup.read(args.inputs) if args.inputs else {})))
+        emit(submit(out, dict(action='goal', goal=args.task, inputs=player_inputs(args))))
     elif args.command == 'action':
         emit(submit(out, setup.read(args.json)))
     elif args.command == 'append':

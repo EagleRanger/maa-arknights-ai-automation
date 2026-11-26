@@ -97,19 +97,21 @@ def evaluate(app,frame,judge,box):
     return judge(recover(app,frame['screenshot'],rows,roi=box))
 
 
-def service(app):
+def service(app,only=None):
     root=Path(app.BASE);expected,goals=plan(root)
+    if only:goals=[only]
     if not goals:return dict(status='not_configured')
     if app._maa_task_queue_running() is not False or not app.goto_main_menu():return dict(status='environment_unverified')
     from operator_home_labels_v1 import observe_account
     actual,homes=observe_account(app)
-    if actual!=expected:return dict(status='account_unverified')
+    if not actual or (expected and actual!=expected):return dict(status='account_unverified')
+    expected=actual
     store=AccountProgress(root/'runtime_state/accounts',expected)
     path=store.folder/'module_queue.json'
     state=json.loads(path.read_text('utf-8')) if path.exists() else {}
     today=(datetime.now(timezone(timedelta(hours=8)))-timedelta(hours=4)).date().isoformat()
     due=[g for g in goals if (known(store,g) or 0)<g['target_level']]
-    goal=next((g for g in due if state.get(key(g),{}).get('checked_day')!=today),None)
+    goal=next((g for g in due if only or state.get(key(g),{}).get('checked_day')!=today),None)
     if not goal:return dict(status='checked_today' if due else 'goals_complete')
     slot=state.setdefault(key(goal),{})
     out=root/'outputs/operator_training/module_queue'/uuid.uuid4().hex
@@ -175,8 +177,8 @@ def service(app):
             return finish(gate or 'quote_or_requirements_unverified',frame=dialog['screenshot'],
                 mission_text=[s for s,_,_ in region(dialog['items'],(235,170,1050,795))])
         identity,current_goals=plan(root)
-        if identity!=actual or not any(key(g)==key(goal) and g['target_level']>=target and
-                g.get('module_title')==goal.get('module_title') for g in current_goals):
+        if not only and (identity!=actual or not any(key(g)==key(goal) and g['target_level']>=target and
+                g.get('module_title')==goal.get('module_title') for g in current_goals)):
             return finish('goal_changed_no_spend')
         # Persist before submitting. A crash or dropped input cannot cause a second spend.
         slot['pending']=dict(level=target,frame=dialog['screenshot']);persist()
@@ -195,7 +197,7 @@ def service(app):
 
 def one_module(session,inputs,context,previous,operation):
     from ark_modules.core import Result
-    r=service(session.app);status=r['status']
+    r=service(session.app,only=inputs if operation=='module.one' else None);status=r['status']
     if status in ('not_configured','checked_today','goals_complete'):return Result('skipped',status,data=r)
     ok=status in ('level_verified','already_at_target') and r.get('home_verified') is True
     return Result('succeeded' if ok else 'partial','模组：'+status,

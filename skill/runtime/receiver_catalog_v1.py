@@ -68,6 +68,9 @@ TASKS = (
     Capability('spa.rewards.inspect', '卫戍功勋商店和累计奖励只读识别', 'spa_rewards_state_v1',
         route='extension', notes='与spa.trial同一宿主观察；自动兑换仍待接入'),
     Capability('operator.paradox', '自动选择并执行一个尚未通过的悖论模拟', 'paradox_simulation_v1:one_module', maturity='beta'),
+    Capability('module.one','点名处理一名干员的目标模组','operator_module_queue_v1:one_module',maturity='beta'),
+    Capability('module.add','把所选模组追加到本人队列','player_module_v1:offline',route='offline'),
+    Capability('module.list','查看模组队列和推荐库','player_module_v1:offline',route='offline'),
     Capability('operator.modules','所选干员与分支的模组队列','operator_module_queue_v1:one_module',maturity='beta'),
     Capability('operator.training', '指定干员有序专精，保留忙碌训练室', 'operator_training_v2:service', maturity='beta'),
     Capability('operator.module.inspect', '先读取干员模组实际进度', 'operator_module_missions_v1:inspect', maturity='beta'),
@@ -119,6 +122,10 @@ def validate(task, inputs):
         from stronghold_badges_trial_v1 import params
         params(inputs)
     if task=='operator.modules' and inputs:raise ValueError('队列只取本人计划；更改目标用选择器')
+    if task=='module.one':
+        from player_module_v1 import resolve
+        if set(inputs)!={'name','branch','module_title','target_level'} or resolve(dict(operator=inputs['name'],branch=inputs['branch'],module_title=inputs['module_title'],target_level=inputs['target_level']))!=inputs:
+            raise ValueError('点名目标不完整或模组分支不一致')
     if task == 'daily.full' and inputs:
         raise ValueError('日常默认组合使用本机配置；特调请使用明确模块计划')
     if task == 'activity.stage' and inputs['layer'] not in ('normal', 'challenge'):

@@ -212,9 +212,12 @@ class PublicEntryTests(unittest.TestCase):
     def test_reuse_current_account_session_without_new_environment(self):
         with TemporaryDirectory() as directory:
             root = Path(directory)
-            save(root / 'runtime_state/public_receiver_owner.json', dict(controller_pid=123,
+            save(root / 'runtime_state/public_receiver_owner.json', dict(controller_pid=123,run_id='live',
                 output=str(root / 'outputs/original'), account_key='own', game_package='own.game',
                 source_manifest_sha256='own-version'))
+            save(root/'outputs/original/receipt.json',dict(run_id='live',controller_pid=123,
+                requested_steps=[dict(key='prior',task='daily.mall')],environment_ready=True,
+                results={'prior':dict(status='succeeded',evidence=['checked'])}))
             args = SimpleNamespace(task='activity-rewards', inputs=None, profile=None, output=None, deadline=None)
             data = dict(account_key='own', game_package='own.game')
             with patch.object(ark, 'ROOT', root), \

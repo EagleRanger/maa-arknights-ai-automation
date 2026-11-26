@@ -2,51 +2,22 @@
 
 ## 干员培养（可选）
 
+在 runtime 目录用 `python ark.py run training` 处理本账号专精计划。训练室忙时保留现有学员；开始训练不等于目标等级完成。
+
 ### 选择模组并入队
 
-在 Skill 根目录运行 `python scripts/select_module_presets.py`。清单来自[自在道爷挂机作业预设](../templates/zizai-idle-development.example.json)的 `module_library`：优先最近选定作业中的具名分支，再看采样内固定上场的关数。每项附作业号，可用 `https://prts.maa.plus/copilot/get/作业号` 核对。它是有日期的选单，不是全服排名；只有分支序号却尚没核清名称的干员留在参考名单，不自动加入。
+同一个 `module` 入口区分玩家的四种请求：
 
-- 例如只想看娜仁图亚、蕾缪安会怎样入队：`python scripts/select_module_presets.py --select 娜仁图亚:LPS-X --select 蕾缪安:DEA-Y`。这是预览，不改文件。
-- 用户确认后，在同一命令后加 `--apply --client 客户端包名 --uid 本人UID`；沿用该账号实际运行目录（另设了执行根目录时用 `--runtime-root`）。新选项按推荐顺序追加，不重排原队列、不覆盖已有的等级、专精或账号进度。只有用户明确选整套才用 `--all`。要改已有项目顺序或等级，单独修改本人计划。
-- 默认一阶。仅当用户明确要某个分支二、三级才写例如 `--select 娜仁图亚:LPS-X=2`。已有同一项不会被这条添加命令改级。也可在自己的 `runtime_state/operator_development_plan.json` 内按同格式填写库外干员（含实际模组名）。不选或停用模组队列时，原每日任务照常。
-- 完整包在 `runtime` 目录运行 `python ark.py run module-queue`，处理一名干员的一档；或把 `module-queue` 放进自定义日常。启用的账号计划也在标准日常末尾检查一次。核对本人页、分支、材料和任务；已达标跳过，缺条件只报缺项，不自行占用活动理智。不确定上次是否扣料时先读回，不重复提交。
+| 玩家要做什么 | 命令 |
+|---|---|
+| 查看本人队列和具名推荐，不开游戏 | `python ark.py run module` |
+| 只给娜仁图亚开一阶，不动其他干员或长期队列 | `python ark.py run module --operator 娜仁图亚 --level 1` |
+| 把已选择的目标加到长期队列，不启动游戏 | `python ark.py run module --inputs 选择.json`，内容如 `{"action":"add","operator":"娜仁图亚","client":"实际客户端包名","uid":"本人数字UID"}` |
+| 处理本人队列的下一项 | `python ark.py run module --action next` |
 
-首次介绍功能时提示：“可选择升级／精英化、技能专精和模组培养。可参考近期自在道爷挂机流要求，也能换成自己的干员、技能和目标。”选择后沿用，未选不影响原日常。
+点名优先于队列。省略等级默认一阶；明确要求二、三级时才提高目标，每次最多验证和提交一档。分支不唯一时用 `--branch`；库外干员用参数文件明确 `operator`、`branch`、`module_title`。自定义日常里的 `module` 表示处理已启用队列的一项；没配置就跳过。也可把命令中的 `run` 换成 `plan`，先检查目标，不启动、不写账号计划。
 
-参考[近期挂机流配置](../templates/zizai-idle-development.example.json)。它是公开作业要求，不是发布者账号进度，也不是直接传给MAA的参数。用户或本机AI可替换名单和顺序，再转换成已接入接口的本地配置；替代组只培养实际选用者。
-
-### 接口与范围
-
-完整包先运行 `python ark.py list`；旧工程沿实际选定宿主，不裸调带过期候选限制的试验脚本。
-
-| 子目标 | 当前入口／范围 |
-| --- | --- |
-| 技能专精 | `python ark.py run training`；读取本机 `runtime_state/operator_training_plan.json`，结构见包内 `config/operator_training_plan.example.json`。明确干员、职业、技能和目标专精。 |
-| 模组任务、开通、升级 | `python ark.py describe module`；`python ark.py run module --inputs <目标JSON>`。本机 `runtime_state/operator_module_plan.json`指定目标与动作；现有具名样例为怒潮凛冬HAM-X，其它分支先检查适配。 |
-| 升级／精英化、普通技能 | Beta衔接项。MAA原生已有部分能力，当前公开专精适配器并未自动接通全部字段。缺少执行适配要明确报告，不能只做专精却声称整个培养完成。 |
-
-MAA 6.22.0的[OperProgress计划](https://github.com/MaaAssistantArknights/MaaAssistantArknights/blob/v6.22.0/src/MaaCore/Task/Interface/OperProgressTask.cpp)支持 `role/name/elite/skill_level/skill_mastery`。精英化前会补满当前阶段等级，晋升后停在新阶段1级；不等于支持任意“精二60级”，也不能把 `level` 或模组字段直接塞进去。
-
-### 执行规则
-
-- 先查本账号实际等级。无记录不等于没培养；已完成跳过，只补差额。公用方案不带账号、库存或发布者的私人顺序。
-- 保留正在训练的干员、技能和协助者。优先复用本轮基建Training回调；没有新鲜观察时只查训练室，不重跑整套基建。按实际在训者安排下一项，不把计划目标当在训者。
-- `Completed/PrerequisiteTraining`可能只表示开训。计时中的档位不是已完成专精；领取后核实际等级，达到目标才写账号事实并前进。训练中不另建定时轮询。
-- `continue_training`可在当前技能未专三时续训，与自定义排班是否跳过换人独立；它不代替具名技能顺序规划。放进训练室也不等于已开训。
-- 只用用户已选资源策略；需要加工就合成缺额，不擅自把活动刷取改成培养刷本。辅助队列日志与日常分开，空闲边界恢复原MAA配置。
-- 训练结束留在技能详情页时，可按实际返回控件逐步接回；不因返回失败重开训练。仍无法接回，保留原控制者交执行AI。
-
-### 模组
-
-先看指定分支的锁定状态、两个任务条件／计数和等级。ORIGINAL只表示当前装备，不能证明账号没开模组；只筛未开模组时，任何已核实的可用分支都可排除该干员。
-
-只补未完任务。用现成作业时核本人的干员／助战限制、部署与技能、禁用职业、指定关卡和模式；旧三星记录不能替代这次模组任务。Go按钮可能保留上次模式，切换按钮文字也可能表示“将切往哪里”，开始前核实际模式。
-
-战后返回同一模组页验计数。打赢任务关不等于已解锁；用户要求开通／升级时，再逐级核报价、材料和本人页等级。加工数量用实际加减控件，提交前核选中数量；提交不明先复查，不能重复消费。没写清的模组序号不是等级，也不默认全部升三级。
-
-模组入口可能标为“管理+”。[徽记识别脚本](../scripts/operator_module_badge.py)可读已覆盖的1920×1080详情布局，未知布局返回未知，不负责点击或升级。
-
-若需要重建常用名单，按用户选的作者和近期具名作业统计；同一关取最新版本，替代干员不算固定核心。样本频次不当成全服使用率或胜率。
+[可选挂机阵容库](../templates/zizai-idle-development.example.json)附有作业号。不用此库也能配置自己的分支。已达到要求的跳过；尚缺任务或材料时，回报本人页证据，不自行改打材料关。一次提交未确认，不再扣料。
 
 ## 凭证兑换
 
