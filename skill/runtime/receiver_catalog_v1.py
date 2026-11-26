@@ -62,10 +62,13 @@ TASKS = (
     Capability('reclamation.rewards', '生息演算繁荣点数领奖/兑换页核验', 'permanent_progress_modules_v1:run',
         notes='兑换商品选择未覆盖时交AI，不套肉鸽一键领取'),
     Capability('reclamation.run', '按明确轮数运行生息演算刷分', 'arknights_daily_runtime_v12:mode_reclamation', ('cycles',)),
+    Capability('spa.badges','卫戍协议刷角标（待测试）','stronghold_badges_trial_v1:run',maturity='beta'),
     Capability('spa.trial', '新版卫戍协议一轮刷分、教学接回和结果观察', 'tools/run_spa_trial_v1.py',
         route='tool', notes='已有独立宿主；不包含自动清空功勋商店'),
     Capability('spa.rewards.inspect', '卫戍功勋商店和累计奖励只读识别', 'spa_rewards_state_v1',
         route='extension', notes='与spa.trial同一宿主观察；自动兑换仍待接入'),
+    Capability('operator.paradox', '自动选择并执行一个尚未通过的悖论模拟', 'paradox_simulation_v1:one_module', maturity='beta'),
+    Capability('operator.modules','所选干员与分支的模组队列','operator_module_queue_v1:one_module',maturity='beta'),
     Capability('operator.training', '指定干员有序专精，保留忙碌训练室', 'operator_training_v2:service', maturity='beta'),
     Capability('operator.module.inspect', '先读取干员模组实际进度', 'operator_module_missions_v1:inspect', maturity='beta'),
     Capability('operator.module.mission', '指定模组任务作业并回读计数', 'operator_module_missions_v2:run', ('job',), maturity='beta'),
@@ -111,6 +114,11 @@ def validate(task, inputs):
     missing = [name for name in row.inputs if name not in inputs]
     if missing:
         raise ValueError('本任务缺参数：' + ', '.join(missing))
+    if task == 'operator.paradox' and inputs:raise ValueError('悖论单关不接收点名、次数或培养参数')
+    if task=='spa.badges':
+        from stronghold_badges_trial_v1 import params
+        params(inputs)
+    if task=='operator.modules' and inputs:raise ValueError('队列只取本人计划；更改目标用选择器')
     if task == 'daily.full' and inputs:
         raise ValueError('日常默认组合使用本机配置；特调请使用明确模块计划')
     if task == 'activity.stage' and inputs['layer'] not in ('normal', 'challenge'):

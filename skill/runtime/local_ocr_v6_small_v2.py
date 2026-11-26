@@ -4,6 +4,7 @@ One owned inference worker per business scope. No screenshots, GUI, game,
 network, fallback guessing, or changes to the production Python environment.
 """
 from contextlib import contextmanager
+from contextvars import ContextVar
 from pathlib import Path
 from queue import Queue, Empty
 from threading import Thread, RLock
@@ -18,6 +19,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parent
 CONFIG = ROOT / 'config/local_ocr_v6_small_v1.json'
+_current_engine = ContextVar('current_v6_small_engine', default=None)
 
 
 def preflight(root=ROOT):
@@ -178,32 +180,37 @@ class LegacyEngine:
 
 @contextmanager
 def reader():
-    """Shared opt-in entry for independent modules; no implicit daily/cleanup."""
+    """Use the current v6 worker; own one only for a standalone read."""
+    current = _current_engine.get()
+    if current is not None:
+        yield LegacyEngine(current.worker)
+        return
     worker = Worker()
+    engine = LegacyEngine(worker)
+    token = _current_engine.set(engine)
     try:
-        yield LegacyEngine(worker)
+        yield engine
     finally:
+        _current_engine.reset(token)
         worker.close()
+
+
+def current_engine():
+    engine = _current_engine.get()
+    if engine is None:
+        raise RuntimeError('Use the selected v6 OCR scope or reader(); no legacy model fallback')
+    return engine
 
 
 @contextmanager
 def boundary(app):
-    import rapidocr_onnxruntime as legacy
-    worker = Worker()
-    old_engine = app._ocr_engine
-    def factory(*args, **kwargs):
-        if args or kwargs:
-            raise ValueError('Unsupported legacy OCR constructor options')
-        return LegacyEngine(worker)
-    try:
-        # Existing OCR wrappers and all their captured functions are retained.
-        # Both lazy main OCR and direct local helpers use the same owned worker.
-        app._ocr_engine = factory()
-        with patch.object(legacy, 'RapidOCR', factory):
-            yield worker
-    finally:
-        app._ocr_engine = old_engine
-        worker.close()
+    with reader() as engine:
+        old_engine = app._ocr_engine
+        app._ocr_engine = engine
+        try:
+            yield engine.worker
+        finally:
+            app._ocr_engine = old_engine
 
 
 def run_composed(operation, app):

@@ -90,5 +90,3 @@ do not start farming or delete a save just to manufacture that test state.
 - Normal exploration keeps producing Subjective Imagination even after Ecology Pedigree reaches its maximum, until all cognition nodes can be completed. Therefore do not skip cognition service merely because the reward track is maxed.
 - Exploration itself is the earning phase; nodes cannot be upgraded during an active exploration. Run the cognition service only at a verified settlement/home boundary.
 - Current automation should first read the home counter, then scan the wide tree. A visual node candidate is not purchase authority: require the explicit upgrade button and verify the home counter decreases after returning.
-
-单项与组合调用见[永久进度模块](progress-modules.md)。

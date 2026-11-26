@@ -2,9 +2,9 @@
 
 让 AI 按玩家的实际需求安排《明日方舟》的日常，把刷图、找作业、推进关卡、领奖和基建生产接成一套自动化流程，减少反复查看进度和手动切换任务的时间。
 
-当前版本：**v1.2.5（2026-11-11 更新稿）**。适用于Windows上的AI编程/执行工具，基于MAA与Android模拟器运行，附带执行源码和统一脚本入口。AI能查全功能、找到对应命令，完成本机配置后直接调用；不需要作者工程或Loop，不用重新开发控制器。
+当前版本：**v1.2.6（2026-11-26）**。适用于Windows上的AI编程/执行工具，基于MAA与Android模拟器运行，附带执行源码和统一脚本入口。AI能查全功能、找到对应命令，完成本机配置后直接调用；不需要作者工程或Loop，不用重新开发控制器。
 
-[下载完整源码 ZIP](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/download/v1.2.5/arknights-automation-skill-v1.2.5-source-20261111.zip) · [查看最新稳定版 v1.2.5](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/latest) · [接收方 AI 对接说明](skill/references/receiver-integration.md) · [OCR 模型来源与安装自检](skill/references/local-ocr-setup.md)
+[下载完整源码 ZIP](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/download/v1.2.6/arknights-automation-skill-v1.2.6-source-20261126.zip) · [查看最新稳定版 v1.2.6](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/latest) · [接收方 AI 对接说明](skill/references/receiver-integration.md) · [OCR 模型来源与安装自检](skill/references/local-ocr-setup.md)
 
 <!-- project-support:start -->
 > 如果本项目对你或你的 AI 开发有帮助，下载使用或借鉴后，欢迎点个 [Star](https://github.com/EagleRanger/maa-arknights-ai-automation) 支持，让更多有同类需求的人找到它。

@@ -43,26 +43,17 @@ normal recognition base and is not this guest-resolution failure.
 
 Android `wm size` may report the panel's physical dimensions as `1080x1920` even while the game screenshot is landscape 1920×1080. Gate on the captured PNG dimensions, not the text order from `wm size` alone.
 
-## Historical reference machine profile
+## MuMu ADB discovery
 
-This older verified profile is evidence for comparison, not the current
-machine configuration or a portable default. Resolve the active instance,
-Android version and portable MAA directory from the current project binding:
+Read the installation root and exact target Android version from this PC's
+configuration. The public adapter supports `shell/adb.exe` and
+`nx_device/<android_version>/shell/adb.exe`; it does not require a directory
+junction. With multiple guest versions it selects the configured version, not
+the first folder. An optional `adb_path` in `receiver_profile.json` overrides
+discovery; an invalid explicit path is reported, not silently replaced.
 
-| Item | Current verified value |
-| --- | --- |
-| Emulator | MuMu 12 |
-| ADB executable | `C:\Program Files\Netease\MuMuPlayer-12.0\shell\adb.exe` |
-| Current ADB device | `127.0.0.1:16384` |
-| Android physical size report | `1080x1920` |
-| Android physical density | `280` |
-| Actual game screenshot contract | landscape `1920×1080` |
-| Android version | `12` |
-| Game package | Bilibili client `com.hypergryph.arknights.bilibili` |
-| MAA executable | `%LOCALAPPDATA%\MAA-App\MAA.exe` |
-| Verified Python capability | 64-bit Python with `PIL`, `cv2`, `rapidocr_onnxruntime`, and `uiautomation` importable |
-
-The port `16384` is not a constant. MuMu multi-instance ports can change; discover the running instance every time. The official mainland package is commonly `com.hypergryph.arknights`, while this reference account uses the Bilibili package. Detect or configure the package explicitly before launch/force-stop operations.
+The emulator instance, ADB port, package, density and installed MAA path are
+local facts, not values to copy from a historical reference machine.
 
 ## First-run inventory
 
@@ -79,7 +70,7 @@ Before controlling a new PC, record these values in a machine-local profile or e
 4. Captured PNG width/height, Android density, Android version, and orientation.
 5. Installed Arknights package and server/client type.
 6. MAA executable, config directory, Core log, GUI log, version, and connection profile.
-7. Python executable and successful imports for `PIL`, `cv2`, `rapidocr_onnxruntime`, and `uiautomation`.
+7. Base Python with `PIL.Image`, `cv2`, `uiautomation`, plus the selected independent v6-small environment and weights; see [local OCR requirements](local-ocr-setup.md).
 8. Writable project/output/checkpoint/log directories.
 9. Windows desktop scaling and whether any desktop-coordinate fallback is enabled.
 10. Current process owner: no second supervisor, no second MAA queue, and no unrelated ADB device participating in auto-detection.
@@ -132,7 +123,7 @@ Syntax tests, imports, preflight, a running process, or an MAA queue start do no
 | Recognition works but fixed desktop click misses | Remove desktop-coordinate fallback or calibrate it at the current Windows scaling/window geometry. |
 | Duplicate windows or queue contention | Inspect real process IDs, single-instance lock, queue state, and checkpoint before launching anything. |
 | MAA update repeatedly blocks startup | Complete/recover the update, scroll and dismiss the announcement once, then revalidate client/resource version and Core logs. |
-| Python starts but OCR crashes | Verify the exact interpreter imports all four required modules; do not trust `python` on PATH or a WindowsApps stub. |
+| Python starts but OCR crashes | Check the configured base interpreter and selected v6 worker separately; do not trust a WindowsApps stub or reinstall an obsolete OCR engine. |
 | Logs show old completion | Select the newest log by modification time, record the current run boundary, and account for rotation. |
 
 ## Portability verdict

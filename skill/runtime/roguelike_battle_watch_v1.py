@@ -128,13 +128,16 @@ class BattleWatch:
         self.focus, self.active, self.last_capture, self.capture_counts = {}, None, {}, {}
         self.last_signature = None
         self.warnings = []
+        self.review_paths=set()
         self.summary = tracking.build_summary([])
         if self.ledger_path.exists():
             self.summary = tracking._load(self.ledger_path, self.theme).get('summary') or self.summary
-        self._focus()
+        self._focus(tracking._load(self.ledger_path,self.theme).get('outcomes',[]))
 
-    def _focus(self):
-        self.focus = {row['stage']: row for row in self.summary['optimization_candidates']}
+    def _focus(self,history):
+        same=[r for r in history if (r.get('run_context') or {}).get('maa_params')==self.params]
+        self.focus={r['stage']:r for r in tracking.build_summary(same)['ranked_by_difficulty_stage']
+                    if r['terminal_collapse_count']>=2 and r['difficulty_bucket']!='difficulty_unknown'}
 
     def feed(self, lines, *, allow_capture=True):
         """PID + real TaskChainStart bind this stream; pre-run saves stay out."""
@@ -158,11 +161,11 @@ class BattleWatch:
             changed = True
         if changed:
             self.evidence.write_text('\n'.join(self.lines) + '\n', encoding='utf-8')
-            self._record()
+            self._record(allow_capture=allow_capture)
         if allow_capture:
             self.maybe_capture()
 
-    def _record(self):
+    def _record(self,allow_capture=False):
         parsed = parser.parse_run_log('\n'.join(self.lines), source=str(self.evidence), run_context=dict(
             theme=self.theme, run_id=self.run_id, account_key=self.account_key,
             mode=self.params.get('mode'), maa_params=self.params))
@@ -176,6 +179,31 @@ class BattleWatch:
                 frozen = self.folder / ('settlement_' + row['event_id'] + '.log')
                 frozen.write_text('\n'.join(self.lines) + '\n', encoding='utf-8')
                 row['source_evidence'] = dict(path=str(frozen), sha256=digest(frozen))
+                stage=(row.get('terminal_stage') or {}).get('name')
+                difficulty=tracking._difficulty_value(row)
+                if stage and difficulty is not None and row.get('game_pass') is False:
+                    from battle_incident_v1 import Review,fingerprint
+                    try:
+                        review=Review(self.root,account=self.account_key,mode='roguelike:'+self.theme,
+                                      difficulty=difficulty,stage=stage,strategy=fingerprint(self.params))
+                        # A buffered historical callback is not a current result frame.
+                        live=allow_capture and row is parsed['outcomes'][-1] and self.active is None
+                        saved=review.result(row['event_id'],'confirmed_defeat',
+                            picture=(lambda p:self.capture(self.app,p)) if live else None,
+                            detail='失败结算前最后记录的关卡，图为回调后现场；仅据此不能判定漏怪或奶量不足。部署记录：'+str(frozen))
+                        if saved:
+                            self.review_paths.add(str(review.path))
+                            from shutil import copyfile
+                            episode=row['terminal_stage']
+                            frames=[c for c in self.captures if c['stage']==stage and
+                                    c['stage_seen_at']==episode.get('seen_at')]
+                            for label,c in [('战中最后一帧',frames[-1] if frames else None),
+                                            ('疑似漏怪',next((f for f in frames if f.get('visible_signal')),None))]:
+                                if c:
+                                    review.observe(row['event_id'],label,
+                                        picture=lambda p,src=c['screenshot']:copyfile(src,p),
+                                        detail=c.get('visible_signal') or '同场战斗采样；供核对阵容与部署，不据此推断死因')
+                    except Exception as exc:self.warnings.append('review:'+str(exc))
                 ledger['outcomes'].append(row)
                 known.add(tracking._outcome_key(row))
         self.summary = ledger['summary'] = tracking.build_summary(ledger['outcomes'])
@@ -184,7 +212,7 @@ class BattleWatch:
         if signature != self.last_signature:
             tracking._write(self.ledger_path, ledger)
             self.last_signature = signature
-        self._focus()
+        self._focus(ledger['outcomes'])
         self._save()
 
     def maybe_capture(self):
@@ -205,6 +233,9 @@ class BattleWatch:
             self.captures.append(dict(stage=key[0], stage_seen_at=key[1], screenshot=str(path),
                 sha256=digest(path), captured_at=datetime.now().astimezone().isoformat(),
                 risk_bucket=row['difficulty_bucket'], difficulty_at_capture='not_inferred'))
+            leak=getattr(self.app,'_battle_has_leak',None)
+            if callable(leak) and leak(path):
+                self.captures[-1]['visible_signal']='画面出现扣减标记，疑似漏怪；单帧不能确定整局失败原因'
             self.capture_counts[key] = self.capture_counts.get(key, 0) + 1
             ledger = tracking._load(self.ledger_path, self.theme)
             ledger.setdefault('focus_stage_captures', []).append(self.captures[-1])
@@ -218,7 +249,7 @@ class BattleWatch:
             theme=self.theme, account_key=self.account_key, enabled=True, read_only=True,
             strategy_apply_enabled=False, started=self.started, active_stage=self.active,
             ledger=str(self.ledger_path), summary=self.summary, captures=self.captures,
-            evidence=str(self.evidence), warnings=self.warnings[-8:]))
+            evidence=str(self.evidence), incident_receipts=sorted(self.review_paths), warnings=self.warnings[-8:]))
 
     def finish(self):
         """Called only after Core returns; publish reviews without pausing EXP."""
@@ -254,6 +285,7 @@ class BattleWatch:
                     self.warnings.append('proposal:' + str(exc))
         self._save()
         return dict(enabled=True, read_only=True, ledger=str(self.ledger_path),
+                    incident_receipts=sorted(self.review_paths),
                     summary=self.summary, captures=self.captures, reviews=reviews,
                     strategy_apply_enabled=False, warnings=self.warnings[-8:])
 
@@ -293,13 +325,10 @@ def boundary(app, *, root, output, run_id, poll_seconds=2, proposal_hook=None):
                 if worker.is_alive():
                     raise RuntimeError('evidence_reader_not_joined')
                 watch.feed(cursor.read(), allow_capture=False)
-                # Repair a missing/unparseable callback only with parseable
-                # fresh evidence. The observer cannot erase a valid result.
+                # Existing mode_roguelike consumes the same fresh timestamped
+                # Core evidence instead of unparseable bare callback strings.
                 text = '\n'.join(watch.lines) + '\n'
-                parse = getattr(app, '_roguelike_settlement_details', None)
-                if (callable(parse) and not parse(getattr(app, '_LAST_MAA_RUN_LOG', ''))
-                        and parse(text)):
-                    app._LAST_MAA_RUN_LOG = text
+                app._LAST_MAA_RUN_LOG = text
                 result = watch.finish()
                 app._RUN_SUMMARY['roguelike_battle_watch'] = result
                 app._RUN_SUMMARY.setdefault('roguelike', {})['battle_watch'] = result

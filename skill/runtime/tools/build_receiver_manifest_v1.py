@@ -9,10 +9,11 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ADDITIONS = ('ark.py', 'arknights_auto.py', 'receiver_setup_v1.py', 'receiver_catalog_v1.py',
+ADDITIONS = ('startup_transition_v1.py','battle_incident_v1.py','tools/battle_review_v1.py','stronghold_badges_trial_v1.py','operator_module_queue_v1.py','scan_retry_v1.py','poll_frames_v1.py','paradox_simulation_v1.py','tests/test_receiver_paradox_v1.py','ark.py', 'arknights_auto.py', 'receiver_setup_v1.py', 'receiver_catalog_v1.py',
     'receiver_operations_v1.py', 'receiver_session_v1.py', 'receiver_goals_v1.py',
     'receiver_sss_formation_v1.py', 'config/receiver_profile.example.json',
     'tests/test_receiver_entry_v1.py', 'tests/probe_receiver_assembly_v1.py',
+    'tests/test_direct_v6_ocr_v1.py',
     'tools/build_receiver_manifest_v1.py')
 
 
@@ -27,7 +28,7 @@ def build(root=ROOT):
         source.relative_to(root)
         raw = source.read_bytes()
         rows.append(dict(path=name, bytes=len(raw), sha256=hashlib.sha256(raw).hexdigest()))
-    data.update(files=rows, kind='source-integrity-only', version='1.2.5')
+    data.update(files=rows, kind='source-integrity-only', version='1.2.6')
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     return dict(status='source_manifest_rebuilt_after_review', files=len(rows),
                 game_actions=0, live_verified=False)

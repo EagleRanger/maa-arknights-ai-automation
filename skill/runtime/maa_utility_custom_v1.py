@@ -1,7 +1,7 @@
-"""One serial native Custom task for specifically admitted utility flows.
+"""Public utility entry: one admitted Custom task, never combat or a daily run.
 
-Uses the same official MaaCore ABI/connection as the existing roguelike
-adapter. No navigation replacement, environment boot, daily or combat.
+The private ABI transport is also used by the named ParadoxCopilot adapter;
+that caller binds the live operator, stage, skill and job before submission.
 """
 import ctypes
 import json
@@ -16,6 +16,12 @@ TASKS={'committee':'MiniGame@WartimePressCommittee@Begin',
 
 def run(app,kind,output,*,timeout=180):
     if kind not in TASKS:raise ValueError('unsupported utility')
+    return _submit(app,'Custom',dict(task_names=[TASKS[kind]]),kind,output,timeout=min(300,max(30,timeout)))
+
+
+def _submit(app,chain,params,kind,output,*,timeout):
+    """Shared transport; caller owns page identity and the interpretation of effects."""
+    if chain not in ('Custom','ParadoxCopilot','StrongholdProtocol'):raise ValueError('unsupported native task')
     if app._maa_task_queue_running() is not False:raise ValueError('MAA queue owns device')
     out=Path(output);out.mkdir(parents=True,exist_ok=True)
     if (out/'callbacks.json').exists():raise ValueError('existing native run preserved')
@@ -46,7 +52,7 @@ def run(app,kind,output,*,timeout=180):
             except (ValueError,UnicodeError):detail={}
             events.append(dict(msg=int(msg),details=detail,at=time.time()))
             if msg==3:done.set()
-            if detail.get('taskchain')=='Custom':
+            if detail.get('taskchain')==chain:
                 if msg==10002:complete.set()
                 if msg in (10000,10004):error.set()
         cb=callback_type(callback)
@@ -58,10 +64,10 @@ def run(app,kind,output,*,timeout=180):
         core.AsstSetConnectionExtras(b'MuMuEmulator12',app._maa_mumu_core_extras().encode('utf-8'))
         if not core.AsstConnect(handle,os.fsencode(app.ADB),app.DEVICE.encode('utf-8'),b'MuMuEmulator12'):
             raise RuntimeError('native utility connection failed')
-        payload=json.dumps(dict(task_names=[TASKS[kind]])).encode('utf-8')
-        task=core.AsstAppendTask(handle,b'Custom',payload)
+        payload=json.dumps(params,ensure_ascii=False).encode('utf-8')
+        task=core.AsstAppendTask(handle,chain.encode('ascii'),payload)
         if task<=0 or not core.AsstStart(handle):raise RuntimeError('native utility start failed')
-        deadline=time.monotonic()+min(300,max(30,timeout))
+        deadline=time.monotonic()+timeout
         while not done.is_set() and time.monotonic()<deadline and core.AsstRunning(handle):time.sleep(.2)
         timed_out=not done.is_set() and bool(core.AsstRunning(handle))
         return dict(status='native_completed_effect_pending' if done.is_set() and complete.is_set() and not error.is_set()

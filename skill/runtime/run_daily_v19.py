@@ -48,13 +48,13 @@ def _runtime_probe():
         result["preferred"] = False
     try:
         from PIL import Image
-        from rapidocr_onnxruntime import RapidOCR
+        from local_ocr_v6_small_v2 import Worker
         import uiautomation
 
         if not callable(getattr(Image, "open", None)):
             raise TypeError("PIL.Image.open is unavailable")
-        if not callable(RapidOCR):
-            raise TypeError("rapidocr_onnxruntime.RapidOCR is unavailable")
+        if not callable(Worker):
+            raise TypeError("v6 OCR worker is unavailable")
         if not getattr(uiautomation, "__file__", None):
             raise TypeError("uiautomation module path is unavailable")
         result["symbols_ready"] = True

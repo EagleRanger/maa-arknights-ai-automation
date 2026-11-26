@@ -5,6 +5,7 @@ param(
     [string]$MaaPath = $env:ARKNIGHTS_MAA_PATH,
     [string]$MuMuRoot = $env:ARKNIGHTS_MUMU_ROOT,
     [string]$PythonPath = $env:ARKNIGHTS_PYTHON,
+    [string]$RuntimePath = $env:ARKNIGHTS_AUTO_BASE,
     [string]$OutputJson = ""
 )
 
@@ -139,7 +140,7 @@ $PythonPath = First-Existing @(
     $((Get-Command python.exe -ErrorAction SilentlyContinue).Source)
 )
 if ($PythonPath) {
-    $probe = & $PythonPath -c "import PIL, cv2, rapidocr_onnxruntime, uiautomation; print('OK')" 2>&1
+    $probe = & $PythonPath -c "import PIL.Image, cv2, uiautomation; print('OK')" 2>&1
     if ($LASTEXITCODE -eq 0 -and ($probe -join " ") -match "OK") {
         Add-Check "python_runtime" "PASS" $PythonPath "Required imports are available."
     } else {
@@ -147,6 +148,19 @@ if ($PythonPath) {
     }
 } else {
     Add-Check "python_runtime" "FAIL" "not found" "Pass -PythonPath or ARKNIGHTS_PYTHON."
+}
+
+$ocrVerified = $false
+if ($RuntimePath -and $PythonPath) {
+    $probe = & $PythonPath -X utf8 -c "import sys; sys.path.insert(0,sys.argv[1]); from local_ocr_v6_small_v2 import preflight; c=preflight(); print(c['model'])" $RuntimePath 2>&1
+    if ($LASTEXITCODE -eq 0 -and ($probe -join ' ') -match 'PP-OCRv6-small') {
+        $ocrVerified = $true
+        Add-Check 'local_ocr' 'PASS' 'PP-OCRv6-small' 'Selected worker configuration and model fingerprints checked.'
+    } else {
+        Add-Check 'local_ocr' 'FAIL' 'v6 preflight failed' (($probe -join ' ').Trim())
+    }
+} else {
+    Add-Check 'local_ocr' 'INFO' 'not checked' 'Pass -RuntimePath or use the complete package ark.py check --probe.'
 }
 
 $dpi = Get-ItemProperty -LiteralPath "HKCU:\Control Panel\Desktop" -ErrorAction SilentlyContinue
@@ -158,7 +172,7 @@ $results | Format-Table -AutoSize
 $failures = @($results | Where-Object status -eq "FAIL")
 $summary = [pscustomobject]@{
     checked_at = (Get-Date).ToString("o")
-    ready_for_non_destructive_validation = ($failures.Count -eq 0)
+    ready_for_non_destructive_validation = ($failures.Count -eq 0 -and $ocrVerified)
     failures = $failures.Count
     checks = $results
 }

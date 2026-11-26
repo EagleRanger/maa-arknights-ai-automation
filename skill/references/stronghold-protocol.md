@@ -1,5 +1,7 @@
 # 卫戍协议：规程（按需调用）
 
+积分与角标是两个入口。刷角标及重复失败复盘属于[高难推演（待测试）](hard-trial-review.md)。
+
 这是独立可选玩法，不自动加入每日默认链。MAA 负责刷取策略，接收方 AI 和原宿主负责进入活动、条件教学、结果确认与异常接回。
 
 ## 已接入的代码
@@ -11,7 +13,7 @@
 - `spa_rewards_state_v1.observe(app, screenshot, items)`：只读识别主页、功勋兑换列表、购买窗口和关键目标；缺失余额局部放大重读，不推定为零。
 - `tools/run_spa_trial_v1.py`：隔离专项测试入口；不是默认每日启动器。需要完整依赖及接收方自己的环境绑定。
 
-进入活动后确认“个人模拟／极速模拟”；教学后若默认停在联合模拟，先切个人模拟。首次可能有入门教学和界面引导；已经完成则直接接实际页面，不强制重放。教学由 AI 沿原后台截图/输入通道按当前提示处理，不能宣称 MAA 自动完成了全部教学。
+进入活动后确认“个人模拟／极速模拟”。首次可能有入门教学和界面引导；已经完成则直接接实际页面，不强制重放。教学由 AI 沿原后台截图/输入通道按当前提示处理，不能宣称 MAA 自动完成了全部教学。
 
 当前个人模式可能跳过准备页直接选择策略，适配层把官方已有 Goliath 模板加入入口候选，并在 ReturnHome 结束本次调用，不修改官方刷取策略。Core 回调可能省略任务命名空间，兼容 `ReturnHome` 与完整名称；任务完成后的正常停止不倒算为业务失败。错误交回原 AI，保持游戏，不重放结果未知的整轮。
 
@@ -28,23 +30,3 @@ MAA 有通用 `SS@Store@Begin` 活动商店接口，但其固定区域和横向�
 ## 当前验证范围
 
 新版资源真实 MaaCore 加载、条件教学后的入场、原生一轮刷取至第五回合退出及返回已实测；一次实际积分增加已核对。回调兼容和余额局部识别通过真实记录回放与离线回归，不冒充连续多次实机稳定。此流程用于刷奖励，不保证所有关键目标、蚀刻章或全局通关。
-
-## 接收方调用入口
-
-已有环境由原所有者调用 `synchronize` → `native_probe` → `run` → `observe`；本模块不抢控制权，也不默认关环境。
-
-专项宿主从 `runtime/` 执行：
-
-```powershell
-python tools/run_spa_trial_v1.py --output outputs/spa-trial-local --prepare
-python tools/run_spa_trial_v1.py --output outputs/spa-trial-local
-python tools/run_spa_trial_v1.py --output outputs/spa-trial-local --action observe
-# 原AI确认个人极速模拟入口后，交给MAA执行一轮
-python tools/run_spa_trial_v1.py --output outputs/spa-trial-local --action service
-```
-
-先按[接收方说明](receiver-integration.md)准备自己的 `.runtime_maa/MAA-App`、游戏包/实例目标及OCR配置。此入口使用随包既有 `daily_portable_bootstrap_v1.preflight()`，不需要作者的handoff或COMPONENTS；并非解压即能运行。`--prepare`会联网下载官方SPA资源并加载本机MaaCore做资源解析，不能当成纯静态检查；它不连接设备或操作游戏。MAA及其官方模板由接收方正常安装，不随包复制。
-
-已有运行目录通过同一命令口接续，不为测试重开未知结果的轮次。单轮返回后由原AI核对页面、积分与用户剩余目标；需要多轮时复用已持有的环境按用户轮数/截止执行，每轮用唯一输出目录。`--action end`主动结束专项并按原所有权收尾；`--native-entry`仅接受脚本列出的四个入口，按新鲜页面选择，不用Begin反复重开局。默认日常仍是原V167，专项不会调用每日full。
-
-`tools/verify_spa_trial_evidence_v1.py`不操作游戏，但会在接收方自己的运行目录新增 `evidence_replay.json`；原receipt保留。实例与游戏包核验不等于账号UID认证，不能借此声称已核验账号身份。

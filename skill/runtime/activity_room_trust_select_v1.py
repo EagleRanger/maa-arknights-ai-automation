@@ -50,18 +50,19 @@ def card_trust_ocr(path):
     """Twelve known card-foot ROIs; missing text stays unknown, never zero."""
     import cv2
     import numpy as np
-    from rapidocr_onnxruntime import RapidOCR
+    from local_ocr_v6_small_v2 import reader
     a = cv2.imdecode(np.frombuffer(Path(path).read_bytes(), np.uint8), cv2.IMREAD_COLOR)
     if a is None or a.shape[:2] != (1080, 1920): return []
-    reader = RapidOCR(); values = []
-    for col in range(6):
-        for row, y in enumerate((485, 900)):
-            x = 650+219*col
-            roi = cv2.resize(a[y-20:y+23, x-29:x+81], None, fx=3, fy=3)
-            found, _ = reader(roi)
-            digits = {int(m[1]) for box,t,c in (found or []) if float(c) >= .65
-                      if (m := re.search(r'(?<!\d)(\d{1,3})\s*%', t))}
-            if len(digits) == 1: values.append((str(digits.pop())+'%', x, y))
+    values = []
+    with reader() as engine:
+        for col in range(6):
+            for row, y in enumerate((485, 900)):
+                x = 650+219*col
+                roi = cv2.resize(a[y-20:y+23, x-29:x+81], None, fx=3, fy=3)
+                found, _ = engine(roi)
+                digits = {int(m[1]) for box,t,c in (found or []) if float(c) >= .65
+                          if (m := re.search(r'(?<!\d)(\d{1,3})\s*%', t))}
+                if len(digits) == 1: values.append((str(digits.pop())+'%', x, y))
     return values
 
 

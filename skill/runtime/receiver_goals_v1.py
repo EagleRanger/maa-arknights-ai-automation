@@ -29,7 +29,10 @@ GOALS = (
          'mode为experience/rewards/growth；银凇持续刷经验需core_char、squad、roles、deadline'),
     Goal('reclamation', '生息演算刷分或领取已有繁荣奖励',
          {'mode': 'rewards'}, '刷分mode=score并指定cycles；未覆盖兑换选择交AI'),
+    Goal('stronghold-badges','卫戍协议刷策略角标（待测试）',{},'默认金色；一胜、最多一次尝试，非刷分'),
     Goal('stronghold', '新版卫戍协议刷取一轮积分并核验结果', {}, '沿原单轮宿主；不冒称已能自动清店'),
+    Goal('paradox', '自动找一名已开放且未通过的干员并打一次悖论模拟', {}, 'Beta；不指定干员，不培养；游戏结算单独核实'),
+    Goal('module-queue', '按本人所选模组队列核进度并处理一档', {}, '可选；默认一阶，未启用不花材料'),
     Goal('training', '按指定干员和顺序完成技能专精培养', {},
          '使用本机培养计划；忙碌训练室保留，真实等级完成才推进，Beta'),
     Goal('module', '处理指定干员模组任务、解锁和目标等级',
@@ -74,7 +77,7 @@ def compile_goal(goal, inputs):
         return 'daily.custom', value
     if goal == 'stronghold' and value:
         raise ValueError('当前卫戍单轮宿主尚未接入自定义阵容/难度参数；不丢弃用户选择后执行默认策略')
-    direct = {'annihilation': 'weekly.annihilation',
+    direct = {'stronghold-badges':'spa.badges', 'module-queue':'operator.modules', 'paradox': 'operator.paradox', 'annihilation': 'weekly.annihilation',
               'stronghold': 'spa.trial', 'training': 'operator.training', 'mainline': 'mainline.stage'}
     if goal in direct:
         return direct[goal], value
@@ -133,6 +136,7 @@ def compile_goal(goal, inputs):
 
 
 DAILY_MODULES = {
+    'module-queue': ('operator.modules', None),
     'startup': ('daily.startup', None),
     'annihilation': ('weekly.annihilation', None),
     'event': (None, 'event'),

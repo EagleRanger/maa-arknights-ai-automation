@@ -188,6 +188,15 @@ def extra(session, inputs, context, previous, task):
 
 
 def binding(task):
+    if task == 'spa.badges':
+        from stronghold_badges_trial_v1 import run
+        return Operation(task,'exploration','badges',('ocr','shot','_maa_install_root')),run
+    if task == 'operator.modules':
+        from operator_module_queue_v1 import one_module
+        return Operation(task,'operators','modules',('ocr','shot','tap','goto_main_menu')),one_module
+    if task == 'operator.paradox':
+        from paradox_simulation_v1 import one_module
+        return Operation(task, 'operators', 'paradox', ('_maa_install_root','ocr','tap','wait','_fetch_prts_json')), one_module
     if task == 'mainline.stage':
         def mainline(session, inputs, context, previous, operation):
             from copy import deepcopy

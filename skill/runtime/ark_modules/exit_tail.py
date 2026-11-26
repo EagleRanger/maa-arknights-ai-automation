@@ -9,6 +9,7 @@ installed GUI serialization and real pages during natural-run acceptance.
 from copy import deepcopy
 from dataclasses import asdict
 from pathlib import Path
+from unittest.mock import patch
 
 from .core import Dispatcher, Module, ReceiptStore, Result, Step
 from .runtime_session import blocked
@@ -128,8 +129,10 @@ class ExitTail:
             from .orchestration import timestamp
             remaining = int((timestamp(self.context.deadline)-self.clock()).total_seconds())
             if remaining <= 0: return Result('unknown', '已到收尾截止，队列状态待核验')
-            completed = app.wait_maa_complete(timeout=min(600, remaining),
-                continue_after_chain_error=True, prestarted_boundary=True)
+            # Infrast is the native chain name, not full production/rotation.
+            with patch.object(app, '_base333_active_maa_scope', {'CollectionOnly'}, create=True):
+                completed = app.wait_maa_complete(timeout=min(600, remaining),
+                    continue_after_chain_error=True, prestarted_boundary=True)
             if app._maa_task_queue_running() is not False:
                 return Result('unknown', '收尾队列仍运行，未改配置或强制关闭')
             text = app._get_current_maa_run_log()

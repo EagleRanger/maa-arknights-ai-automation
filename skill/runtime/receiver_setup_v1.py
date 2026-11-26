@@ -300,12 +300,18 @@ def assembled(data, checked, main=None, root=ROOT, operations=()):
             stack.enter_context(patch.object(app, '_PUBLIC_TASK_MAX_ATTEMPTS', data.get('max_attempts', 5), create=True))
             # Base policies are entered only when that goal actually executes.
             # A later base goal must work even if this session began as rewards.
+            if (data.get('current_goal') or {}).get('id')=='paradox':
+                from daily_home_state_v1 import boundary as corrected_home
+                stack.enter_context(corrected_home(app))
             for context in (target(app), services(app, base_policies=False),
                             update(app), home(app), tolerance(app), reward_chain(),
                             task1.boundary(app), task2.boundary(), task3.boundary(app)):
                 stack.enter_context(context)
             stack.enter_context(patch.object(update_gate, 'BASE', supply))
             app._DAILY_EXISTING_SANITY_ONLY = True
+            from poll_frames_v1 import boundary as frames
+            from startup_transition_v1 import boundary as startup
+            stack.enter_context(frames(app));stack.enter_context(startup(app))
             yield lambda: main(app)
         return
     from daily_dispatch_v1 import resolve, selected_scope
@@ -326,7 +332,10 @@ def assembled(data, checked, main=None, root=ROOT, operations=()):
                 def compile_plan(mode, **kwargs):
                     kwargs['max_attempts'] = min(kwargs.get('max_attempts', 5), data.get('max_attempts', 5))
                     return original_compile(mode, **kwargs)
-                with patch.object(app, 'compile_execution_plan', compile_plan), \
+                from operator_module_queue_v1 import daily as optional_modules
+                from poll_frames_v1 import boundary as frames
+                from startup_transition_v1 import boundary as startup
+                with frames(app), startup(app), optional_modules(app), patch.object(app, 'compile_execution_plan', compile_plan), \
                      patch.object(app, '_foreground_mumu_display', return_value=True), \
                      patch.object(app, '_consume_confirmed_red_expiring_potion', return_value=False, create=True):
                     if main is not None:

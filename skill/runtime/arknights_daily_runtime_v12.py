@@ -2538,8 +2538,8 @@ def ocr(path):
     """OCR识别, 返回 [(text, cx, cy), ...]"""
     global _ocr_engine
     if _ocr_engine is None:
-        from rapidocr_onnxruntime import RapidOCR
-        _ocr_engine = RapidOCR()
+        from local_ocr_v6_small_v2 import current_engine
+        _ocr_engine = current_engine()
     result, _ = _ocr_engine(path)
     items = []
     if result:
@@ -23321,7 +23321,7 @@ def parse_cli_options(argv):
 def _runtime_dependencies_ready():
     """Fail before opening MuMu when the selected Python lacks live-control deps."""
     missing = []
-    for module_name in ("rapidocr_onnxruntime", "uiautomation"):
+    for module_name in ("PIL.Image", "cv2", "uiautomation"):
         try:
             __import__(module_name)
         except Exception as exc:

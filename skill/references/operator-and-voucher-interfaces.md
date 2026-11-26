@@ -1,158 +1,65 @@
-# Operator development and voucher interfaces
+# 干员培养与凭证兑换
 
-These are optional modules beside the existing published daily chain. Expose
-their inputs, receipts and actual integration maturity; do not label a source
-task, test adapter or screenshot as an automatically completed business flow.
+## 干员培养（可选）
 
-## Operator mastery (test integration)
+### 选择模组并入队
 
-MAA's native `OperProgress` supports named development plans. The current project
-adapter enables **explicit mastery goals** only: operator/role, skill 1–3,
-target mastery 1–3, in user order. It does not automatically enable all elite,
-level, ordinary skill, potential or module upgrades merely because MAA has
-related functions. Consult the installed MAA version's protocol/schema.
+在 Skill 根目录运行 `python scripts/select_module_presets.py`。清单来自[自在道爷挂机作业预设](../templates/zizai-idle-development.example.json)的 `module_library`：优先最近选定作业中的具名分支，再看采样内固定上场的关数。每项附作业号，可用 `https://prts.maa.plus/copilot/get/作业号` 核对。它是有日期的选单，不是全服排名；只有分支序号却尚没核清名称的干员留在参考名单，不自动加入。
 
-Dispatch only the first unfinished mastery goal. A training-room-busy result
-preserves the ongoing training. `Completed`/`PrerequisiteTraining` can indicate
-that the next training **started**, not that its real-time duration has finished.
-Verify actual mastery icons/current grade after collection. Persist completion
-only with matching account, current queue identity and actual grade at target;
-then advance to the next goal. On later normal logins claim/check/continue
-without polling a new scheduled task. An error must not fall through and start
-a lower-priority skill or replay daily work.
+- 例如只想看娜仁图亚、蕾缪安会怎样入队：`python scripts/select_module_presets.py --select 娜仁图亚:LPS-X --select 蕾缪安:DEA-Y`。这是预览，不改文件。
+- 用户确认后，在同一命令后加 `--apply --client 客户端包名 --uid 本人UID`；沿用该账号实际运行目录（另设了执行根目录时用 `--runtime-root`）。新选项按推荐顺序追加，不重排原队列、不覆盖已有的等级、专精或账号进度。只有用户明确选整套才用 `--all`。要改已有项目顺序或等级，单独修改本人计划。
+- 默认一阶。仅当用户明确要某个分支二、三级才写例如 `--select 娜仁图亚:LPS-X=2`。已有同一项不会被这条添加命令改级。也可在自己的 `runtime_state/operator_development_plan.json` 内按同格式填写库外干员（含实际模组名）。不选或停用模组队列时，原每日任务照常。
+- 完整包在 `runtime` 目录运行 `python ark.py run module-queue`，处理一名干员的一档；或把 `module-queue` 放进自定义日常。启用的账号计划也在标准日常末尾检查一次。核对本人页、分支、材料和任务；已达标跳过，缺条件只报缺项，不自行占用活动理智。不确定上次是否扣料时先读回，不重复提交。
 
-Preserve/restore the user's MAA configuration at idle boundaries. Keep auxiliary
-queue logs separate from daily battle receipts. Return `waiting_training`,
-verified completion, or a precise attention result; a wait is not a failed
-battle and is not completion. Use the account store for verified permanent facts.
+首次介绍功能时提示：“可选择升级／精英化、技能专精和模组培养。可参考近期自在道爷挂机流要求，也能换成自己的干员、技能和目标。”选择后沿用，未选不影响原日常。
 
-Prefer the existing daily **Infrast Training** observation when the trainee is
-already in the room. Native callbacks report its operator, skill, training
-grade, remaining timer or collected completion. A current verified processing
-timer lets the goal service preserve that room and skip the extra character-page
-visit. An expired timer, completed/idle room or unverified observation falls back
-to the ordered goal check. Training grade while processing is not a finished
-mastery level. Do not borrow an old queue or another account's observation.
+参考[近期挂机流配置](../templates/zizai-idle-development.example.json)。它是公开作业要求，不是发布者账号进度，也不是直接传给MAA的参数。用户或本机AI可替换名单和顺序，再转换成已接入接口的本地配置；替代组只培养实际选用者。
 
-MAA's `continue_training` option can continue the current skill before grade 3;
-it is independent of the custom roster. Keeping/skipping roster changes does
-not disable this option. Enable it only under the recipient's agreed training
-policy; it is not the complete named-operator/skill-order planner. Do not assume
-putting a trainee in `operatorsB` alone starts training. Reuse the existing
-daily facility before adding a second independent visit.
+### 接口与范围
 
-## Module missions (test interface; inspect before selecting a job)
+完整包先运行 `python ark.py list`；旧工程沿实际选定宿主，不裸调带过期候选限制的试验脚本。
 
-First read the named operator's actual module page: module identity, unlocked
-state, both mission counters/conditions and current module level. Use existing
-account facts only while their evidence/key remains valid. If complete, skip;
-if partial, plan only the unfinished mission. Never search and run a job merely
-because the user named an operator. Unknown progress is not zero.
+| 子目标 | 当前入口／范围 |
+| --- | --- |
+| 技能专精 | `python ark.py run training`；读取本机 `runtime_state/operator_training_plan.json`，结构见包内 `config/operator_training_plan.example.json`。明确干员、职业、技能和目标专精。 |
+| 模组任务、开通、升级 | `python ark.py describe module`；`python ark.py run module --inputs <目标JSON>`。本机 `runtime_state/operator_module_plan.json`指定目标与动作；现有具名样例为怒潮凛冬HAM-X，其它分支先检查适配。 |
+| 升级／精英化、普通技能 | Beta衔接项。MAA原生已有部分能力，当前公开专精适配器并未自动接通全部字段。缺少执行适配要明确报告，不能只做专精却声称整个培养完成。 |
 
-For a needed battle, use a compatible existing MAA Copilot job and the proven
-single-stage orchestration. Validate **mission-specific formation conditions**,
-including own operator versus support, required deployment/skill, excluded
-classes and named stage/mode. A three-star result alone does not prove a module
-mission. Reopen/read the same module mission counters after battle and persist
-only the observed change. Do not declare unlocking/level upgrades or spend
-their materials unless that was explicitly requested.
+MAA 6.22.0的[OperProgress计划](https://github.com/MaaAssistantArknights/MaaAssistantArknights/blob/v6.22.0/src/MaaCore/Task/Interface/OperProgressTask.cpp)支持 `role/name/elite/skill_level/skill_mastery`。精英化前会补满当前阶段等级，晋升后停在新阶段1级；不等于支持任意“精二60级”，也不能把 `level` 或模组字段直接塞进去。
 
-For an explicitly requested module grade (beta), finish and verify missions
-separately from unlocking. Check the named operator and equipped branch on the
-operator detail page **before and after each grade**. A brief battle toast or
-a mission counter alone is not a grade. Use the quote for the next grade;
-if crafting is in scope, make only the deficit (including sub-recipes) and
-return to the quote to verify actual stock. Submit once per grade, inspect
-before retrying, and cache the proved terminal grade per account and branch.
-An unreadable or different branch is not permission to spend.
+### 执行规则
 
-The [badge reader](../scripts/operator_module_badge.py) accepts OCR rows from a
-1920×1080 operator detail screenshot plus the expected character and branch.
-This layout was verified at grades 1, 2 and 3 for one named module; unsupported
-layouts return unknown. Save the original and account-bound evidence locally.
-If the recipient wants only **unopened** modules, any verified advanced branch
-at grade 1 or higher excludes that operator from this shortlist. An ORIGINAL
-badge says what is equipped, not what the account owns. Check the named branch
-card for a lock and its own 解锁 control; where several branches exist, exclude
-the operator if another is already open. An uninspected branch stays unknown.
-A read-only shortlist is not an instruction to spend materials.
-The workshop shows “需加工 N” as a label, not a quantity-setting button. Set
-the quantity with +/−; verify the selected number and ingredients **before**
-starting. The recipe's internal left arrow returns to its parent ingredient;
-the top-left navigation can instead return to the module quote.
+- 先查本账号实际等级。无记录不等于没培养；已完成跳过，只补差额。公用方案不带账号、库存或发布者的私人顺序。
+- 保留正在训练的干员、技能和协助者。优先复用本轮基建Training回调；没有新鲜观察时只查训练室，不重跑整套基建。按实际在训者安排下一项，不把计划目标当在训者。
+- `Completed/PrerequisiteTraining`可能只表示开训。计时中的档位不是已完成专精；领取后核实际等级，达到目标才写账号事实并前进。训练中不另建定时轮询。
+- `continue_training`可在当前技能未专三时续训，与自定义排班是否跳过换人独立；它不代替具名技能顺序规划。放进训练室也不等于已开训。
+- 只用用户已选资源策略；需要加工就合成缺额，不擅自把活动刷取改成培养刷本。辅助队列日志与日常分开，空闲边界恢复原MAA配置。
+- 训练结束留在技能详情页时，可按实际返回控件逐步接回；不因返回失败重开训练。仍无法接回，保留原控制者交执行AI。
 
-### Choose high-use idle-play cores for training (optional)
+### 模组
 
-Use the recipient's chosen guide author. Keep available, explicitly credited
-idle-play jobs with an upload date inside the rolling two calendar years. Match
-stage aliases, then count the latest dated version of each stage once (ID only
-breaks time ties). Report fixed-roster, pair and triple frequencies across those
-distinct stages and the denominator. Substitutes are not fixed members; views
-and stars are not executions. These are sample frequencies, not server usage or
-win rates. This is a training shortlist, not a battle selector: verify the exact
-mode separately and inspect the recipient's actual skills/modules before spending.
+先看指定分支的锁定状态、两个任务条件／计数和等级。ORIGINAL只表示当前装备，不能证明账号没开模组；只筛未开模组时，任何已核实的可用分支都可排除该干员。
 
-Module management may be labelled `管理 +` beside the current ORIGINAL or
-equipped module card; do not require a literal `模组` OCR word. Open the named
-card and its requirement page, not the final material confirmation. A mission's
-Go button can retain a previously selected risk mode. Re-read the actual target
-stage and required normal/risk mode before Start. Ordinary progression's
-already-three-star shortcut does not satisfy a new operator-specific mission;
-return to the same module counters after this specific battle.
+只补未完任务。用现成作业时核本人的干员／助战限制、部署与技能、禁用职业、指定关卡和模式；旧三星记录不能替代这次模组任务。Go按钮可能保留上次模式，切换按钮文字也可能表示“将切往哪里”，开始前核实际模式。
 
-Difficulty switch text may name the destination, not the selected mode. Confirm
-that meaning against the actual page/badges before clicking it. A successful
-battle in the wrong mode leaves the mission incomplete; preserve that counter
-and fix navigation instead of changing an already valid roster.
+战后返回同一模组页验计数。打赢任务关不等于已解锁；用户要求开通／升级时，再逐级核报价、材料和本人页等级。加工数量用实际加减控件，提交前核选中数量；提交不明先复查，不能重复消费。没写清的模组序号不是等级，也不默认全部升三级。
 
-## Voucher capabilities and limits
+模组入口可能标为“管理+”。[徽记识别脚本](../scripts/operator_module_badge.py)可读已覆盖的1920×1080详情布局，未知布局返回未知，不负责点击或升级。
 
-MAA's documented mini-game/tools entry contains green/yellow voucher exchange;
-normal `Mall` credit shopping does not automatically invoke these pipelines.
-Installed resources must be checked against the actual invoking interface.
+若需要重建常用名单，按用户选的作者和近期具名作业统计；同一关取最新版本，替代干员不算固定核心。样本频次不当成全服使用率或胜率。
 
-| Function | Verified native/source capability | Project boundary |
-| --- | --- | --- |
-| Green tickets | First-floor goods and second-floor headhunting/recruitment permit steps | A recipient may select all finite first-floor stock; never carry that preference into the second floor or another account |
-| Yellow tickets | Standard headhunting and ten-pull purchase steps | Full remaining-bundle budget and reconciliation required before purchase |
-| Red tickets | Chip-catalyst locator/purchase steps found | Beta: one named chip catalyst was tested; match the red tab, exact product, one unit and displayed cost. Confirm both voucher decrease and inventory increase. Never repeat an uncertain submission or enable recurring purchases from a single trial. |
-| Token-to-ticket conversion | Not yet verified by this adapter | Inspect native entry before promising execution |
-| Operator exchange | Not yet verified by this adapter | Exact named request and current price/banner stock required |
+## 凭证兑换
 
-Full standard yellow-ticket permits currently cost **258 certificates for 38
-pulls**, tiers 10/18/40/70/120, refreshing monthly on day 1 at 04:00 China time.
-Kernel permits are a different product/budget. Validate live shop prices and
-refresh evidence, especially for another server; never hard-code an operator
-banner's rotation as this monthly permit period. See
-[voucher shop data](https://prts.wiki/w/凭证交易所) and
-[MAA tools](https://docs.maa.plus/zh-cn/manual/introduction/tools.html).
+与培养独立选择。普通信用商店Mall不自动包含凭证商店。
 
-A full-bundle policy means: insufficient total **remaining** cost → save, no
-partial purchase. Before any purchase reconcile account, current period,
-currency, standard/kernel product and already-bought tiers. After an uncertain
-or partial transaction re-read actual stock/balance and buy only the remainder;
-do not restart the five tiers from a stale receipt. Verify all purchased tiers
-and balance change before caching this period complete. Skip a fully verified
-period until refresh; unknown balance is not zero and planning is not purchasing.
+| 功能 | 当前范围 |
+| --- | --- |
+| 绿票 | 原生有第一层和第二层部分商品流程；用户可选择买完有限第一层库存，不自动扩到第二层。购买闭环仍待本账号实测。 |
+| 黄票 | 已有整套预算规划、原生兑换接缝；购买闭环待实测。预算不足就存，不买半套。 |
+| 红票 | Beta：已测一件芯片助剂。读取独立 `runtime_state/red_catalyst_plan.json`；核红票页、商品、数量、费用及余额下降／库存增加，不因单次测试默认周期购买。 |
+| 信物换票、干员兑换 | 当前适配未验证；先核实际入口，干员兑换需明确对象。 |
 
-Inputs are private product/budget choices and fresh account-bound observations;
-outputs distinguish saved budget, eligible plan, started purchase, uncertain
-transaction and verified full completion. The current project has an offline
-monthly yellow-bundle planner, **not a live-verified green/yellow purchasing flow**.
-Keep those states explicit when sharing the Skill.
+标准黄票整套寻访券参考为258票／38抽，档位10、18、40、70、120；月度刷新参考为国服每月1日04:00。中坚券、干员轮换另算，实际价格／刷新按当前商店核实。[商店资料](https://prts.wiki/w/凭证交易所)、[MAA小工具](https://docs.maa.plus/zh-cn/manual/introduction/tools.html)。
 
-**接入方式**：选用模组任务时，在本机的 `runtime_state/operator_module_plan.json`
-指定账号、干员、模组及动作（`inspect`、`mission_battle`、`unlock`、`upgrade`）。
-目前可执行的样例只支持怒潮凛冬 HAM-X；没配置就不启用，不替换别的目标。
-红票试用入口读取独立的 `runtime_state/red_catalyst_plan.json`，每个购买请求
-只买一个芯片助剂，不读取培养计划，也不默认购买。两个配置的空白示例在 templates 目录。
-# Training return boundary
-
-After the native training task, distinguish its skill-detail page from an
-activity map. A page showing the trainee as training, an assistant and skill
-descriptions can be left with Back without changing either occupant or skill.
-Read a fresh frame after each action and rejoin the existing home navigator.
-Do not restart an already-started training because returning failed. If the
-configured return budget fails, preserve the original owner and scene for AI,
-then recheck home before continuing independent daily closeout.
+购买前核账号、周期、货币、标准／中坚商品及已买档位，用剩余总价判断预算。结果不明先复查，只补余量；全部目标档位与余额变化已核实后才记录本期完成，刷新前不重复进入。
 

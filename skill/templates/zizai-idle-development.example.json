@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "preset_id": "zizai-idle-tl-s-202611",
+  "snapshot_date": "2026-11-17",
+  "enabled_by_default": false,
+  "purpose": "optional public copilot reference requirements; not account ownership, verified progress, a ranking, or executable MAA parameters",
+  "sources": [
+    {"job_id": 110185, "stage": "TL-S-4", "author": "自在道爷", "json_author": "星之海", "site": "https://prts.plus", "video": "https://www.bilibili.com/video/BV1vBsJ6LEQS"},
+    {"job_id": 110246, "stage": "TL-S-3", "author": "自在道爷", "json_author": "星之海", "site": "https://prts.plus", "video": "https://www.bilibili.com/video/BV1vBsJ6LEQS"}
+  ],
+  "module_selector_semantics": "copilot selector is not a module grade; resolve the named branch on the recipient's actual operator page before any spend",
+  "module_library": [
+    {"name":"圣聆初雪","branch":"PLX-Y","module_title":"千分之一的心","target_level":1,"source_jobs":[110246,108016],"sample_stages":6},
+    {"name":"遥","branch":"BLS-Y","module_title":"迟来的纪念","target_level":1,"source_jobs":[110246,109727],"sample_stages":4},
+    {"name":"怒潮凛冬","branch":"HAM-X","module_title":"迟到的勋章","target_level":1,"source_jobs":[110246],"sample_stages":1},
+    {"name":"蕾缪安","branch":"DEA-Y","module_title":"“弹匣与花窗”","target_level":1,"source_jobs":[110185,109727],"sample_stages":1},
+    {"name":"新约能天使","branch":"GEE-X","module_title":"新朋友圣城生活套组","target_level":1,"source_jobs":[110185,109727],"sample_stages":1},
+    {"name":"维什戴尔","branch":"BOM-X","module_title":"“祖宗发射器”","target_level":1,"source_jobs":[110185,109727],"sample_stages":1},
+    {"name":"娜仁图亚","branch":"LPS-X","module_title":"“吹尽狂沙”","target_level":1,"source_jobs":[109714],"sample_stages":11},
+    {"name":"伊内丝","branch":"AGE-Y","module_title":"角部“护理”套组","target_level":1,"source_jobs":[109727],"sample_stages":1},
+    {"name":"斩业星熊","branch":"AST-X","module_title":"无迹","target_level":1,"source_jobs":[108016],"sample_stages":1},
+    {"name":"荒芜拉普兰德","branch":"FUN-X","module_title":"狼时","target_level":1,"source_jobs":[108016],"sample_stages":1},
+    {"name":"Mon3tr","branch":"XAH-X","module_title":"记忆存档","target_level":1,"source_jobs":[108016],"sample_stages":1}
+  ],
+  "module_priority_basis": "已核对的具名分支：11月17日选定TL-S作业优先，再按10月11日至11月9日采样中同分支固定上场的不同关数排序，同分看作业号；不是全服排名。默认一阶是培养起点，不保证满足所有作业。",
+  "targets": [
+    {"name": "凛御银灰", "elite": 2, "level": 60, "skill": 3, "skill_rank": 7, "mastery": 3, "module": null, "source_jobs": [110185,110246]},
+    {"name": "可露希尔", "elite": 2, "level": 60, "skill": 3, "skill_rank": 7, "mastery": 3, "module": {"selector": 1, "branch": null, "minimum_level": 1}, "source_jobs": [110185]},
+    {"name": "凯尔希·思衡托", "elite": 2, "level": 60, "skill": 2, "skill_rank": 7, "mastery": 3, "module": null, "source_jobs": [110185]},
+    {"name": "维什戴尔", "elite": 2, "level": 60, "skill": 3, "skill_rank": 7, "mastery": 3, "module": {"selector": 1, "branch": null, "minimum_level": 1}, "source_jobs": [110185]},
+    {"name": "予愿安洁莉娜", "elite": 2, "level": 60, "skill": 3, "skill_rank": 7, "mastery": 3, "module": null, "source_jobs": [110185]},
+    {"name": "新约能天使", "elite": 2, "level": 60, "skill": 2, "skill_rank": 7, "mastery": 3, "module": {"selector": 1, "branch": null, "minimum_level": 1}, "source_jobs": [110185]},
+    {"name": "冻河", "elite": 2, "level": 60, "skill": 2, "skill_rank": 7, "mastery": 3, "module": null, "source_jobs": [110185]},
+    {"name": "蕾缪安", "elite": 2, "level": 60, "skill": 3, "skill_rank": 7, "mastery": 3, "module": {"selector": 2, "branch": null, "minimum_level": 1}, "source_jobs": [110185]},
+    {"name": "乌尔比安", "elite": 2, "level": 60, "skill": 2, "skill_rank": 7, "mastery": 3, "module": {"selector": 1, "branch": null, "minimum_level": 1}, "source_jobs": [110246]},
+    {"name": "怒潮凛冬", "elite": 2, "level": 60, "skill": 2, "skill_rank": 7, "mastery": 3, "module": {"selector": 1, "branch": null, "minimum_level": 1}, "source_jobs": [110246]},
+    {"name": "星熊", "elite": 2, "level": 60, "skill": 2, "skill_rank": 7, "mastery": 3, "module": {"selector": 1, "branch": null, "minimum_level": 1}, "source_jobs": [110246]},
+    {"name": "圣聆初雪", "elite": 2, "level": 60, "skill": 2, "skill_rank": 7, "mastery": 3, "module": {"selector": 2, "branch": null, "minimum_level": 1}, "source_jobs": [110246]},
+    {"name": "遥", "elite": 2, "level": 60, "skill": 2, "skill_rank": 7, "mastery": 3, "module": {"selector": 2, "branch": null, "minimum_level": 1}, "source_jobs": [110246]},
+    {"name": "歌蕾蒂娅", "elite": 2, "level": 60, "skill": 1, "skill_rank": 7, "mastery": 3, "module": {"selector": 1, "branch": "X", "minimum_level": 2}, "source_jobs": [110246]},
+    {"name": "罗比菈塔", "elite": 2, "level": 60, "skill": 2, "skill_rank": 7, "mastery": 0, "module": null, "source_jobs": [110246], "note": "explicit job field is rank7, despite the generic all-M3 description; do not silently spend for M3"}
+  ],
+  "alternative_groups": [
+    {"name": "单奶", "choose": 1, "selected": null, "source_jobs": [110246], "options": [
+      {"name": "纯烬艾雅法拉", "elite": 2, "level": 60, "skill": 1, "skill_rank": 7, "mastery": 3, "module": {"selector": 1, "branch": null, "minimum_level": 1}},
+      {"name": "闪灵", "elite": 2, "level": 60, "skill": 2, "skill_rank": 7, "mastery": 3, "module": {"selector": 2, "branch": null, "minimum_level": 1}}
+    ]}
+  ],
+  "support_targets": [{"name": "Lancet-2", "elite": 0, "level": 30, "mastery": null, "module": null, "source_jobs": [110185,110246]}],
+  "policy": "recipient selects and edits this reference, checks actual progress, and translates only supported actions; no automatic enabling or publisher-private priority"
+}

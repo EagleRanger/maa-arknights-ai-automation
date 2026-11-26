@@ -19,6 +19,12 @@ are different identifiers. If a recognizer's metadata gives only training
 statistics, report its generation as unknown; do not label the whole stack
 from its detector or an old conversation.
 
+MAA 6.22.0 moved the desktop Chinese/English/Japanese OCR to PP-OCRv6;
+the public package also has an independent v6-small Python adapter. Neither
+proves which model the recipient currently loads. After an update, use the
+[version compatibility check](maa-update-compatibility.md), keep stable local
+verification, and do not repeat AI image reading for already-proved native results.
+
 Before changing a model, replay the actual blocking frames under the same ROI
 and decision rule. Report successful workflow decisions and latency, not only
 generic character accuracy. A small saved sample does not prove universal

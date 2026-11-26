@@ -8,13 +8,13 @@ def isolated_invite(path):
     import cv2
     import numpy as np
     from pathlib import Path
-    from rapidocr_onnxruntime import RapidOCR
+    from local_ocr_v6_small_v2 import reader
     a = cv2.imdecode(np.frombuffer(Path(path).read_bytes(), np.uint8), cv2.IMREAD_COLOR)
     if a is None or a.shape[:2] != (1080,1920): return False
-    reader = RapidOCR()
-    for scale in (2,3):
-        found,_ = reader(cv2.resize(a[535:620,1480:1660],None,fx=scale,fy=scale))
-        if not any(t.strip() == '邀请' and float(c) >= .5 for box,t,c in (found or [])): return False
+    with reader() as engine:
+        for scale in (2,3):
+            found,_ = engine(cv2.resize(a[535:620,1480:1660],None,fx=scale,fy=scale))
+            if not any(t.strip() == '邀请' and float(c) >= .5 for box,t,c in (found or [])): return False
     return True
 
 
