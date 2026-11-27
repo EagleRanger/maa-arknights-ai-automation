@@ -899,8 +899,8 @@
     },
     {
       "path": "daily_stage_handoff_v1.py",
-      "bytes": 2145,
-      "sha256": "4b2bb211fbe645da5aedee6901b2a6b4a35ab32f173f3204d695d3b3efe1a868"
+      "bytes": 2587,
+      "sha256": "7f2927f5e1dbb5c7fc8222aca9687992f4f9dc9135bcc855019af43954cb1093"
     },
     {
       "path": "daily_stamina_exhaustion_v1.py",
@@ -954,8 +954,8 @@
     },
     {
       "path": "daily_startup_cooperation_v1.py",
-      "bytes": 3838,
-      "sha256": "25e61ddb4c89f641606e41831e1bfb9ff5c556218d51a9bed05a63728213e9a0"
+      "bytes": 4100,
+      "sha256": "b1022352ec44efd25c042445e98a28d54719fc00ba7fdd0b31e29bce640aafb1"
     },
     {
       "path": "daily_startup_rewards_v1.py",
@@ -1214,13 +1214,18 @@
     },
     {
       "path": "event_layout_profiles_v1.py",
-      "bytes": 5919,
-      "sha256": "8941d1ba60dec641af7275eb9a003c3b00a462c5437e542126240a8761cf08c2"
+      "bytes": 6376,
+      "sha256": "3452c51cb38d9f57a6e1fe3673af43d3c83a515c831c7ae6e52ea8392dbb2fe0"
     },
     {
       "path": "event_lobby_recovery_v1.py",
       "bytes": 1594,
       "sha256": "17be71e113248cd6c05595868b4de5549fb527e35f297c77ec33c12ea87290ef"
+    },
+    {
+      "path": "event_map_reuse_v1.py",
+      "bytes": 12492,
+      "sha256": "7817d52eb8653a057194189013f98dfbc30576cbf10d6aad4c23260b8bc3fc97"
     },
     {
       "path": "event_navigation_recovery_v1.py",
@@ -1366,6 +1371,11 @@
       "path": "feature_acceptance_transport_v1.py",
       "bytes": 1048,
       "sha256": "a7afd4acd55baa364b4bde4913b4daec384232de3d2a54000cd496df52a7510f"
+    },
+    {
+      "path": "funded_activity_v1.py",
+      "bytes": 14059,
+      "sha256": "69ba111fb079af4d60bc63c9cfaae4f77a403b1fa9eb4ab63dd804dfa1748db5"
     },
     {
       "path": "game_update_judgement_v1.py",
@@ -1549,8 +1559,8 @@
     },
     {
       "path": "operator_module_queue_v1.py",
-      "bytes": 11672,
-      "sha256": "bcb889683b3821ef0be34ee6286adccf418c7206552746275f113604a9f31a81"
+      "bytes": 11954,
+      "sha256": "a1f3f6bf90dc29a46a665741bb400d03994abb7c26e7a7015ef40d74c1dbbf45"
     },
     {
       "path": "operator_optional_inspection_v1.py",
@@ -1569,8 +1579,8 @@
     },
     {
       "path": "operator_training_return_v1.py",
-      "bytes": 2602,
-      "sha256": "51660ce5dfead403df761c972f8b0ab6cf82b405adad7f7752c4a9f1bd955fb5"
+      "bytes": 4370,
+      "sha256": "4cb40192f73dc504136ec95709120b9bcdabf06f0f6d7d45847e1cc18b96e938"
     },
     {
       "path": "operator_training_room_probe_v1.py",
@@ -1579,13 +1589,18 @@
     },
     {
       "path": "operator_training_v1.py",
-      "bytes": 15266,
-      "sha256": "f0ccf39222b073c8831daa872e02aac2a33ea12ed48f2af8e5c937dbb641348b"
+      "bytes": 15714,
+      "sha256": "bf172f58da9cc41572044b1caad411648dd6553e004ba2549fd82d7eb01dd13e"
     },
     {
       "path": "operator_training_v2.py",
       "bytes": 537,
       "sha256": "486b3587ac486acdef4eb6bd4635dfba015c63bd8761283ed0824739ec7c42bd"
+    },
+    {
+      "path": "os_reopen_route_v1.py",
+      "bytes": 7128,
+      "sha256": "2978223d4bfc1a09f27fd91f32c51f77d61139c3c47af5ab3285c4a61ac51c6a"
     },
     {
       "path": "paradox_simulation_v1.py",
@@ -1653,14 +1668,19 @@
       "sha256": "0fc037952daed1a63604f3ee65aa453f28c363a84231531790600e1141f1f935"
     },
     {
+      "path": "receiver_farm_scope_v1.py",
+      "bytes": 1231,
+      "sha256": "9fd1d23aec28af5ec619e147702d098224660cdb092882ee39ee14649bddabcd"
+    },
+    {
       "path": "receiver_goals_v1.py",
       "bytes": 10821,
       "sha256": "e8f93980352ae2f31fbdbf9a793d09dd10f00b4a9115bad9355784398fe9f8c0"
     },
     {
       "path": "receiver_operations_v1.py",
-      "bytes": 17707,
-      "sha256": "1a1647689395c6051c1f35d6bee3863422da67210136a30ce3af375a4de2f652"
+      "bytes": 19314,
+      "sha256": "61b31d7254b03c154f8f449619046cf2ca2d4e6491c9153aa9a05ed526cffc84"
     },
     {
       "path": "receiver_resume_v1.py",
@@ -1674,8 +1694,8 @@
     },
     {
       "path": "receiver_setup_v1.py",
-      "bytes": 20447,
-      "sha256": "b6ebe8c1294a94536dc647e7514ff43f104773b46cf421a75bd2890cbc5dd34b"
+      "bytes": 21593,
+      "sha256": "87d44a2883505c676945d39b4a13325e87cb336c3d33b1fb2c3c4574d9b65772"
     },
     {
       "path": "receiver_sss_formation_v1.py",
@@ -2629,8 +2649,8 @@
     },
     {
       "path": "scan_retry_v1.py",
-      "bytes": 9020,
-      "sha256": "0d5e1a7fd81453f1d364b4ad4c806d7f9a0d189233491a0871a77e0298f6f12f"
+      "bytes": 10974,
+      "sha256": "67696cd7a7079244d3eef25f6a69be044eac4b33556b8c2d87015eba86e4cffd"
     },
     {
       "path": "show_summary_popup.py",
@@ -2764,8 +2784,8 @@
     },
     {
       "path": "tests/probe_receiver_assembly_v1.py",
-      "bytes": 7031,
-      "sha256": "a5262e1b6550d4fc908fb0a7b006dcac48900eada8bcedf3922d73223ca54226"
+      "bytes": 7666,
+      "sha256": "7e2a70bb8db056afbd42ebe08fe14de3905febf52c8ef4bf0d4c6183f37ff27d"
     },
     {
       "path": "tests/test_direct_v6_ocr_v1.py",
@@ -2786,6 +2806,11 @@
       "path": "tests/test_receiver_paradox_v1.py",
       "bytes": 2993,
       "sha256": "2f7995c2ceb5f5fc5fb9b1147f0816d8e79b17f6232f5aec6282a4dcf0859bd5"
+    },
+    {
+      "path": "tests/test_receiver_verified_handoff_v1.py",
+      "bytes": 3475,
+      "sha256": "38a5b444982e1706c26a017a344e69ab86d1b5dd62991404d77a5fc2be462d67"
     },
     {
       "path": "tests/test_spa_current_resources_v1.py",
@@ -2829,8 +2854,8 @@
     },
     {
       "path": "tools/build_receiver_manifest_v1.py",
-      "bytes": 2205,
-      "sha256": "7d524568d8de312d42a53043e856a8237ea0e130b8b6451cbd9e5c78fe492a06"
+      "bytes": 2370,
+      "sha256": "e070d4854f699fe03a7dd1809936b94685b42300d654243f0a56351c2641870b"
     },
     {
       "path": "tools/collect_portable_resources_v1.py",

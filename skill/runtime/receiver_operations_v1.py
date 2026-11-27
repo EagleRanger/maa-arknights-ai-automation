@@ -67,8 +67,27 @@ def extra(session, inputs, context, previous, task):
         if task == 'goal.event':
             names = set(inputs.get('stages') or [])
             candidates = list(app._event_execution_stages(event))
+            from event_map_reuse_v1 import remaining_progress
+            remaining=remaining_progress(app,event)
+            if event.get('kind')=='rerun':
+                # Reruns use the reset mission list, not the first-clear worker.
+                # Keep explicit stage/mode filters; never add unrelated replays.
+                normal=[s for s in event.get('replay_stages',[]) if not names or s in names]
+                challenge=[s for s in event.get('required_challenge_replays',[])
+                           if (not names or s in names) and inputs.get('include_challenge',True)]
+                if not normal or names-set(normal):
+                    return Result('partial','复刻任务范围未确认，不作首通或其它战斗')
+                filtered=dict(event,replay_stages=normal,required_challenge_replays=challenge)
+                needs=remaining_progress(app,filtered)
+                if needs==[]:
+                    results.append(dict(verified=True,source='verified_rerun_ledger',new_battles=0))
+                else:
+                    raw=app.mode_event_rerun_tasks(filtered)
+                    left=remaining_progress(app,filtered)
+                    results.append(dict(verified=raw is True and left==[],remaining=left))
+                candidates=[]
             selected_names = set()
-            if not candidates:
+            if not candidates and event.get('kind')!='rerun':
                 route_verified = False
             for stage in candidates:
                 name = stage.get('display')
@@ -78,6 +97,9 @@ def extra(session, inputs, context, previous, task):
                 modes = app._event_stage_modes(event, stage)
                 for mode in modes:
                     if mode == 'challenge' and inputs.get('include_challenge', True) is False:
+                        continue
+                    if remaining is not None and (name,mode) not in remaining:
+                        results.append(dict(stage=name,mode=mode,verified=True,source='verified_record',new_battles=0))
                         continue
                     if app._maa_task_queue_running() is not False:
                         return Result('unknown', '当前作战未结算，不继续操作', data={'stages': results})
@@ -97,7 +119,7 @@ def extra(session, inputs, context, previous, task):
                 extra_content = press(app, out / 'extras')
                 route_verified = route_verified and extra_content.get('status') in GOOD
                 results.append(dict(additional_content=extra_content))
-            if names - selected_names:
+            if event.get('kind')!='rerun' and names - selected_names:
                 route_verified = False
         rewards = session.execute('activity.rewards', selected, context)
         failed = [r for r in results if r.get('verified') is False]

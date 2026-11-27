@@ -2,13 +2,15 @@
 
 让 AI 按玩家的实际需求安排《明日方舟》的日常，把刷图、找作业、推进关卡、领奖和基建生产接成一套自动化流程，减少反复查看进度和手动切换任务的时间。
 
-当前版本：**v1.2.6（2026-11-26）**。适用于Windows上的AI编程/执行工具，基于MAA与Android模拟器运行，附带执行源码和统一脚本入口。AI能查全功能、找到对应命令，完成本机配置后直接调用；不需要作者工程或Loop，不用重新开发控制器。
+当前版本：**v1.2.6（11 月 27 日同版更新）**。适用于Windows上的AI编程/执行工具，基于MAA与Android模拟器运行，附带执行源码和统一脚本入口。AI能查全功能、找到对应命令，完成本机配置后直接调用；不需要作者工程或Loop，不用重新开发控制器。
 
 [下载完整源码 ZIP](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/download/v1.2.6/arknights-automation-skill-v1.2.6-source-20261126.zip) · [查看最新稳定版 v1.2.6](https://github.com/EagleRanger/maa-arknights-ai-automation/releases/latest) · [接收方 AI 对接说明](skill/references/receiver-integration.md) · [OCR 模型来源与安装自检](skill/references/local-ocr-setup.md)
 
 <!-- project-support:start -->
 > 如果本项目对你或你的 AI 开发有帮助，下载使用或借鉴后，欢迎点个 [Star](https://github.com/EagleRanger/maa-arknights-ai-automation) 支持，让更多有同类需求的人找到它。
 <!-- project-support:end -->
+
+本次修复：已验收的活动关不再来回进图查重；材料关直接沿用当前详情；干员培养后从筛选列表正常返回，不把收尾写成启动失败。
 
 ## 它能自动帮玩家做什么
 

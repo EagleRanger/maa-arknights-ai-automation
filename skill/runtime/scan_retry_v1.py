@@ -163,6 +163,31 @@ def boundary(app):
         yield
 
 
+def roster_grid(rows):
+    from paradox_simulation_v1 import sorted_roster
+    roster=sorted_roster(rows)
+    if not roster or roster['drawer']:return False
+    if not any(norm(t)=='稀有度' and 1370<x<1560 and 10<y<90 for t,x,y in rows):return False
+    if any(any(w in norm(t) for w in ('确认','是否','取消','正在提交','网络异常','获得物资'))
+           for t,_,_ in rows):return False
+    cards=[]
+    for y in (493,972):
+        levels=[x for t,x,v in rows if abs(v-y)<16 and re.fullmatch(r'[1-9]\d?',norm(t))]
+        tags=[x for t,x,v in rows if 9<v-y<38 and re.fullmatch(r'ORIG|[A-Z]{2,4}[XYDΔ]',norm(t))]
+        names=[x for t,x,v in rows if 36<v-y<80 and re.search(r'[\u4e00-\u9fff]',str(t))]
+        matched=sorted(x for x in levels if any(35<b-x<95 for b in tags) and any(60<n-x<155 for n in names))
+        if len(matched)>=3 and matched[-1]-matched[0]>360:return True
+        cards.append({x for x in levels if any(60<n-x<155 for n in names)})
+    # Filtered, horizontally scrolled roster: module badges may be missing
+    # on most cards. The same columns of level/name pairs on TWO rows and the
+    # active profession filter identify the roster without any one badge/name.
+    roles={'先锋','近卫','重装','狙击','术师','医疗','辅助','特种'}
+    if not any(norm(t) in roles and 1760<x<1920 and 20<y<95 for t,x,y in rows):return False
+    aligned=sorted(x for x in cards[0] if any(abs(x-b)<=15 for b in cards[1]))
+    # The observed grid pitch is about 240 px, irrespective of horizontal scroll.
+    return any(220<b-a<260 and 220<c-b<260 for a,b,c in zip(aligned,aligned[1:],aligned[2:]))
+
+
 @contextmanager
 def base_state(app):
     """Attach BEFORE navigation handlers. Reclassify pixels, never replay actions."""
@@ -171,16 +196,23 @@ def base_state(app):
         yield;return
     def state():
         shot=app.shot
-        seen=[]
+        seen=[];observed=[]
         def capture(*a,**kw):
             path=shot(*a,**kw)
             if a and a[0]=='state':seen[:]=[path]
             return path
-        with patch.object(app,'shot',capture):
+        ocr=app.ocr
+        def read(p,*a,**kw):
+            rows=ocr(p,*a,**kw)
+            if seen and p==seen[0]:observed[:]=rows
+            return rows
+        with patch.object(app,'shot',capture),patch.object(app,'ocr',read):
             value=original()
         if value!='unknown' or not seen:return value
+        if roster_grid(observed):return 'operator_page'
         expanded=recover(app,seen[0],[])
         if not expanded:return value
+        if roster_grid(expanded):return 'operator_page'
         text=' '.join(t for t,_,_ in expanded)
         # This specific classifier has no input actions: shot("state"), OCR,
         # then predicates on the resulting text. Higher-level handlers run once.

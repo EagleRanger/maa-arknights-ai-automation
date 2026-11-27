@@ -101,6 +101,10 @@ def service(app,only=None):
     root=Path(app.BASE);expected,goals=plan(root)
     if only:goals=[only]
     if not goals:return dict(status='not_configured')
+    if expected and not only:
+        planned=AccountProgress(root/'runtime_state/accounts',expected)
+        if all((known(planned,g) or 0)>=g['target_level'] for g in goals):
+            return dict(status='goals_complete',account=expected,scope='configured_plan',game_actions=0)
     if app._maa_task_queue_running() is not False or not app.goto_main_menu():return dict(status='environment_unverified')
     from operator_home_labels_v1 import observe_account
     actual,homes=observe_account(app)

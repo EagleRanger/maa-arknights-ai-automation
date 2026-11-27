@@ -150,6 +150,24 @@ def _service_one(app,*,root=None,packet=None,observer=None):
     rows=goals(packet)
     if packet.get('enabled') is not True or not rows:
         return dict(status='disabled_or_empty',game_actions=0)
+    def outstanding(identity):
+        store=AccountProgress(root/'runtime_state/accounts',identity)
+        pending=[];cached=[]
+        for row in rows:
+            decision=store.decision(theme='Operators',capability=f"{row['name']}:skill{row['skill']}",revision='mastery-v1')
+            fact=decision.get('fact') or {}
+            # Mastery never regresses. A verified M1/M2 fact covers a lower goal,
+            # but must not suppress a later request to train this skill further.
+            valid=(decision['action']=='skip_permanent_complete' or
+                   decision.get('reason')=='verified_partial_requires_current_inspection')
+            if valid and fact.get('total')==3 and fact.get('progress',0)>=row['mastery']:
+                cached.append(dict(row,status='verified_complete',source='account_fact'))
+            else:pending.append(row)
+        return store,pending,cached
+    checked=outstanding(packet['account']) if packet.get('account') else None
+    if checked and not checked[1]:
+        return dict(status='goals_complete',targets=checked[2],account=packet['account'],
+                    scope='configured_plan',cached=True,game_actions=0)
     if app._maa_task_queue_running() is not False:
         return dict(status='deferred_active_queue',game_actions=0)
     if app.goto_main_menu() is not True:
@@ -160,18 +178,7 @@ def _service_one(app,*,root=None,packet=None,observer=None):
     if packet.get('account') is None:
         packet=dict(packet,account=identity)
         app._atomic_write_json(str(plan_path),packet)
-    store=AccountProgress(root/'runtime_state/accounts',identity)
-    pending=[];cached=[]
-    for row in rows:
-        decision=store.decision(theme='Operators',capability=f"{row['name']}:skill{row['skill']}",revision='mastery-v1')
-        fact=decision.get('fact') or {}
-        # Mastery never regresses. A verified M1/M2 fact covers a lower goal,
-        # but must not suppress a later request to train this skill further.
-        valid=(decision['action']=='skip_permanent_complete' or
-               decision.get('reason')=='verified_partial_requires_current_inspection')
-        if valid and fact.get('total')==3 and fact.get('progress',0)>=row['mastery']:
-            cached.append(dict(row,status='verified_complete',source='account_fact'))
-        else:pending.append(row)
+    store,pending,cached=checked or outstanding(identity)
     if not pending:return dict(status='goals_complete',targets=cached,cached=True,game_actions=0)
     out=Path(app.OUTPUT_DIR)/'operator_training'/uuid4().hex
     out.mkdir(parents=True)

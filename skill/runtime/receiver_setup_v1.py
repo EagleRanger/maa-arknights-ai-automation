@@ -263,6 +263,28 @@ def base_scope(app):
 
 
 @contextmanager
+def verified_event_scope(app, *, single=False):
+    """Shared receiver wiring; no account facts or extra module execution."""
+    from contextlib import ExitStack
+    from unittest.mock import patch
+    from os_reopen_route_v1 import boundary as reruns
+    from event_map_reuse_v1 import boundary as maps
+    from funded_activity_v1 import boundary as farm
+    from scan_retry_v1 import boundary as scan
+    with ExitStack() as stack:
+        for ctx in (reruns(app),farm(app),scan(app),maps(app)):
+            stack.enter_context(ctx)
+        if single:
+            from operator_training_return_v1 import boundary as training_return
+            import event_layout_cooperation_v1 as layout
+            from event_farm_evidence_v2 import configure
+            stack.enter_context(training_return(app))
+            stack.enter_context(patch.object(app,'_configure_new_event_farm_from_live_inventory',
+                                             lambda ev:layout.configure(configure,app,ev)))
+        yield
+
+
+@contextmanager
 def assembled(data, checked, main=None, root=ROOT, operations=()):
     """Reuse the shipped V167 graph and original public selected_scope seam.
 
@@ -312,6 +334,7 @@ def assembled(data, checked, main=None, root=ROOT, operations=()):
             from poll_frames_v1 import boundary as frames
             from startup_transition_v1 import boundary as startup
             stack.enter_context(frames(app));stack.enter_context(startup(app))
+            stack.enter_context(verified_event_scope(app,single=True))
             yield lambda: main(app)
         return
     from daily_dispatch_v1 import resolve, selected_scope
@@ -335,7 +358,7 @@ def assembled(data, checked, main=None, root=ROOT, operations=()):
                 from operator_module_queue_v1 import daily as optional_modules
                 from poll_frames_v1 import boundary as frames
                 from startup_transition_v1 import boundary as startup
-                with frames(app), startup(app), optional_modules(app), patch.object(app, 'compile_execution_plan', compile_plan), \
+                with frames(app), startup(app), verified_event_scope(app), optional_modules(app), patch.object(app, 'compile_execution_plan', compile_plan), \
                      patch.object(app, '_foreground_mumu_display', return_value=True), \
                      patch.object(app, '_consume_confirmed_red_expiring_potion', return_value=False, create=True):
                     if main is not None:

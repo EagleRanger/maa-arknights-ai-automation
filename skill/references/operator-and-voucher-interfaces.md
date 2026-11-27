@@ -11,7 +11,7 @@
 | 玩家要做什么 | 命令 |
 |---|---|
 | 查看本人队列和具名推荐，不开游戏 | `python ark.py run module` |
-| 只给娜仁图亚开一阶，不动其他干员或长期队列 | `python ark.py run module --operator 娜仁图亚 --level 1` |
+| 只给指定干员开一阶（以娜仁图亚为例） | `python ark.py run module --operator 娜仁图亚 --level 1` |
 | 把已选择的目标加到长期队列，不启动游戏 | `python ark.py run module --inputs 选择.json`，内容如 `{"action":"add","operator":"娜仁图亚","client":"实际客户端包名","uid":"本人数字UID"}` |
 | 处理本人队列的下一项 | `python ark.py run module --action next` |
 
@@ -21,13 +21,13 @@
 
 ## 凭证兑换
 
-与培养独立选择。普通信用商店Mall不自动包含凭证商店。
+与培养独立选择。普通信用商店不自动包含凭证商店。用 `python ark.py describe vouchers` 查看 `inspect`、`plan-yellow` 和 `chip-catalyst` 三种操作。
 
 | 功能 | 当前范围 |
 | --- | --- |
-| 绿票 | 原生有第一层和第二层部分商品流程；用户可选择买完有限第一层库存，不自动扩到第二层。购买闭环仍待本账号实测。 |
-| 黄票 | 已有整套预算规划、原生兑换接缝；购买闭环待实测。预算不足就存，不买半套。 |
-| 红票 | Beta：已测一件芯片助剂。读取独立 `runtime_state/red_catalyst_plan.json`；核红票页、商品、数量、费用及余额下降／库存增加，不因单次测试默认周期购买。 |
+| 绿票 | 原生有第一层和第二层部分商品流程；用户可选择买完有限第一层库存，不自动扩到第二层。公开入口尚未接通绿票自动购买。 |
+| 黄票 | 公开入口支持整套预算规划，不能自动购买整套。选择整套策略时，预算不足就存。 |
+| 红票 | Beta：支持具名芯片助剂兑换。读取独立 `runtime_state/red_catalyst_plan.json`；核红票页、商品、数量、费用及余额下降／库存增加，不因单次测试默认周期购买。 |
 | 信物换票、干员兑换 | 当前适配未验证；先核实际入口，干员兑换需明确对象。 |
 
 标准黄票整套寻访券参考为258票／38抽，档位10、18、40、70、120；月度刷新参考为国服每月1日04:00。中坚券、干员轮换另算，实际价格／刷新按当前商店核实。[商店资料](https://prts.wiki/w/凭证交易所)、[MAA小工具](https://docs.maa.plus/zh-cn/manual/introduction/tools.html)。

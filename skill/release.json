@@ -1,7 +1,7 @@
 {
   "repository": "EagleRanger/maa-arknights-ai-automation",
   "version": "1.2.6",
-  "build_date": "2026-11-26",
+  "build_date": "2026-11-27",
   "recommended_entrypoint": "runtime/ark.py",
-  "build_revision": "2026-11-26-public-routing-r2"
+  "build_revision": "2026-11-27-verified-handoff-r3"
 }

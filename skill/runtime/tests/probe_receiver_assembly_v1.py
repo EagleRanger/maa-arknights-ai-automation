@@ -93,6 +93,13 @@ def main(daily=False):
             assert app._DAILY_EXISTING_SANITY_ONLY is True
             assert app._consume_confirmed_red_expiring_potion() is False
             assert app.validate_project_contract()[0] is True
+            event=dict(name='sample',kind='rerun',start='sample-start',replay_stages=['AB-7'])
+            ledger={'events':{'sample':{'task_replay':dict(event_start='sample-start',
+                    stages={'AB-7':dict(status='completed',actual_runs=1)})}}}
+            with patch.object(app,'_load_event_progress',return_value=ledger),patch.object(app,'goto_event_map',
+                    side_effect=AssertionError('completed rerun visited the map')):
+                assert app.verify_event_navigation_ready(event)
+                assert app._RUN_SUMMARY['event']['progress_navigation']['status']=='skipped_verified_completion'
             hit.append(app)
             return 71
         # OCR inference is external I/O. Keep the actual common service router

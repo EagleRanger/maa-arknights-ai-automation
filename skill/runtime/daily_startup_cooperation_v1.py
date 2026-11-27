@@ -16,7 +16,10 @@ def wait_for_ai(app,run_id,reason,verify,*,sleep=time.sleep,emit=print):
     atomic_json(output/'run.json',dict(run_id=run_id,parent_manifest=str(
         Path(app.BASE)/'outputs/run_manifests'/(run_id+'.json'))))
     observation=verify()
-    path=Path(publish_page_attention(app.OUTPUT_DIR,run_id,'startup',reason,[observation]))
+    phase={'training_return_home_unverified_preserve_scene':'operator_training_return',
+           'navigation_ocr_unverified_preserve_scene':'navigation',
+           'activity_return_unverified_preserve_scene':'activity_return'}.get(reason.partition('::')[0],'startup')
+    path=Path(publish_page_attention(app.OUTPUT_DIR,run_id,phase,reason,[observation]))
     event=read_message(path)
     event.update(run_id=run_id,status='waiting_for_ai',controller_kept_alive=True,
         controller_pid=os.getpid(),response_path=str(output/'ai_response.json'),
@@ -24,12 +27,12 @@ def wait_for_ai(app,run_id,reason,verify,*,sleep=time.sleep,emit=print):
     atomic_json(path,event)
     state=dict(run_id=run_id,status='waiting_for_ai',controller_pid=os.getpid(),cooperation=dict(
         status='waiting_for_ai',event_id=event['event_id'],event_path=str(path),
-        phase='startup',failure=dict(reason=reason,observation=observation),
+        phase=phase,failure=dict(reason=reason,observation=observation),
         cleanup_requested=False,deadline_guard_active=False))
     def save():
         state['updated_at']=datetime.now().astimezone().isoformat()
         atomic_json(output/'checkpoint.json',state)
-        app._RUN_SUMMARY['startup_ai_cooperation']=dict(state,output=str(output))
+        app._RUN_SUMMARY[phase+'_ai_cooperation']=dict(state,output=str(output))
     save()
     emit('ARK_NEEDS_ATTENTION '+json.dumps(dict(run_id=run_id,event_id=event['event_id'],
         event_path=str(path),checkpoint=str(output/'checkpoint.json'),controller_pid=os.getpid(),

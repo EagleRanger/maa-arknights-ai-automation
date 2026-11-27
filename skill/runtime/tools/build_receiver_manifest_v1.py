@@ -21,7 +21,9 @@ def build(root=ROOT):
     root = Path(root).resolve()
     path = root / 'SOURCE_MANIFEST.json'
     data = json.loads(path.read_text(encoding='utf-8-sig'))
-    names = {r['path'] for r in data['files']} | set(ADDITIONS) | {'player_module_v1.py','receiver_resume_v1.py'}
+    names = {r['path'] for r in data['files']} | set(ADDITIONS) | {'player_module_v1.py','receiver_resume_v1.py',
+        'funded_activity_v1.py','event_map_reuse_v1.py','os_reopen_route_v1.py','receiver_farm_scope_v1.py',
+        'tests/test_receiver_verified_handoff_v1.py'}
     rows = []
     for name in sorted(names):
         source = (root / name).resolve()

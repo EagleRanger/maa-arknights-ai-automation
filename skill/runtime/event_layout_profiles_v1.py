@@ -47,8 +47,22 @@ def labels(rows, box):
     return [clean(t) for t,x,y in rows if left <= x <= right and top <= y <= bottom]
 
 
+def detail_rows(items):
+    """Separate a printed OPERATION caption joined by OCR, only in the title ROI."""
+    l,t,r,b=ORDINARY.panel.header
+    rows=[]
+    for text,x,y in items:
+        if l<=x<=r and t<=y<=b:
+            label=clean(text)
+            if label.startswith('OPERATION'):
+                suffix=label[len('OPERATION'):].strip()
+                if CODE.fullmatch(suffix):text=suffix
+        rows.append((text,x,y))
+    return rows
+
+
 def identify(items, *, expected=None, event=None):
-    rows = list(items)
+    rows = detail_rows(items)
     # Reserve specialized readers before trying the default. A known stage with
     # a new instance or missing visual evidence cannot downgrade to the default.
     candidates = set()
